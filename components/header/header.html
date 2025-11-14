@@ -1,0 +1,245 @@
+<!-- ===================================
+ * HEADER COMPONENT
+ * Navigation with logo, menu, and mobile support
+ * =================================== -->
+
+<!-- Basic Header -->
+<div class="demo-section">
+  <h3>Basic Header</h3>
+
+  <header class="header">
+    <div class="header__container">
+      <div class="header__logo">
+        <a href="/" class="header__logo-link">
+          <span class="header__logo-text">Brand</span>
+        </a>
+      </div>
+
+      <nav class="header__nav">
+        <ul class="header__menu">
+          <li class="header__menu-item">
+            <a href="#" class="header__menu-link">Home</a>
+          </li>
+          <li class="header__menu-item">
+            <a href="#" class="header__menu-link">About</a>
+          </li>
+          <li class="header__menu-item">
+            <a href="#" class="header__menu-link">Services</a>
+          </li>
+          <li class="header__menu-item">
+            <a href="#" class="header__menu-link">Contact</a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="header__actions">
+        <button class="btn btn--primary btn--small">Get Started</button>
+      </div>
+    </div>
+  </header>
+</div>
+
+<!-- Header with Mobile Menu -->
+<div class="demo-section">
+  <h3>Header with Mobile Menu</h3>
+
+  <header class="header header--mobile-menu">
+    <div class="header__container">
+      <div class="header__logo">
+        <a href="/" class="header__logo-link">
+          <span class="header__logo-text">Brand</span>
+        </a>
+      </div>
+
+      <nav class="header__nav" id="mainNav">
+        <ul class="header__menu">
+          <li class="header__menu-item">
+            <a href="#" class="header__menu-link header__menu-link--active">Home</a>
+          </li>
+          <li class="header__menu-item">
+            <a href="#" class="header__menu-link">About</a>
+          </li>
+          <li class="header__menu-item header__menu-item--has-submenu">
+            <a href="#" class="header__menu-link">
+              Services
+              <svg class="header__menu-icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </a>
+            <ul class="header__submenu">
+              <li class="header__submenu-item">
+                <a href="#" class="header__submenu-link">Web Design</a>
+              </li>
+              <li class="header__submenu-item">
+                <a href="#" class="header__submenu-link">Development</a>
+              </li>
+              <li class="header__submenu-item">
+                <a href="#" class="header__submenu-link">Marketing</a>
+              </li>
+            </ul>
+          </li>
+          <li class="header__menu-item">
+            <a href="#" class="header__menu-link">Contact</a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="header__actions">
+        <button class="btn btn--primary btn--small">Get Started</button>
+      </div>
+
+      <button class="header__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mainNav">
+        <span class="header__toggle-icon"></span>
+      </button>
+    </div>
+  </header>
+</div>
+
+<!-- Sticky Header -->
+<div class="demo-section">
+  <h3>Sticky Header</h3>
+
+  <header class="header header--sticky">
+    <div class="header__container">
+      <div class="header__logo">
+        <a href="/" class="header__logo-link">
+          <span class="header__logo-text">Sticky Brand</span>
+        </a>
+      </div>
+
+      <nav class="header__nav">
+        <ul class="header__menu">
+          <li class="header__menu-item">
+            <a href="#" class="header__menu-link">Home</a>
+          </li>
+          <li class="header__menu-item">
+            <a href="#" class="header__menu-link">Features</a>
+          </li>
+          <li class="header__menu-item">
+            <a href="#" class="header__menu-link">Pricing</a>
+          </li>
+          <li class="header__menu-item">
+            <a href="#" class="header__menu-link">Blog</a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="header__actions">
+        <button class="btn btn--ghost btn--small">Sign In</button>
+        <button class="btn btn--primary btn--small">Sign Up</button>
+      </div>
+
+      <button class="header__toggle" aria-label="Toggle menu">
+        <span class="header__toggle-icon"></span>
+      </button>
+    </div>
+  </header>
+</div>
+
+<!-- Transparent Header (for hero sections) -->
+<div class="demo-section" style="background: linear-gradient(135deg, #0ea5e9, #6366f1); padding: 0;">
+  <h3 style="padding: var(--spacing-6); color: white;">Transparent Header</h3>
+
+  <header class="header header--transparent">
+    <div class="header__container">
+      <div class="header__logo">
+        <a href="/" class="header__logo-link">
+          <span class="header__logo-text">Brand</span>
+        </a>
+      </div>
+
+      <nav class="header__nav">
+        <ul class="header__menu">
+          <li class="header__menu-item">
+            <a href="#" class="header__menu-link">Home</a>
+          </li>
+          <li class="header__menu-item">
+            <a href="#" class="header__menu-link">About</a>
+          </li>
+          <li class="header__menu-item">
+            <a href="#" class="header__menu-link">Services</a>
+          </li>
+          <li class="header__menu-item">
+            <a href="#" class="header__menu-link">Contact</a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="header__actions">
+        <button class="btn btn--tertiary btn--small" style="border-color: white; color: white;">Get Started</button>
+      </div>
+
+      <button class="header__toggle" aria-label="Toggle menu">
+        <span class="header__toggle-icon"></span>
+      </button>
+    </div>
+  </header>
+</div>
+
+<!-- Centered Logo Header -->
+<div class="demo-section">
+  <h3>Centered Logo Header</h3>
+
+  <header class="header header--centered">
+    <div class="header__container">
+      <div class="header__logo header__logo--centered">
+        <a href="/" class="header__logo-link">
+          <span class="header__logo-text">Centered Brand</span>
+        </a>
+      </div>
+
+      <nav class="header__nav header__nav--split">
+        <ul class="header__menu header__menu--left">
+          <li class="header__menu-item">
+            <a href="#" class="header__menu-link">Home</a>
+          </li>
+          <li class="header__menu-item">
+            <a href="#" class="header__menu-link">About</a>
+          </li>
+        </ul>
+        <ul class="header__menu header__menu--right">
+          <li class="header__menu-item">
+            <a href="#" class="header__menu-link">Services</a>
+          </li>
+          <li class="header__menu-item">
+            <a href="#" class="header__menu-link">Contact</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+</div>
+
+<script>
+// Mobile menu toggle functionality
+document.querySelectorAll('.header__toggle').forEach(toggle => {
+  toggle.addEventListener('click', function() {
+    const nav = this.previousElementSibling?.previousElementSibling ||
+                 document.getElementById(this.getAttribute('aria-controls'));
+    const isExpanded = this.getAttribute('aria-expanded') === 'true';
+
+    this.setAttribute('aria-expanded', !isExpanded);
+    this.classList.toggle('header__toggle--active');
+    nav?.classList.toggle('header__nav--open');
+  });
+});
+
+// Submenu toggle
+document.querySelectorAll('.header__menu-item--has-submenu > .header__menu-link').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    this.parentElement.classList.toggle('header__menu-item--open');
+  });
+});
+
+// Sticky header on scroll
+document.querySelectorAll('.header--sticky').forEach(header => {
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 100) {
+      header.classList.add('header--scrolled');
+    } else {
+      header.classList.remove('header--scrolled');
+    }
+  });
+});
+</script>
