@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI Component Library - Demo</title>
+
+  <!-- Base Styles -->
+  <link rel="stylesheet" href="../_base/variables.css">
+  <link rel="stylesheet" href="../_base/reset.css">
+  <link rel="stylesheet" href="../_base/utilities.css">
+
+  <!-- Component Styles -->
+  <link rel="stylesheet" href="../button/button.css">
+  <link rel="stylesheet" href="../card/card.css">
+
+  <!-- Demo Page Styles -->
+  <style>
+    body {
+      font-family: var(--font-body);
+      color: var(--color-text-primary);
+      background-color: var(--color-background-secondary);
+      line-height: var(--line-height-normal);
+    }
+
+    .demo-container {
+      max-width: var(--container-2xl);
+      margin: 0 auto;
+      padding: var(--spacing-8) var(--spacing-6);
+    }
+
+    .demo-header {
+      text-align: center;
+      margin-bottom: var(--spacing-12);
+      padding: var(--spacing-12) 0;
+      background: linear-gradient(135deg, var(--color-primary-500), var(--color-secondary-500));
+      border-radius: var(--radius-2xl);
+      color: var(--color-text-inverse);
+    }
+
+    .demo-header__title {
+      font-size: var(--text-4xl);
+      font-weight: var(--font-bold);
+      margin: 0;
+    }
+
+    .demo-header__subtitle {
+      font-size: var(--text-xl);
+      margin-top: var(--spacing-4);
+      opacity: 0.9;
+    }
+
+    .demo-section {
+      background-color: var(--color-background-primary);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-8);
+      margin-bottom: var(--spacing-8);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .demo-section__title {
+      font-size: var(--text-2xl);
+      font-weight: var(--font-semibold);
+      margin: 0 0 var(--spacing-2);
+      color: var(--color-text-primary);
+      border-bottom: 2px solid var(--color-primary-500);
+      padding-bottom: var(--spacing-3);
+    }
+
+    .demo-section__description {
+      color: var(--color-text-secondary);
+      margin-bottom: var(--spacing-6);
+      line-height: var(--line-height-relaxed);
+    }
+
+    .demo-group {
+      margin-bottom: var(--spacing-8);
+    }
+
+    .demo-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .demo-group__title {
+      font-size: var(--text-lg);
+      font-weight: var(--font-semibold);
+      margin: 0 0 var(--spacing-4);
+      color: var(--color-text-primary);
+    }
+
+    .demo-group__items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-4);
+      align-items: center;
+    }
+
+    .demo-group__items--column {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .demo-footer {
+      text-align: center;
+      padding: var(--spacing-8) 0;
+      color: var(--color-text-secondary);
+      font-size: var(--text-sm);
+    }
+
+    .demo-code {
+      background-color: var(--color-neutral-100);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-base);
+      padding: var(--spacing-4);
+      font-family: 'Courier New', monospace;
+      font-size: var(--text-sm);
+      margin-top: var(--spacing-4);
+      overflow-x: auto;
+    }
+
+    @media (max-width: 767px) {
+      .demo-header {
+        padding: var(--spacing-8) var(--spacing-4);
+      }
+
+      .demo-header__title {
+        font-size: var(--text-3xl);
+      }
+
+      .demo-section {
+        padding: var(--spacing-6);
+      }
+
+      .demo-group__items {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .demo-group__items .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <!-- Header -->
+    <header class="demo-header">
+      <h1 class="demo-header__title">UI Component Library</h1>
+      <p class="demo-header__subtitle">
+        Reusable components built with design tokens
+      </p>
+    </header>
+
+    <!-- ===================================
+         BUTTON COMPONENTS
+         =================================== -->
+    <section class="demo-section">
+      <h2 class="demo-section__title">Button Component</h2>
+      <p class="demo-section__description">
+        Flexible button component with multiple variants, sizes, and states. All buttons use design tokens for consistent styling.
+      </p>
+
+      <!-- Primary Buttons -->
+      <div class="demo-group">
+        <h3 class="demo-group__title">Primary Buttons</h3>
+        <div class="demo-group__items">
+          <button class="btn btn--primary btn--small">Small</button>
+          <button class="btn btn--primary">Medium</button>
+          <button class="btn btn--primary btn--large">Large</button>
+          <button class="btn btn--primary" disabled>Disabled</button>
+        </div>
+      </div>
+
+      <!-- Secondary Buttons -->
+      <div class="demo-group">
+        <h3 class="demo-group__title">Secondary Buttons</h3>
+        <div class="demo-group__items">
+          <button class="btn btn--secondary btn--small">Small</button>
+          <button class="btn btn--secondary">Medium</button>
+          <button class="btn btn--secondary btn--large">Large</button>
+          <button class="btn btn--secondary" disabled>Disabled</button>
+        </div>
+      </div>
+
+      <!-- Tertiary Buttons -->
+      <div class="demo-group">
+        <h3 class="demo-group__title">Tertiary (Outline) Buttons</h3>
+        <div class="demo-group__items">
+          <button class="btn btn--tertiary btn--small">Small</button>
+          <button class="btn btn--tertiary">Medium</button>
+          <button class="btn btn--tertiary btn--large">Large</button>
+          <button class="btn btn--tertiary" disabled>Disabled</button>
+        </div>
+      </div>
+
+      <!-- Ghost Buttons -->
+      <div class="demo-group">
+        <h3 class="demo-group__title">Ghost Buttons</h3>
+        <div class="demo-group__items">
+          <button class="btn btn--ghost btn--small">Small</button>
+          <button class="btn btn--ghost">Medium</button>
+          <button class="btn btn--ghost btn--large">Large</button>
+          <button class="btn btn--ghost" disabled>Disabled</button>
+        </div>
+      </div>
+
+      <!-- Semantic Variants -->
+      <div class="demo-group">
+        <h3 class="demo-group__title">Semantic Variants</h3>
+        <div class="demo-group__items">
+          <button class="btn btn--success">Success</button>
+          <button class="btn btn--warning">Warning</button>
+          <button class="btn btn--danger">Danger</button>
+          <button class="btn btn--info">Info</button>
+        </div>
+      </div>
+
+      <!-- With Icons -->
+      <div class="demo-group">
+        <h3 class="demo-group__title">Buttons with Icons</h3>
+        <div class="demo-group__items">
+          <button class="btn btn--primary">
+            <svg class="btn__icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M10 5v10m-5-5h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span class="btn__text">Add Item</span>
+          </button>
+
+          <button class="btn btn--secondary">
+            <svg class="btn__icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M17 3l-10 10-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="btn__text">Save</span>
+          </button>
+
+          <button class="btn btn--tertiary btn--icon-only" aria-label="Settings">
+            <svg class="btn__icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="3" stroke="currentColor" stroke-width="2"/>
+              <path d="M10 1v2m0 14v2M3.93 3.93l1.41 1.41m9.32 9.32l1.41 1.41M1 10h2m14 0h2M3.93 16.07l1.41-1.41m9.32-9.32l1.41-1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Button Groups -->
+      <div class="demo-group">
+        <h3 class="demo-group__title">Button Groups</h3>
+        <div class="demo-group__items">
+          <div class="btn-group">
+            <button class="btn btn--primary">Save</button>
+            <button class="btn btn--tertiary">Cancel</button>
+          </div>
+
+          <div class="btn-group btn-group--attached">
+            <button class="btn btn--tertiary">Previous</button>
+            <button class="btn btn--tertiary">Next</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading State -->
+      <div class="demo-group">
+        <h3 class="demo-group__title">Loading State</h3>
+        <div class="demo-group__items">
+          <button class="btn btn--primary btn--loading" disabled>
+            <span class="btn__spinner" aria-hidden="true"></span>
+            <span class="btn__text">Loading...</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================
+         CARD COMPONENTS
+         =================================== -->
+    <section class="demo-section">
+      <h2 class="demo-section__title">Card Component</h2>
+      <p class="demo-section__description">
+        Versatile card component for displaying grouped content. Supports multiple layouts, styles, and semantic variants.
+      </p>
+
+      <!-- Basic Cards -->
+      <div class="demo-group">
+        <h3 class="demo-group__title">Basic Cards</h3>
+        <div class="card-grid card-grid--3">
+          <div class="card">
+            <div class="card__header">
+              <h3 class="card__title">Basic Card</h3>
+            </div>
+            <div class="card__body">
+              <p class="card__text">
+                A simple card with header and body content.
+              </p>
+            </div>
+          </div>
+
+          <div class="card card--elevated">
+            <div class="card__header">
+              <h3 class="card__title">Elevated Card</h3>
+            </div>
+            <div class="card__body">
+              <p class="card__text">
+                This card has a shadow and lifts on hover.
+              </p>
+            </div>
+          </div>
+
+          <div class="card card--bordered">
+            <div class="card__header">
+              <h3 class="card__title">Bordered Card</h3>
+            </div>
+            <div class="card__body">
+              <p class="card__text">
+                This card uses a border instead of shadow.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cards with Images -->
+      <div class="demo-group">
+        <h3 class="demo-group__title">Cards with Images</h3>
+        <div class="card-grid card-grid--3">
+          <div class="card card--elevated">
+            <div class="card__media">
+              <img
+                class="card__image"
+                src="https://via.placeholder.com/400x200/0ea5e9/ffffff?text=Image+Card"
+                alt="Demo card image"
+              />
+            </div>
+            <div class="card__header">
+              <h3 class="card__title">Image Card</h3>
+            </div>
+            <div class="card__body">
+              <p class="card__text">
+                Cards can include images for visual context.
+              </p>
+            </div>
+            <div class="card__footer">
+              <button class="btn btn--primary btn--small">View</button>
+            </div>
+          </div>
+
+          <div class="card card--elevated">
+            <div class="card__badge">New</div>
+            <div class="card__media">
+              <img
+                class="card__image"
+                src="https://via.placeholder.com/400x200/0ea5e9/ffffff?text=With+Badge"
+                alt="Card with badge"
+              />
+            </div>
+            <div class="card__header">
+              <h3 class="card__title">Card with Badge</h3>
+            </div>
+            <div class="card__body">
+              <p class="card__text">
+                Use badges to highlight special status.
+              </p>
+            </div>
+          </div>
+
+          <a href="#" class="card card--clickable">
+            <div class="card__media">
+              <img
+                class="card__image"
+                src="https://via.placeholder.com/400x200/0ea5e9/ffffff?text=Clickable"
+                alt="Clickable card"
+              />
+            </div>
+            <div class="card__header">
+              <h3 class="card__title">Clickable Card</h3>
+            </div>
+            <div class="card__body">
+              <p class="card__text">
+                This entire card is clickable and interactive.
+              </p>
+            </div>
+            <div class="card__footer">
+              <span class="card__link">Learn more →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Horizontal Card -->
+      <div class="demo-group">
+        <h3 class="demo-group__title">Horizontal Layout</h3>
+        <div class="card card--horizontal card--elevated">
+          <div class="card__media">
+            <img
+              class="card__image"
+              src="https://via.placeholder.com/300x300/0ea5e9/ffffff?text=Horizontal"
+              alt="Horizontal card"
+            />
+          </div>
+          <div class="card__content">
+            <div class="card__header">
+              <h3 class="card__title">Horizontal Card</h3>
+              <p class="card__subtitle">Image on left, content on right</p>
+            </div>
+            <div class="card__body">
+              <p class="card__text">
+                This card uses a horizontal layout with the image positioned on the left side. It automatically stacks on mobile devices for better usability.
+              </p>
+            </div>
+            <div class="card__footer">
+              <button class="btn btn--primary">Action</button>
+              <button class="btn btn--tertiary">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Semantic Variants -->
+      <div class="demo-group">
+        <h3 class="demo-group__title">Semantic Variants</h3>
+        <div class="card-grid card-grid--2">
+          <div class="card card--success">
+            <div class="card__header">
+              <h3 class="card__title">Success</h3>
+            </div>
+            <div class="card__body">
+              <p class="card__text">
+                Your changes have been saved successfully!
+              </p>
+            </div>
+          </div>
+
+          <div class="card card--warning">
+            <div class="card__header">
+              <h3 class="card__title">Warning</h3>
+            </div>
+            <div class="card__body">
+              <p class="card__text">
+                Please review the information before proceeding.
+              </p>
+            </div>
+          </div>
+
+          <div class="card card--error">
+            <div class="card__header">
+              <h3 class="card__title">Error</h3>
+            </div>
+            <div class="card__body">
+              <p class="card__text">
+                An error occurred. Please try again later.
+              </p>
+            </div>
+          </div>
+
+          <div class="card card--info">
+            <div class="card__header">
+              <h3 class="card__title">Information</h3>
+            </div>
+            <div class="card__body">
+              <p class="card__text">
+                Here's some helpful information for you.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Complete Example -->
+      <div class="demo-group">
+        <h3 class="demo-group__title">Complete Example - Product Card</h3>
+        <div style="max-width: 400px; margin: 0 auto;">
+          <div class="card card--elevated">
+            <div class="card__badge">Sale</div>
+            <div class="card__media">
+              <img
+                class="card__image"
+                src="https://via.placeholder.com/400x300/0ea5e9/ffffff?text=Product"
+                alt="Product"
+              />
+            </div>
+            <div class="card__header">
+              <h3 class="card__title">Premium Product</h3>
+              <p class="card__subtitle">$99.99 · In Stock</p>
+            </div>
+            <div class="card__body">
+              <p class="card__text">
+                High-quality product with excellent features. Perfect for your needs with a satisfaction guarantee.
+              </p>
+            </div>
+            <div class="card__footer">
+              <button class="btn btn--primary btn--full-width">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="demo-footer">
+      <p>UI Component Library · Built with Design Tokens · 2024</p>
+    </footer>
+  </div>
+</body>
+</html>

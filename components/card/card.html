@@ -1,0 +1,300 @@
+<!-- ===================================
+ * CARD COMPONENT
+ * All variants with different layouts
+ * =================================== -->
+
+<!-- Basic Card -->
+<div class="demo-section">
+  <h3>Basic Card</h3>
+
+  <div class="card">
+    <div class="card__header">
+      <h3 class="card__title">Card Title</h3>
+    </div>
+    <div class="card__body">
+      <p class="card__text">
+        This is a basic card with header and body content. Cards are used to group related information together.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Card with Footer -->
+<div class="demo-section">
+  <h3>Card with Footer</h3>
+
+  <div class="card">
+    <div class="card__header">
+      <h3 class="card__title">Complete Card</h3>
+      <p class="card__subtitle">With header, body, and footer</p>
+    </div>
+    <div class="card__body">
+      <p class="card__text">
+        This card demonstrates all three sections: header, body, and footer. The footer is perfect for actions or metadata.
+      </p>
+    </div>
+    <div class="card__footer">
+      <button class="btn btn--primary">Action</button>
+      <button class="btn btn--tertiary">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Card with Image -->
+<div class="demo-section">
+  <h3>Card with Image</h3>
+
+  <div class="card">
+    <div class="card__media">
+      <img
+        class="card__image"
+        src="https://via.placeholder.com/400x200/0ea5e9/ffffff?text=Card+Image"
+        alt="Card visual content"
+      />
+    </div>
+    <div class="card__header">
+      <h3 class="card__title">Image Card</h3>
+    </div>
+    <div class="card__body">
+      <p class="card__text">
+        Cards can include images at the top to provide visual context. The image scales responsively.
+      </p>
+    </div>
+    <div class="card__footer">
+      <a href="#" class="btn btn--primary">Learn More</a>
+    </div>
+  </div>
+</div>
+
+<!-- Horizontal Card -->
+<div class="demo-section">
+  <h3>Horizontal Card</h3>
+
+  <div class="card card--horizontal">
+    <div class="card__media">
+      <img
+        class="card__image"
+        src="https://via.placeholder.com/200x200/0ea5e9/ffffff?text=Thumbnail"
+        alt="Card thumbnail"
+      />
+    </div>
+    <div class="card__content">
+      <div class="card__header">
+        <h3 class="card__title">Horizontal Layout</h3>
+      </div>
+      <div class="card__body">
+        <p class="card__text">
+          This card uses a horizontal layout with the image on the left and content on the right.
+        </p>
+      </div>
+      <div class="card__footer">
+        <button class="btn btn--primary btn--small">View</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Elevated Card (with shadow) -->
+<div class="demo-section">
+  <h3>Elevated Cards</h3>
+
+  <div class="card card--elevated">
+    <div class="card__header">
+      <h3 class="card__title">Elevated Card</h3>
+    </div>
+    <div class="card__body">
+      <p class="card__text">
+        This card has a subtle shadow and lifts on hover for emphasis.
+      </p>
+    </div>
+  </div>
+
+  <div class="card card--elevated-lg">
+    <div class="card__header">
+      <h3 class="card__title">Large Elevation</h3>
+    </div>
+    <div class="card__body">
+      <p class="card__text">
+        This card has a larger shadow for even more prominence.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Bordered Card -->
+<div class="demo-section">
+  <h3>Bordered Card</h3>
+
+  <div class="card card--bordered">
+    <div class="card__header">
+      <h3 class="card__title">Bordered Card</h3>
+    </div>
+    <div class="card__body">
+      <p class="card__text">
+        This card uses a border instead of a shadow for a cleaner look.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Clickable Card -->
+<div class="demo-section">
+  <h3>Clickable Card</h3>
+
+  <a href="#" class="card card--clickable">
+    <div class="card__header">
+      <h3 class="card__title">Clickable Card</h3>
+    </div>
+    <div class="card__body">
+      <p class="card__text">
+        This entire card is clickable. Hover to see the interaction effect.
+      </p>
+    </div>
+    <div class="card__footer">
+      <span class="card__link">View details →</span>
+    </div>
+  </a>
+</div>
+
+<!-- Semantic Variants -->
+<div class="demo-section">
+  <h3>Semantic Variants</h3>
+
+  <div class="card card--success">
+    <div class="card__header">
+      <h3 class="card__title">Success Card</h3>
+    </div>
+    <div class="card__body">
+      <p class="card__text">
+        Your changes have been saved successfully!
+      </p>
+    </div>
+  </div>
+
+  <div class="card card--warning">
+    <div class="card__header">
+      <h3 class="card__title">Warning Card</h3>
+    </div>
+    <div class="card__body">
+      <p class="card__text">
+        Please review the information before proceeding.
+      </p>
+    </div>
+  </div>
+
+  <div class="card card--error">
+    <div class="card__header">
+      <h3 class="card__title">Error Card</h3>
+    </div>
+    <div class="card__body">
+      <p class="card__text">
+        An error occurred. Please try again later.
+      </p>
+    </div>
+  </div>
+
+  <div class="card card--info">
+    <div class="card__header">
+      <h3 class="card__title">Info Card</h3>
+    </div>
+    <div class="card__body">
+      <p class="card__text">
+        Here's some helpful information for you.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Card with Badge -->
+<div class="demo-section">
+  <h3>Card with Badge</h3>
+
+  <div class="card">
+    <div class="card__badge">New</div>
+    <div class="card__header">
+      <h3 class="card__title">Featured Item</h3>
+    </div>
+    <div class="card__body">
+      <p class="card__text">
+        This card has a badge to highlight special status.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Compact Card -->
+<div class="demo-section">
+  <h3>Compact Card</h3>
+
+  <div class="card card--compact">
+    <div class="card__header">
+      <h4 class="card__title">Compact Card</h4>
+    </div>
+    <div class="card__body">
+      <p class="card__text">
+        This card has reduced padding for tighter layouts.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Card Grid -->
+<div class="demo-section">
+  <h3>Card Grid</h3>
+
+  <div class="card-grid">
+    <div class="card card--elevated">
+      <div class="card__media">
+        <img
+          class="card__image"
+          src="https://via.placeholder.com/400x200/0ea5e9/ffffff?text=Card+1"
+          alt="Card 1"
+        />
+      </div>
+      <div class="card__header">
+        <h3 class="card__title">Grid Card 1</h3>
+      </div>
+      <div class="card__body">
+        <p class="card__text">
+          Cards arranged in a responsive grid layout.
+        </p>
+      </div>
+    </div>
+
+    <div class="card card--elevated">
+      <div class="card__media">
+        <img
+          class="card__image"
+          src="https://via.placeholder.com/400x200/0ea5e9/ffffff?text=Card+2"
+          alt="Card 2"
+        />
+      </div>
+      <div class="card__header">
+        <h3 class="card__title">Grid Card 2</h3>
+      </div>
+      <div class="card__body">
+        <p class="card__text">
+          Automatically adjusts columns based on screen size.
+        </p>
+      </div>
+    </div>
+
+    <div class="card card--elevated">
+      <div class="card__media">
+        <img
+          class="card__image"
+          src="https://via.placeholder.com/400x200/0ea5e9/ffffff?text=Card+3"
+          alt="Card 3"
+        />
+      </div>
+      <div class="card__header">
+        <h3 class="card__title">Grid Card 3</h3>
+      </div>
+      <div class="card__body">
+        <p class="card__text">
+          Perfect for product listings or blog posts.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
