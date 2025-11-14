@@ -1,0 +1,121 @@
+# WordPress Core Files
+/wp-admin/
+/wp-includes/
+/wp-*.php
+/xmlrpc.php
+/readme.html
+/license.txt
+
+# WordPress Config
+wp-config.php
+wp-config-sample.php
+
+# Keep wp-content but ignore defaults
+/wp-content/index.php
+/wp-content/plugins/
+/wp-content/mu-plugins/
+/wp-content/upgrade/
+/wp-content/uploads/
+!/wp-content/themes/
+
+# Our Custom Theme (INCLUDE THIS!)
+!/wp-content/themes/custom-theme/
+
+# Cache & Temporary Files
+*.log
+*.cache
+.htaccess
+sitemap.xml
+sitemap.xml.gz
+
+# Node & Dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Composer
+/vendor/
+composer.lock
+
+# Environment Files
+.env
+.env.*
+!.env.example
+
+# IDE & Editor Files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Build & Compiled Files
+*.min.js
+*.min.css
+*.map
+/dist/
+/build/
+
+# Temporary & Backup Files
+*.tmp
+*.bak
+*.backup
+*.old
+*~
+._*
+
+# WordPress Specific
+wp-content/advanced-cache.php
+wp-content/backup-db/
+wp-content/backups/
+wp-content/blogs.dir/
+wp-content/cache/
+wp-content/upgrade/
+wp-content/uploads/
+wp-content/wp-cache-config.php
+wp-content/plugins/hello.php
+
+# WP-CLI
+wp-cli.local.yml
+
+# Caching Plugins
+/wp-content/cache/
+/wp-content/object-cache.php
+/wp-content/db.php
+/wp-content/advanced-cache.php
+
+# Database
+*.sql
+*.sql.gz
+*.sqlite
+
+# OS Generated
+.DS_Store
+.DS_Store?
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Project Specific Scripts (keep these tracked)
+!get-linear-issues.js
+!create-linear-project.js
+!update-linear-issues.js
+!check-linear-progress.js
+!add-linear-comments.js
+!update-linear-status.js
+!get-linear-issue-cra10.js
+
+# Brand Guide Assets (KEEP THESE!)
+!/brand-guide/
+
+# Documentation (KEEP THESE!)
+!README.md
+!DEVELOPMENT-GUARDRAILS.md
+!CHANGELOG.md

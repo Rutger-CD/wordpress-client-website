@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Brand Color Palette",
+  "description": "Defines all brand colors for the website",
+  "colors": {
+    "primary": {
+      "50": "#f0f9ff",
+      "100": "#e0f2fe",
+      "200": "#bae6fd",
+      "300": "#7dd3fc",
+      "400": "#38bdf8",
+      "500": "#0ea5e9",
+      "600": "#0284c7",
+      "700": "#0369a1",
+      "800": "#075985",
+      "900": "#0c4a6e"
+    },
+    "secondary": {
+      "50": "#faf5ff",
+      "100": "#f3e8ff",
+      "200": "#e9d5ff",
+      "300": "#d8b4fe",
+      "400": "#c084fc",
+      "500": "#a855f7",
+      "600": "#9333ea",
+      "700": "#7e22ce",
+      "800": "#6b21a8",
+      "900": "#581c87"
+    },
+    "neutral": {
+      "50": "#fafafa",
+      "100": "#f5f5f5",
+      "200": "#e5e5e5",
+      "300": "#d4d4d4",
+      "400": "#a3a3a3",
+      "500": "#737373",
+      "600": "#525252",
+      "700": "#404040",
+      "800": "#262626",
+      "900": "#171717"
+    },
+    "success": {
+      "light": "#d1fae5",
+      "DEFAULT": "#10b981",
+      "dark": "#065f46"
+    },
+    "warning": {
+      "light": "#fef3c7",
+      "DEFAULT": "#f59e0b",
+      "dark": "#92400e"
+    },
+    "error": {
+      "light": "#fee2e2",
+      "DEFAULT": "#ef4444",
+      "dark": "#991b1b"
+    },
+    "info": {
+      "light": "#dbeafe",
+      "DEFAULT": "#3b82f6",
+      "dark": "#1e40af"
+    }
+  },
+  "semantic": {
+    "background": {
+      "primary": "#ffffff",
+      "secondary": "#f5f5f5",
+      "tertiary": "#e5e5e5"
+    },
+    "text": {
+      "primary": "#171717",
+      "secondary": "#525252",
+      "tertiary": "#a3a3a3",
+      "inverse": "#ffffff"
+    },
+    "border": {
+      "light": "#e5e5e5",
+      "DEFAULT": "#d4d4d4",
+      "dark": "#a3a3a3"
+    }
+  },
+  "notes": {
+    "usage": "Use primary colors for main CTAs and important elements, secondary for accents",
+    "contrast": "Ensure WCAG AA compliance for text colors (4.5:1 ratio minimum)",
+    "customization": "Replace these colors with actual brand colors from the client"
+  }
+}
