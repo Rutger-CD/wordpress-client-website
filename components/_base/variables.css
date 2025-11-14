@@ -1,0 +1,19 @@
+/**
+ * Design Token Variables
+ *
+ * Import brand guide design tokens
+ * This file imports the main design tokens and makes them available
+ * for all components.
+ */
+
+@import url('../../brand-guide/design-tokens.css');
+
+/**
+ * Component-specific variables can be added here if needed
+ * These should be built on top of the brand guide tokens
+ */
+
+:root {
+  /* Component-specific variables (if needed) */
+  /* Example: --component-header-height: 80px; */
+}
