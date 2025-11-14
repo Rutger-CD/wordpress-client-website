@@ -88,6 +88,7 @@
 }
 
 @keyframes btn-spin {
+  from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 
@@ -285,7 +286,8 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  margin-left: -0.5em;
+  margin-top: -0.5em;
   color: currentColor;
 }
 
