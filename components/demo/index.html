@@ -712,6 +712,8 @@
               placeholder="you@example.com"
             />
             <span class="input__helper">We'll never share your email.</span>
+            <span class="input__error-message" style="display: none;"></span>
+            <span class="input__success-message" style="display: none;"></span>
           </div>
 
           <!-- Input with Icon -->
@@ -1115,6 +1117,191 @@
         counter.classList.add('textarea__counter--warning');
       }
     }
+
+    // Form validation functions
+    function validateEmail(input) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const wrapper = input.closest('.input');
+      const errorMsg = wrapper.querySelector('.input__error-message');
+      const successMsg = wrapper.querySelector('.input__success-message');
+      const helperMsg = wrapper.querySelector('.input__helper');
+
+      // Remove all state classes
+      wrapper.classList.remove('input--error', 'input--success');
+
+      if (!input.value) {
+        // Empty - show helper
+        if (errorMsg) errorMsg.style.display = 'none';
+        if (successMsg) successMsg.style.display = 'none';
+        if (helperMsg) helperMsg.style.display = 'block';
+        return;
+      }
+
+      if (!emailRegex.test(input.value)) {
+        // Invalid email
+        wrapper.classList.add('input--error');
+        if (errorMsg) {
+          errorMsg.textContent = 'Please enter a valid email address.';
+          errorMsg.style.display = 'block';
+        }
+        if (successMsg) successMsg.style.display = 'none';
+        if (helperMsg) helperMsg.style.display = 'none';
+      } else {
+        // Valid email
+        wrapper.classList.remove('input--error');
+        wrapper.classList.add('input--success');
+        if (errorMsg) errorMsg.style.display = 'none';
+        if (successMsg) {
+          successMsg.textContent = 'Email format is valid!';
+          successMsg.style.display = 'block';
+        }
+        if (helperMsg) helperMsg.style.display = 'none';
+      }
+    }
+
+    function validateUsername(input) {
+      const wrapper = input.closest('.input');
+      const errorMsg = wrapper.querySelector('.input__error-message');
+      const helperMsg = wrapper.querySelector('.input__helper');
+
+      wrapper.classList.remove('input--error', 'input--success');
+
+      if (!input.value) {
+        if (errorMsg) errorMsg.style.display = 'none';
+        if (helperMsg) helperMsg.style.display = 'block';
+        return;
+      }
+
+      if (input.value.length < 3) {
+        wrapper.classList.add('input--error');
+        if (errorMsg) {
+          errorMsg.textContent = 'Username must be at least 3 characters.';
+          errorMsg.style.display = 'block';
+        }
+        if (helperMsg) helperMsg.style.display = 'none';
+      } else {
+        wrapper.classList.remove('input--error');
+        wrapper.classList.add('input--success');
+        if (errorMsg) errorMsg.style.display = 'none';
+        if (helperMsg) helperMsg.style.display = 'block';
+      }
+    }
+
+    function validateSelect(select) {
+      const wrapper = select.closest('.select');
+      const errorMsg = wrapper.querySelector('.select__error-message');
+
+      wrapper.classList.remove('select--error', 'select--success');
+
+      if (!select.value || select.value === '') {
+        wrapper.classList.add('select--error');
+        if (errorMsg) {
+          errorMsg.textContent = 'Please select an option.';
+          errorMsg.style.display = 'block';
+        }
+      } else {
+        wrapper.classList.remove('select--error');
+        wrapper.classList.add('select--success');
+        if (errorMsg) errorMsg.style.display = 'none';
+      }
+    }
+
+    // Apply validation to demo form inputs
+    document.addEventListener('DOMContentLoaded', function() {
+      // Email validation
+      const emailInputs = document.querySelectorAll('input[type="email"]');
+      emailInputs.forEach(input => {
+        input.addEventListener('input', function() {
+          validateEmail(this);
+        });
+        input.addEventListener('blur', function() {
+          validateEmail(this);
+        });
+      });
+
+      // Username validation
+      const usernameInput = document.getElementById('demo-username');
+      if (usernameInput) {
+        usernameInput.addEventListener('input', function() {
+          validateUsername(this);
+        });
+        usernameInput.addEventListener('blur', function() {
+          validateUsername(this);
+        });
+      }
+
+      // Select validation
+      const categorySelect = document.getElementById('demo-category');
+      if (categorySelect) {
+        categorySelect.addEventListener('change', function() {
+          validateSelect(this);
+        });
+      }
+
+      // Contact form validation
+      const contactForm = document.querySelector('form');
+      if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+
+          let isValid = true;
+
+          // Validate name
+          const nameInput = document.getElementById('demo-contact-name');
+          if (nameInput && !nameInput.value.trim()) {
+            const wrapper = nameInput.closest('.input');
+            wrapper.classList.add('input--error');
+            isValid = false;
+          }
+
+          // Validate email
+          const emailInput = document.getElementById('demo-contact-email');
+          if (emailInput) {
+            validateEmail(emailInput);
+            const wrapper = emailInput.closest('.input');
+            if (wrapper.classList.contains('input--error')) {
+              isValid = false;
+            }
+          }
+
+          // Validate subject
+          const subjectSelect = document.getElementById('demo-contact-subject');
+          if (subjectSelect && !subjectSelect.value) {
+            const wrapper = subjectSelect.closest('.select');
+            wrapper.classList.add('select--error');
+            const errorMsg = wrapper.querySelector('.select__error-message');
+            if (!errorMsg) {
+              const msg = document.createElement('span');
+              msg.className = 'select__error-message';
+              msg.textContent = 'Please select a subject.';
+              wrapper.appendChild(msg);
+            }
+            isValid = false;
+          }
+
+          // Validate message
+          const messageTextarea = document.getElementById('demo-contact-message');
+          if (messageTextarea && messageTextarea.value.length < 50) {
+            const wrapper = messageTextarea.closest('.textarea');
+            wrapper.classList.add('textarea--error');
+            const errorMsg = wrapper.querySelector('.textarea__error-message');
+            if (!errorMsg) {
+              const msg = document.createElement('span');
+              msg.className = 'textarea__error-message';
+              msg.textContent = 'Message must be at least 50 characters.';
+              wrapper.appendChild(msg);
+            }
+            isValid = false;
+          }
+
+          if (isValid) {
+            alert('Form is valid! (Demo only - not actually submitted)');
+          } else {
+            alert('Please fix the errors in the form.');
+          }
+        });
+      }
+    });
   </script>
 </body>
 </html>
