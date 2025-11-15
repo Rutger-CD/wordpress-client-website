@@ -1,0 +1,297 @@
+<!-- ===================================
+ * TEXTAREA COMPONENT
+ * Multi-line text input with validation, counter, and auto-resize
+ * =================================== -->
+
+<!-- Basic Textarea -->
+<div class="demo-section">
+  <h3>Basic Textarea</h3>
+
+  <div class="textarea">
+    <label class="textarea__label" for="textarea-basic">Message</label>
+    <textarea
+      id="textarea-basic"
+      class="textarea__field"
+      placeholder="Enter your message..."
+    ></textarea>
+    <span class="textarea__helper">Please provide detailed information.</span>
+  </div>
+</div>
+
+<!-- Textarea Sizes -->
+<div class="demo-section">
+  <h3>Textarea Sizes</h3>
+
+  <div style="display: flex; flex-direction: column; gap: var(--spacing-4);">
+    <!-- Small -->
+    <div class="textarea textarea--small">
+      <label class="textarea__label" for="textarea-small">Small Textarea</label>
+      <textarea
+        id="textarea-small"
+        class="textarea__field"
+        placeholder="Small size textarea..."
+      ></textarea>
+    </div>
+
+    <!-- Medium (default) -->
+    <div class="textarea textarea--medium">
+      <label class="textarea__label" for="textarea-medium">Medium Textarea (Default)</label>
+      <textarea
+        id="textarea-medium"
+        class="textarea__field"
+        placeholder="Medium size textarea..."
+      ></textarea>
+    </div>
+
+    <!-- Large -->
+    <div class="textarea textarea--large">
+      <label class="textarea__label" for="textarea-large">Large Textarea</label>
+      <textarea
+        id="textarea-large"
+        class="textarea__field"
+        placeholder="Large size textarea..."
+      ></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- Validation States -->
+<div class="demo-section">
+  <h3>Validation States</h3>
+
+  <div style="display: flex; flex-direction: column; gap: var(--spacing-4);">
+    <!-- Error State -->
+    <div class="textarea textarea--error">
+      <label class="textarea__label" for="textarea-error">Description</label>
+      <textarea
+        id="textarea-error"
+        class="textarea__field"
+      >Too short</textarea>
+      <span class="textarea__error-message">Description must be at least 20 characters.</span>
+    </div>
+
+    <!-- Success State -->
+    <div class="textarea textarea--success">
+      <label class="textarea__label" for="textarea-success">Feedback</label>
+      <textarea
+        id="textarea-success"
+        class="textarea__field"
+      >This is a great product! I've been using it for a month and it's exceeded all my expectations. Highly recommended!</textarea>
+      <span class="textarea__success-message">Thank you for your detailed feedback!</span>
+    </div>
+
+    <!-- Disabled State -->
+    <div class="textarea">
+      <label class="textarea__label" for="textarea-disabled">Disabled Textarea</label>
+      <textarea
+        id="textarea-disabled"
+        class="textarea__field"
+        disabled
+      >This textarea is disabled and cannot be edited.</textarea>
+    </div>
+  </div>
+</div>
+
+<!-- With Character Counter -->
+<div class="demo-section">
+  <h3>With Character Counter</h3>
+
+  <div style="display: flex; flex-direction: column; gap: var(--spacing-4);">
+    <!-- Basic Counter -->
+    <div class="textarea">
+      <label class="textarea__label" for="textarea-counter">Tweet</label>
+      <textarea
+        id="textarea-counter"
+        class="textarea__field"
+        placeholder="What's happening?"
+        maxlength="280"
+        oninput="updateCounter(this, 'counter-1', 280)"
+      ></textarea>
+      <div class="textarea__counter">
+        <span id="counter-1">0 / 280</span>
+      </div>
+    </div>
+
+    <!-- Counter with Helper Text -->
+    <div class="textarea">
+      <label class="textarea__label input__label--required" for="textarea-bio">Bio</label>
+      <textarea
+        id="textarea-bio"
+        class="textarea__field"
+        placeholder="Tell us about yourself..."
+        maxlength="500"
+        oninput="updateCounter(this, 'counter-2', 500)"
+      ></textarea>
+      <div class="textarea__footer">
+        <span class="textarea__helper">Write a brief description about yourself.</span>
+        <span class="textarea__counter" id="counter-2">0 / 500</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Resize Options -->
+<div class="demo-section">
+  <h3>Resize Options</h3>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--spacing-4);">
+    <!-- No Resize -->
+    <div class="textarea textarea--no-resize">
+      <label class="textarea__label" for="textarea-no-resize">No Resize</label>
+      <textarea
+        id="textarea-no-resize"
+        class="textarea__field"
+        placeholder="Cannot be resized"
+      ></textarea>
+    </div>
+
+    <!-- Vertical Resize (default) -->
+    <div class="textarea">
+      <label class="textarea__label" for="textarea-vertical">Vertical Resize</label>
+      <textarea
+        id="textarea-vertical"
+        class="textarea__field"
+        placeholder="Can be resized vertically"
+      ></textarea>
+    </div>
+
+    <!-- Horizontal Resize -->
+    <div class="textarea textarea--resize-horizontal">
+      <label class="textarea__label" for="textarea-horizontal">Horizontal Resize</label>
+      <textarea
+        id="textarea-horizontal"
+        class="textarea__field"
+        placeholder="Can be resized horizontally"
+      ></textarea>
+    </div>
+
+    <!-- Both Directions -->
+    <div class="textarea textarea--resize-both">
+      <label class="textarea__label" for="textarea-both">Resize Both</label>
+      <textarea
+        id="textarea-both"
+        class="textarea__field"
+        placeholder="Can be resized in both directions"
+      ></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- Auto-Resize Textarea -->
+<div class="demo-section">
+  <h3>Auto-Resize Textarea</h3>
+
+  <div class="textarea textarea--auto-resize">
+    <label class="textarea__label" for="textarea-auto">Auto-Expanding Textarea</label>
+    <textarea
+      id="textarea-auto"
+      class="textarea__field"
+      placeholder="Start typing... This textarea will automatically expand as you type."
+      oninput="autoResize(this)"
+    ></textarea>
+    <span class="textarea__helper">This textarea grows automatically with your content.</span>
+  </div>
+</div>
+
+<!-- Required Field -->
+<div class="demo-section">
+  <h3>Required Field</h3>
+
+  <div class="textarea">
+    <label class="textarea__label textarea__label--required" for="textarea-required">Comments</label>
+    <textarea
+      id="textarea-required"
+      class="textarea__field"
+      placeholder="Please share your thoughts..."
+      required
+    ></textarea>
+    <span class="textarea__helper">This field is required.</span>
+  </div>
+</div>
+
+<!-- Complete Form Example -->
+<div class="demo-section">
+  <h3>Contact Form Example</h3>
+
+  <form style="max-width: 600px;">
+    <div style="display: flex; flex-direction: column; gap: var(--spacing-4);">
+      <div class="input">
+        <label class="input__label input__label--required" for="contact-name">Name</label>
+        <input
+          type="text"
+          id="contact-name"
+          class="input__field"
+          placeholder="John Doe"
+          required
+        />
+      </div>
+
+      <div class="input">
+        <label class="input__label input__label--required" for="contact-email">Email</label>
+        <input
+          type="email"
+          id="contact-email"
+          class="input__field"
+          placeholder="john@example.com"
+          required
+        />
+      </div>
+
+      <div class="input">
+        <label class="input__label" for="contact-subject">Subject</label>
+        <input
+          type="text"
+          id="contact-subject"
+          class="input__field"
+          placeholder="How can we help?"
+        />
+      </div>
+
+      <div class="textarea">
+        <label class="textarea__label textarea__label--required" for="contact-message">Message</label>
+        <textarea
+          id="contact-message"
+          class="textarea__field"
+          placeholder="Tell us more about your inquiry..."
+          maxlength="1000"
+          oninput="updateCounter(this, 'contact-counter', 1000)"
+          required
+        ></textarea>
+        <div class="textarea__footer">
+          <span class="textarea__helper">Minimum 50 characters required.</span>
+          <span class="textarea__counter" id="contact-counter">0 / 1000</span>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: var(--spacing-3);">
+        <button type="submit" class="btn btn--primary">Send Message</button>
+        <button type="reset" class="btn btn--ghost">Clear</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+// Character counter function
+function updateCounter(textarea, counterId, maxLength) {
+  const counter = document.getElementById(counterId);
+  const length = textarea.value.length;
+  counter.textContent = `${length} / ${maxLength}`;
+
+  // Add warning/error classes based on length
+  counter.classList.remove('textarea__counter--warning', 'textarea__counter--error');
+
+  const percentUsed = (length / maxLength) * 100;
+  if (percentUsed >= 90) {
+    counter.classList.add('textarea__counter--error');
+  } else if (percentUsed >= 75) {
+    counter.classList.add('textarea__counter--warning');
+  }
+}
+
+// Auto-resize function
+function autoResize(textarea) {
+  textarea.style.height = 'auto';
+  textarea.style.height = textarea.scrollHeight + 'px';
+}
+</script>

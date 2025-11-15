@@ -1,0 +1,406 @@
+<!-- ===================================
+ * CHECKBOX COMPONENT
+ * Checkboxes, switches, and checkbox groups with validation
+ * =================================== -->
+
+<!-- Basic Checkbox -->
+<div class="demo-section">
+  <h3>Basic Checkbox</h3>
+
+  <label class="checkbox">
+    <input type="checkbox" class="checkbox__input" />
+    <span class="checkbox__box">
+      <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+        <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+    <span class="checkbox__label">I agree to the terms and conditions</span>
+  </label>
+</div>
+
+<!-- Checkbox Sizes -->
+<div class="demo-section">
+  <h3>Checkbox Sizes</h3>
+
+  <div style="display: flex; flex-direction: column; gap: var(--spacing-3);">
+    <!-- Small -->
+    <label class="checkbox checkbox--small">
+      <input type="checkbox" class="checkbox__input" checked />
+      <span class="checkbox__box">
+        <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+          <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="checkbox__label">Small checkbox</span>
+    </label>
+
+    <!-- Medium (default) -->
+    <label class="checkbox">
+      <input type="checkbox" class="checkbox__input" checked />
+      <span class="checkbox__box">
+        <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+          <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="checkbox__label">Medium checkbox (default)</span>
+    </label>
+
+    <!-- Large -->
+    <label class="checkbox checkbox--large">
+      <input type="checkbox" class="checkbox__input" checked />
+      <span class="checkbox__box">
+        <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+          <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="checkbox__label">Large checkbox</span>
+    </label>
+  </div>
+</div>
+
+<!-- Checkbox States -->
+<div class="demo-section">
+  <h3>Checkbox States</h3>
+
+  <div style="display: flex; flex-direction: column; gap: var(--spacing-3);">
+    <!-- Unchecked -->
+    <label class="checkbox">
+      <input type="checkbox" class="checkbox__input" />
+      <span class="checkbox__box">
+        <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+          <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="checkbox__label">Unchecked</span>
+    </label>
+
+    <!-- Checked -->
+    <label class="checkbox">
+      <input type="checkbox" class="checkbox__input" checked />
+      <span class="checkbox__box">
+        <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+          <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="checkbox__label">Checked</span>
+    </label>
+
+    <!-- Indeterminate -->
+    <label class="checkbox">
+      <input type="checkbox" class="checkbox__input" id="indeterminate-demo" />
+      <span class="checkbox__box">
+        <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+          <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="checkbox__label">Indeterminate (some items selected)</span>
+    </label>
+
+    <!-- Disabled Unchecked -->
+    <label class="checkbox">
+      <input type="checkbox" class="checkbox__input" disabled />
+      <span class="checkbox__box">
+        <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+          <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="checkbox__label">Disabled unchecked</span>
+    </label>
+
+    <!-- Disabled Checked -->
+    <label class="checkbox">
+      <input type="checkbox" class="checkbox__input" checked disabled />
+      <span class="checkbox__box">
+        <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+          <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="checkbox__label">Disabled checked</span>
+    </label>
+  </div>
+</div>
+
+<!-- Error State -->
+<div class="demo-section">
+  <h3>Error State</h3>
+
+  <label class="checkbox checkbox--error">
+    <input type="checkbox" class="checkbox__input" />
+    <span class="checkbox__box">
+      <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+        <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+    <span class="checkbox__label">You must agree to continue</span>
+  </label>
+</div>
+
+<!-- Switch Variant -->
+<div class="demo-section">
+  <h3>Switch Variant</h3>
+
+  <div style="display: flex; flex-direction: column; gap: var(--spacing-3);">
+    <!-- Small Switch -->
+    <label class="checkbox checkbox--switch checkbox--small">
+      <input type="checkbox" class="checkbox__input" />
+      <span class="checkbox__box">
+        <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+          <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="checkbox__label">Small switch</span>
+    </label>
+
+    <!-- Medium Switch (default) -->
+    <label class="checkbox checkbox--switch">
+      <input type="checkbox" class="checkbox__input" checked />
+      <span class="checkbox__box">
+        <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+          <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="checkbox__label">Enable notifications</span>
+    </label>
+
+    <!-- Large Switch -->
+    <label class="checkbox checkbox--switch checkbox--large">
+      <input type="checkbox" class="checkbox__input" checked />
+      <span class="checkbox__box">
+        <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+          <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="checkbox__label">Large switch</span>
+    </label>
+
+    <!-- Disabled Switch -->
+    <label class="checkbox checkbox--switch">
+      <input type="checkbox" class="checkbox__input" disabled />
+      <span class="checkbox__box">
+        <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+          <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="checkbox__label">Disabled switch</span>
+    </label>
+  </div>
+</div>
+
+<!-- Checkbox Group (Vertical) -->
+<div class="demo-section">
+  <h3>Checkbox Group (Vertical)</h3>
+
+  <div class="checkbox-group">
+    <label class="checkbox-group__label">Select your interests</label>
+
+    <label class="checkbox">
+      <input type="checkbox" class="checkbox__input" name="interests" value="web" checked />
+      <span class="checkbox__box">
+        <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+          <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="checkbox__label">Web Development</span>
+    </label>
+
+    <label class="checkbox">
+      <input type="checkbox" class="checkbox__input" name="interests" value="mobile" checked />
+      <span class="checkbox__box">
+        <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+          <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="checkbox__label">Mobile Development</span>
+    </label>
+
+    <label class="checkbox">
+      <input type="checkbox" class="checkbox__input" name="interests" value="design" />
+      <span class="checkbox__box">
+        <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+          <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="checkbox__label">UI/UX Design</span>
+    </label>
+
+    <label class="checkbox">
+      <input type="checkbox" class="checkbox__input" name="interests" value="devops" />
+      <span class="checkbox__box">
+        <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+          <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="checkbox__label">DevOps</span>
+    </label>
+
+    <span class="checkbox-group__helper">Select all that apply.</span>
+  </div>
+</div>
+
+<!-- Checkbox Group (Inline) -->
+<div class="demo-section">
+  <h3>Checkbox Group (Inline)</h3>
+
+  <div class="checkbox-group checkbox-group--inline">
+    <label class="checkbox-group__label" style="width: 100%;">Select your skills</label>
+
+    <label class="checkbox">
+      <input type="checkbox" class="checkbox__input" name="skills" value="html" checked />
+      <span class="checkbox__box">
+        <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+          <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="checkbox__label">HTML</span>
+    </label>
+
+    <label class="checkbox">
+      <input type="checkbox" class="checkbox__input" name="skills" value="css" checked />
+      <span class="checkbox__box">
+        <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+          <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="checkbox__label">CSS</span>
+    </label>
+
+    <label class="checkbox">
+      <input type="checkbox" class="checkbox__input" name="skills" value="js" checked />
+      <span class="checkbox__box">
+        <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+          <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="checkbox__label">JavaScript</span>
+    </label>
+
+    <label class="checkbox">
+      <input type="checkbox" class="checkbox__input" name="skills" value="react" />
+      <span class="checkbox__box">
+        <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+          <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="checkbox__label">React</span>
+    </label>
+  </div>
+</div>
+
+<!-- Required Checkbox Group -->
+<div class="demo-section">
+  <h3>Required Checkbox Group</h3>
+
+  <div class="checkbox-group checkbox-group--error">
+    <label class="checkbox-group__label checkbox-group__label--required">
+      Accept terms
+    </label>
+
+    <label class="checkbox checkbox--error">
+      <input type="checkbox" class="checkbox__input" required />
+      <span class="checkbox__box">
+        <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+          <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="checkbox__label">I agree to the Terms of Service</span>
+    </label>
+
+    <label class="checkbox checkbox--error">
+      <input type="checkbox" class="checkbox__input" required />
+      <span class="checkbox__box">
+        <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+          <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="checkbox__label">I agree to the Privacy Policy</span>
+    </label>
+
+    <span class="checkbox-group__error-message">
+      You must accept all terms to continue.
+    </span>
+  </div>
+</div>
+
+<!-- Settings Form Example -->
+<div class="demo-section">
+  <h3>Settings Form Example</h3>
+
+  <form style="max-width: 500px;">
+    <div style="display: flex; flex-direction: column; gap: var(--spacing-5);">
+      <div>
+        <h4 style="margin-bottom: var(--spacing-3); font-size: var(--text-lg);">Notifications</h4>
+        <div style="display: flex; flex-direction: column; gap: var(--spacing-3);">
+          <label class="checkbox checkbox--switch">
+            <input type="checkbox" class="checkbox__input" checked />
+            <span class="checkbox__box">
+              <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+                <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="checkbox__label">Email notifications</span>
+          </label>
+
+          <label class="checkbox checkbox--switch">
+            <input type="checkbox" class="checkbox__input" checked />
+            <span class="checkbox__box">
+              <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+                <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="checkbox__label">Push notifications</span>
+          </label>
+
+          <label class="checkbox checkbox--switch">
+            <input type="checkbox" class="checkbox__input" />
+            <span class="checkbox__box">
+              <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+                <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="checkbox__label">SMS notifications</span>
+          </label>
+        </div>
+      </div>
+
+      <div>
+        <h4 style="margin-bottom: var(--spacing-3); font-size: var(--text-lg);">Privacy</h4>
+        <div style="display: flex; flex-direction: column; gap: var(--spacing-3);">
+          <label class="checkbox checkbox--switch">
+            <input type="checkbox" class="checkbox__input" />
+            <span class="checkbox__box">
+              <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+                <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="checkbox__label">Make profile public</span>
+          </label>
+
+          <label class="checkbox checkbox--switch">
+            <input type="checkbox" class="checkbox__input" checked />
+            <span class="checkbox__box">
+              <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+                <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="checkbox__label">Show online status</span>
+          </label>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: var(--spacing-3);">
+        <button type="submit" class="btn btn--primary">Save Settings</button>
+        <button type="reset" class="btn btn--ghost">Reset</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+// Set indeterminate state for demo
+document.addEventListener('DOMContentLoaded', function() {
+  const indeterminateCheckbox = document.getElementById('indeterminate-demo');
+  if (indeterminateCheckbox) {
+    indeterminateCheckbox.indeterminate = true;
+  }
+});
+</script>
