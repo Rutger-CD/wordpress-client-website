@@ -1,0 +1,349 @@
+<!-- ===================================
+ * SELECT COMPONENT
+ * Dropdown select with validation states, icons, and multi-select
+ * =================================== -->
+
+<!-- Basic Select -->
+<div class="demo-section">
+  <h3>Basic Select</h3>
+
+  <div class="select">
+    <label class="select__label" for="select-basic">Country</label>
+    <select id="select-basic" class="select__field">
+      <option value="">Select a country...</option>
+      <option value="nl">Netherlands</option>
+      <option value="be">Belgium</option>
+      <option value="de">Germany</option>
+      <option value="fr">France</option>
+      <option value="uk">United Kingdom</option>
+      <option value="us">United States</option>
+    </select>
+    <span class="select__helper">Choose your country of residence.</span>
+  </div>
+</div>
+
+<!-- Select Sizes -->
+<div class="demo-section">
+  <h3>Select Sizes</h3>
+
+  <div style="display: flex; flex-direction: column; gap: var(--spacing-4);">
+    <!-- Small -->
+    <div class="select select--small">
+      <label class="select__label" for="select-small">Small Select</label>
+      <select id="select-small" class="select__field">
+        <option value="">Select size...</option>
+        <option value="xs">Extra Small</option>
+        <option value="s">Small</option>
+        <option value="m">Medium</option>
+        <option value="l">Large</option>
+        <option value="xl">Extra Large</option>
+      </select>
+    </div>
+
+    <!-- Medium (default) -->
+    <div class="select select--medium">
+      <label class="select__label" for="select-medium">Medium Select (Default)</label>
+      <select id="select-medium" class="select__field">
+        <option value="">Select size...</option>
+        <option value="xs">Extra Small</option>
+        <option value="s">Small</option>
+        <option value="m" selected>Medium</option>
+        <option value="l">Large</option>
+        <option value="xl">Extra Large</option>
+      </select>
+    </div>
+
+    <!-- Large -->
+    <div class="select select--large">
+      <label class="select__label" for="select-large">Large Select</label>
+      <select id="select-large" class="select__field">
+        <option value="">Select size...</option>
+        <option value="xs">Extra Small</option>
+        <option value="s">Small</option>
+        <option value="m">Medium</option>
+        <option value="l">Large</option>
+        <option value="xl">Extra Large</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- Validation States -->
+<div class="demo-section">
+  <h3>Validation States</h3>
+
+  <div style="display: flex; flex-direction: column; gap: var(--spacing-4);">
+    <!-- Error State -->
+    <div class="select select--error">
+      <label class="select__label" for="select-error">Category</label>
+      <select id="select-error" class="select__field">
+        <option value="">Select category...</option>
+        <option value="tech">Technology</option>
+        <option value="design">Design</option>
+        <option value="business">Business</option>
+      </select>
+      <span class="select__error-message">Please select a category.</span>
+    </div>
+
+    <!-- Success State -->
+    <div class="select select--success">
+      <label class="select__label" for="select-success">Payment Method</label>
+      <select id="select-success" class="select__field">
+        <option value="">Select payment method...</option>
+        <option value="card" selected>Credit Card</option>
+        <option value="paypal">PayPal</option>
+        <option value="bank">Bank Transfer</option>
+      </select>
+      <span class="select__success-message">Valid payment method selected.</span>
+    </div>
+
+    <!-- Disabled State -->
+    <div class="select">
+      <label class="select__label" for="select-disabled">Disabled Select</label>
+      <select id="select-disabled" class="select__field" disabled>
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- With Icon -->
+<div class="demo-section">
+  <h3>Select with Icon</h3>
+
+  <div style="display: flex; flex-direction: column; gap: var(--spacing-4);">
+    <!-- Location Icon -->
+    <div class="select select--has-leading-icon">
+      <label class="select__label" for="select-location">Location</label>
+      <div class="select__icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"/>
+        </svg>
+      </div>
+      <select id="select-location" class="select__field">
+        <option value="">Select location...</option>
+        <option value="amsterdam">Amsterdam</option>
+        <option value="rotterdam">Rotterdam</option>
+        <option value="utrecht">Utrecht</option>
+        <option value="den-haag">Den Haag</option>
+      </select>
+    </div>
+
+    <!-- Currency Icon -->
+    <div class="select select--has-leading-icon">
+      <label class="select__label" for="select-currency">Currency</label>
+      <div class="select__icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"/>
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13v1.065c1.097.074 2.033.558 2.592 1.368a.75.75 0 11-1.292.757 1.885 1.885 0 00-.867-.613 2.64 2.64 0 00-.433-.094v2.775c.545.146.98.329 1.327.56.701.465 1.173 1.162 1.173 2.182 0 1.02-.472 1.717-1.173 2.182-.347.231-.782.414-1.327.56V15a.75.75 0 01-1.5 0v-1.065a3.563 3.563 0 01-1.867-.613.75.75 0 111.292-.757c.271.23.608.41.975.544v-2.672a4.192 4.192 0 01-.433-.094c-.702-.232-1.173-.623-1.173-1.343 0-.72.471-1.111 1.173-1.343.172-.058.337-.107.5-.146V5a.75.75 0 011.5 0z"/>
+        </svg>
+      </div>
+      <select id="select-currency" class="select__field">
+        <option value="">Select currency...</option>
+        <option value="eur">EUR - Euro</option>
+        <option value="usd">USD - US Dollar</option>
+        <option value="gbp">GBP - British Pound</option>
+        <option value="jpy">JPY - Japanese Yen</option>
+      </select>
+    </div>
+
+    <!-- Calendar Icon -->
+    <div class="select select--has-leading-icon">
+      <label class="select__label" for="select-month">Month</label>
+      <div class="select__icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"/>
+        </svg>
+      </div>
+      <select id="select-month" class="select__field">
+        <option value="">Select month...</option>
+        <option value="1">January</option>
+        <option value="2">February</option>
+        <option value="3">March</option>
+        <option value="4">April</option>
+        <option value="5">May</option>
+        <option value="6">June</option>
+        <option value="7">July</option>
+        <option value="8">August</option>
+        <option value="9">September</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12">December</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- Option Groups -->
+<div class="demo-section">
+  <h3>Select with Option Groups</h3>
+
+  <div class="select">
+    <label class="select__label" for="select-groups">Job Category</label>
+    <select id="select-groups" class="select__field">
+      <option value="">Select a category...</option>
+      <optgroup label="Technology">
+        <option value="frontend">Frontend Developer</option>
+        <option value="backend">Backend Developer</option>
+        <option value="fullstack">Fullstack Developer</option>
+        <option value="devops">DevOps Engineer</option>
+      </optgroup>
+      <optgroup label="Design">
+        <option value="ui">UI Designer</option>
+        <option value="ux">UX Designer</option>
+        <option value="product">Product Designer</option>
+        <option value="graphic">Graphic Designer</option>
+      </optgroup>
+      <optgroup label="Business">
+        <option value="product-manager">Product Manager</option>
+        <option value="project-manager">Project Manager</option>
+        <option value="sales">Sales Manager</option>
+        <option value="marketing">Marketing Manager</option>
+      </optgroup>
+    </select>
+  </div>
+</div>
+
+<!-- Multi-Select -->
+<div class="demo-section">
+  <h3>Multi-Select</h3>
+
+  <div class="select select--multiple">
+    <label class="select__label" for="select-multiple">Select Skills</label>
+    <select id="select-multiple" class="select__field" multiple size="8">
+      <option value="html">HTML</option>
+      <option value="css">CSS</option>
+      <option value="js">JavaScript</option>
+      <option value="ts">TypeScript</option>
+      <option value="react">React</option>
+      <option value="vue">Vue.js</option>
+      <option value="angular">Angular</option>
+      <option value="node">Node.js</option>
+      <option value="python">Python</option>
+      <option value="php">PHP</option>
+    </select>
+    <span class="select__helper">Hold Ctrl (Windows) or Cmd (Mac) to select multiple options.</span>
+  </div>
+</div>
+
+<!-- Required Field -->
+<div class="demo-section">
+  <h3>Required Field</h3>
+
+  <div class="select">
+    <label class="select__label select__label--required" for="select-required">Department</label>
+    <select id="select-required" class="select__field" required>
+      <option value="">Select department...</option>
+      <option value="sales">Sales</option>
+      <option value="marketing">Marketing</option>
+      <option value="development">Development</option>
+      <option value="design">Design</option>
+      <option value="hr">Human Resources</option>
+    </select>
+    <span class="select__helper">This field is required.</span>
+  </div>
+</div>
+
+<!-- Disabled Options -->
+<div class="demo-section">
+  <h3>Select with Disabled Options</h3>
+
+  <div class="select">
+    <label class="select__label" for="select-disabled-options">Plan</label>
+    <select id="select-disabled-options" class="select__field">
+      <option value="">Select a plan...</option>
+      <option value="free">Free - $0/month</option>
+      <option value="basic">Basic - $9/month</option>
+      <option value="pro" disabled>Pro - $29/month (Coming Soon)</option>
+      <option value="enterprise" disabled>Enterprise - Contact Sales (Coming Soon)</option>
+    </select>
+  </div>
+</div>
+
+<!-- Complete Form Example -->
+<div class="demo-section">
+  <h3>Registration Form Example</h3>
+
+  <form style="max-width: 500px;">
+    <div style="display: flex; flex-direction: column; gap: var(--spacing-4);">
+      <div class="input">
+        <label class="input__label input__label--required" for="reg-name">Full Name</label>
+        <input
+          type="text"
+          id="reg-name"
+          class="input__field"
+          placeholder="John Doe"
+          required
+        />
+      </div>
+
+      <div class="input">
+        <label class="input__label input__label--required" for="reg-email">Email</label>
+        <input
+          type="email"
+          id="reg-email"
+          class="input__field"
+          placeholder="john@example.com"
+          required
+        />
+      </div>
+
+      <div class="select select--has-leading-icon">
+        <label class="select__label select__label--required" for="reg-country">Country</label>
+        <div class="select__icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z"/>
+          </svg>
+        </div>
+        <select id="reg-country" class="select__field" required>
+          <option value="">Select country...</option>
+          <option value="nl">Netherlands</option>
+          <option value="be">Belgium</option>
+          <option value="de">Germany</option>
+          <option value="fr">France</option>
+          <option value="uk">United Kingdom</option>
+        </select>
+      </div>
+
+      <div class="select">
+        <label class="select__label select__label--required" for="reg-role">Role</label>
+        <select id="reg-role" class="select__field" required>
+          <option value="">Select your role...</option>
+          <optgroup label="Technology">
+            <option value="developer">Developer</option>
+            <option value="designer">Designer</option>
+            <option value="devops">DevOps</option>
+          </optgroup>
+          <optgroup label="Business">
+            <option value="manager">Manager</option>
+            <option value="sales">Sales</option>
+            <option value="marketing">Marketing</option>
+          </optgroup>
+          <optgroup label="Other">
+            <option value="student">Student</option>
+            <option value="other">Other</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <div class="select select--multiple">
+        <label class="select__label" for="reg-interests">Interests</label>
+        <select id="reg-interests" class="select__field" multiple size="5">
+          <option value="web">Web Development</option>
+          <option value="mobile">Mobile Development</option>
+          <option value="design">UI/UX Design</option>
+          <option value="ai">AI & Machine Learning</option>
+          <option value="cloud">Cloud Computing</option>
+          <option value="security">Security</option>
+        </select>
+        <span class="select__helper">Select one or more interests.</span>
+      </div>
+
+      <div style="display: flex; gap: var(--spacing-3);">
+        <button type="submit" class="btn btn--primary">Register</button>
+        <button type="reset" class="btn btn--ghost">Clear</button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -10,13 +10,20 @@
   <link rel="stylesheet" href="../_base/reset.css">
   <link rel="stylesheet" href="../_base/utilities.css">
 
-  <!-- Component Styles -->
+  <!-- Phase 1 & 2 Component Styles -->
   <link rel="stylesheet" href="../button/button.css">
   <link rel="stylesheet" href="../card/card.css">
   <link rel="stylesheet" href="../header/header.css">
   <link rel="stylesheet" href="../footer/footer.css">
   <link rel="stylesheet" href="../hero/hero.css">
   <link rel="stylesheet" href="../content-section/content-section.css">
+
+  <!-- Phase 3 Form Component Styles -->
+  <link rel="stylesheet" href="../input/input.css">
+  <link rel="stylesheet" href="../textarea/textarea.css">
+  <link rel="stylesheet" href="../select/select.css">
+  <link rel="stylesheet" href="../checkbox/checkbox.css">
+  <link rel="stylesheet" href="../radio/radio.css">
 
   <!-- Demo Page Styles -->
   <style>
@@ -681,9 +688,392 @@
       </footer>
     </section>
 
+    <!-- ============================================
+         PHASE 3: FORM COMPONENTS
+         ============================================ -->
+
+    <section id="phase-3" class="demo-section">
+      <h2 class="demo-section__title">Phase 3: Form Components</h2>
+      <p class="demo-section__description">
+        Complete form elements including inputs, textarea, select, checkbox, and radio buttons with validation states and accessibility features.
+      </p>
+
+      <!-- Input Component -->
+      <div class="demo-group">
+        <h3 class="demo-group__title">Input Component</h3>
+        <div style="max-width: 500px; display: flex; flex-direction: column; gap: var(--spacing-4);">
+          <!-- Basic Input -->
+          <div class="input">
+            <label class="input__label" for="demo-email">Email Address</label>
+            <input
+              type="email"
+              id="demo-email"
+              class="input__field"
+              placeholder="you@example.com"
+            />
+            <span class="input__helper">We'll never share your email.</span>
+          </div>
+
+          <!-- Input with Icon -->
+          <div class="input input--has-leading-icon">
+            <label class="input__label" for="demo-search">Search</label>
+            <div class="input__icon input__icon--leading">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"/>
+              </svg>
+            </div>
+            <input
+              type="search"
+              id="demo-search"
+              class="input__field"
+              placeholder="Search..."
+            />
+          </div>
+
+          <!-- Error State -->
+          <div class="input input--error">
+            <label class="input__label" for="demo-username">Username</label>
+            <input
+              type="text"
+              id="demo-username"
+              class="input__field"
+              value="ab"
+            />
+            <span class="input__error-message">Username must be at least 3 characters.</span>
+          </div>
+
+          <!-- Success State -->
+          <div class="input input--success input--has-trailing-icon">
+            <label class="input__label" for="demo-valid">Valid Email</label>
+            <input
+              type="email"
+              id="demo-valid"
+              class="input__field"
+              value="user@example.com"
+            />
+            <div class="input__icon input__icon--trailing">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.293a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
+              </svg>
+            </div>
+            <span class="input__success-message">Email format is valid!</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Textarea Component -->
+      <div class="demo-group">
+        <h3 class="demo-group__title">Textarea Component</h3>
+        <div style="max-width: 600px; display: flex; flex-direction: column; gap: var(--spacing-4);">
+          <!-- Basic Textarea -->
+          <div class="textarea">
+            <label class="textarea__label" for="demo-message">Message</label>
+            <textarea
+              id="demo-message"
+              class="textarea__field"
+              placeholder="Enter your message..."
+            ></textarea>
+            <span class="textarea__helper">Please provide detailed information.</span>
+          </div>
+
+          <!-- With Character Counter -->
+          <div class="textarea">
+            <label class="textarea__label textarea__label--required" for="demo-bio">Bio</label>
+            <textarea
+              id="demo-bio"
+              class="textarea__field"
+              placeholder="Tell us about yourself..."
+              maxlength="500"
+              oninput="updateCounter(this, 'bio-counter', 500)"
+            ></textarea>
+            <div class="textarea__footer">
+              <span class="textarea__helper">Write a brief description.</span>
+              <span class="textarea__counter" id="bio-counter">0 / 500</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Select Component -->
+      <div class="demo-group">
+        <h3 class="demo-group__title">Select Component</h3>
+        <div style="max-width: 500px; display: flex; flex-direction: column; gap: var(--spacing-4);">
+          <!-- Basic Select -->
+          <div class="select">
+            <label class="select__label" for="demo-country">Country</label>
+            <select id="demo-country" class="select__field">
+              <option value="">Select a country...</option>
+              <option value="nl">Netherlands</option>
+              <option value="be">Belgium</option>
+              <option value="de">Germany</option>
+              <option value="fr">France</option>
+            </select>
+          </div>
+
+          <!-- Select with Icon -->
+          <div class="select select--has-leading-icon">
+            <label class="select__label" for="demo-currency">Currency</label>
+            <div class="select__icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"/>
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13v1.065c1.097.074 2.033.558 2.592 1.368a.75.75 0 11-1.292.757 1.885 1.885 0 00-.867-.613 2.64 2.64 0 00-.433-.094v2.775c.545.146.98.329 1.327.56.701.465 1.173 1.162 1.173 2.182 0 1.02-.472 1.717-1.173 2.182-.347.231-.782.414-1.327.56V15a.75.75 0 01-1.5 0v-1.065a3.563 3.563 0 01-1.867-.613.75.75 0 111.292-.757c.271.23.608.41.975.544v-2.672a4.192 4.192 0 01-.433-.094c-.702-.232-1.173-.623-1.173-1.343 0-.72.471-1.111 1.173-1.343.172-.058.337-.107.5-.146V5a.75.75 0 011.5 0z"/>
+              </svg>
+            </div>
+            <select id="demo-currency" class="select__field">
+              <option value="">Select currency...</option>
+              <option value="eur">EUR - Euro</option>
+              <option value="usd">USD - US Dollar</option>
+              <option value="gbp">GBP - British Pound</option>
+            </select>
+          </div>
+
+          <!-- Error State -->
+          <div class="select select--error">
+            <label class="select__label" for="demo-category">Category</label>
+            <select id="demo-category" class="select__field">
+              <option value="">Select category...</option>
+              <option value="tech">Technology</option>
+              <option value="design">Design</option>
+            </select>
+            <span class="select__error-message">Please select a category.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Checkbox Component -->
+      <div class="demo-group">
+        <h3 class="demo-group__title">Checkbox Component</h3>
+        <div style="max-width: 500px;">
+          <!-- Checkbox Group -->
+          <div class="checkbox-group">
+            <label class="checkbox-group__label">Select your interests</label>
+
+            <label class="checkbox">
+              <input type="checkbox" class="checkbox__input" name="demo-interests" value="web" checked />
+              <span class="checkbox__box">
+                <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+                  <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <span class="checkbox__label">Web Development</span>
+            </label>
+
+            <label class="checkbox">
+              <input type="checkbox" class="checkbox__input" name="demo-interests" value="mobile" checked />
+              <span class="checkbox__box">
+                <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+                  <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <span class="checkbox__label">Mobile Development</span>
+            </label>
+
+            <label class="checkbox">
+              <input type="checkbox" class="checkbox__input" name="demo-interests" value="design" />
+              <span class="checkbox__box">
+                <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+                  <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <span class="checkbox__label">UI/UX Design</span>
+            </label>
+          </div>
+
+          <!-- Switch Variant -->
+          <div style="margin-top: var(--spacing-6);">
+            <h4 style="margin-bottom: var(--spacing-3); font-weight: var(--font-semibold);">Switches</h4>
+            <div style="display: flex; flex-direction: column; gap: var(--spacing-3);">
+              <label class="checkbox checkbox--switch">
+                <input type="checkbox" class="checkbox__input" checked />
+                <span class="checkbox__box">
+                  <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+                    <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <span class="checkbox__label">Enable notifications</span>
+              </label>
+
+              <label class="checkbox checkbox--switch">
+                <input type="checkbox" class="checkbox__input" checked />
+                <span class="checkbox__box">
+                  <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+                    <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <span class="checkbox__label">Auto-save</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Radio Component -->
+      <div class="demo-group">
+        <h3 class="demo-group__title">Radio Component</h3>
+        <div style="max-width: 600px;">
+          <!-- Radio Group -->
+          <div class="radio-group">
+            <label class="radio-group__label">Select a payment method</label>
+
+            <label class="radio">
+              <input type="radio" class="radio__input" name="demo-payment" value="card" checked />
+              <span class="radio__circle">
+                <span class="radio__dot"></span>
+              </span>
+              <span class="radio__label">Credit Card</span>
+            </label>
+
+            <label class="radio">
+              <input type="radio" class="radio__input" name="demo-payment" value="paypal" />
+              <span class="radio__circle">
+                <span class="radio__dot"></span>
+              </span>
+              <span class="radio__label">PayPal</span>
+            </label>
+
+            <label class="radio">
+              <input type="radio" class="radio__input" name="demo-payment" value="bank" />
+              <span class="radio__circle">
+                <span class="radio__dot"></span>
+              </span>
+              <span class="radio__label">Bank Transfer</span>
+            </label>
+          </div>
+
+          <!-- Radio Card Variant -->
+          <div style="margin-top: var(--spacing-6);">
+            <h4 style="margin-bottom: var(--spacing-3); font-weight: var(--font-semibold);">Radio Cards</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-4);">
+              <label class="radio radio--card">
+                <input type="radio" class="radio__input" name="demo-plan" value="starter" checked />
+                <span class="radio__circle">
+                  <span class="radio__dot"></span>
+                </span>
+                <div>
+                  <div class="radio__label">Starter</div>
+                  <div class="radio__description">$9/month</div>
+                </div>
+              </label>
+
+              <label class="radio radio--card">
+                <input type="radio" class="radio__input" name="demo-plan" value="pro" />
+                <span class="radio__circle">
+                  <span class="radio__dot"></span>
+                </span>
+                <div>
+                  <div class="radio__label">Professional</div>
+                  <div class="radio__description">$29/month</div>
+                </div>
+              </label>
+
+              <label class="radio radio--card">
+                <input type="radio" class="radio__input" name="demo-plan" value="enterprise" />
+                <span class="radio__circle">
+                  <span class="radio__dot"></span>
+                </span>
+                <div>
+                  <div class="radio__label">Enterprise</div>
+                  <div class="radio__description">Custom pricing</div>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Complete Form Example -->
+      <div class="demo-group">
+        <h3 class="demo-group__title">Complete Contact Form</h3>
+        <form style="max-width: 600px;">
+          <div style="display: flex; flex-direction: column; gap: var(--spacing-4);">
+            <div class="input">
+              <label class="input__label input__label--required" for="demo-contact-name">Full Name</label>
+              <input
+                type="text"
+                id="demo-contact-name"
+                class="input__field"
+                placeholder="John Doe"
+                required
+              />
+            </div>
+
+            <div class="input input--has-leading-icon">
+              <label class="input__label input__label--required" for="demo-contact-email">Email</label>
+              <div class="input__icon input__icon--leading">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M2.5 5.5C2.5 4.67 3.17 4 4 4h12c.83 0 1.5.67 1.5 1.5v9c0 .83-.67 1.5-1.5 1.5H4c-.83 0-1.5-.67-1.5-1.5v-9zm1.5.5v.3l6 3.5 6-3.5V6H4zm0 2.07V14h12V8.07l-5.72 3.34a.5.5 0 01-.56 0L4 8.07z"/>
+                </svg>
+              </div>
+              <input
+                type="email"
+                id="demo-contact-email"
+                class="input__field"
+                placeholder="john@example.com"
+                required
+              />
+            </div>
+
+            <div class="select">
+              <label class="select__label select__label--required" for="demo-contact-subject">Subject</label>
+              <select id="demo-contact-subject" class="select__field" required>
+                <option value="">Select subject...</option>
+                <option value="general">General Inquiry</option>
+                <option value="support">Technical Support</option>
+                <option value="sales">Sales Question</option>
+                <option value="feedback">Feedback</option>
+              </select>
+            </div>
+
+            <div class="textarea">
+              <label class="textarea__label textarea__label--required" for="demo-contact-message">Message</label>
+              <textarea
+                id="demo-contact-message"
+                class="textarea__field"
+                placeholder="How can we help you?"
+                maxlength="1000"
+                oninput="updateCounter(this, 'contact-counter', 1000)"
+                required
+              ></textarea>
+              <div class="textarea__footer">
+                <span class="textarea__helper">Minimum 50 characters required.</span>
+                <span class="textarea__counter" id="contact-counter">0 / 1000</span>
+              </div>
+            </div>
+
+            <div class="checkbox-group">
+              <label class="checkbox checkbox--error">
+                <input type="checkbox" class="checkbox__input" required />
+                <span class="checkbox__box">
+                  <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+                    <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <span class="checkbox__label">I agree to the Terms and Conditions *</span>
+              </label>
+
+              <label class="checkbox">
+                <input type="checkbox" class="checkbox__input" />
+                <span class="checkbox__box">
+                  <svg class="checkbox__checkmark" viewBox="0 0 12 12" fill="none">
+                    <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <span class="checkbox__label">Subscribe to newsletter</span>
+              </label>
+            </div>
+
+            <div style="display: flex; gap: var(--spacing-3);">
+              <button type="submit" class="btn btn--primary">Send Message</button>
+              <button type="reset" class="btn btn--ghost">Clear Form</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
     <!-- Demo Footer -->
     <footer class="demo-footer">
-      <p>UI Component Library · Phase 1 & 2 Complete · 6 Components · Built with Design Tokens · 2024</p>
+      <p>UI Component Library · Phase 1, 2 & 3 Complete · 11 Components · Built with Design Tokens · 2024</p>
     </footer>
   </div>
 
@@ -708,6 +1098,23 @@
         this.parentElement.classList.toggle('header__menu-item--open');
       });
     });
+
+    // Character counter function for textarea
+    function updateCounter(textarea, counterId, maxLength) {
+      const counter = document.getElementById(counterId);
+      const length = textarea.value.length;
+      counter.textContent = `${length} / ${maxLength}`;
+
+      // Add warning/error classes based on length
+      counter.classList.remove('textarea__counter--warning', 'textarea__counter--error');
+
+      const percentUsed = (length / maxLength) * 100;
+      if (percentUsed >= 90) {
+        counter.classList.add('textarea__counter--error');
+      } else if (percentUsed >= 75) {
+        counter.classList.add('textarea__counter--warning');
+      }
+    }
   </script>
 </body>
 </html>

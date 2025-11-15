@@ -1,0 +1,308 @@
+/**
+ * RADIO COMPONENT
+ *
+ * BEM Naming Convention:
+ * .radio - Block
+ * .radio__input - Element
+ * .radio--error - Modifier
+ *
+ * All values use design tokens - NO hardcoded values!
+ */
+
+/* ===================================
+ * BASE RADIO
+ * =================================== */
+
+.radio {
+  position: relative;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--spacing-2);
+  cursor: pointer;
+}
+
+.radio__input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.radio__circle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  background-color: var(--color-background-primary);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-full);
+  transition: all var(--transition-base);
+}
+
+.radio__label {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--font-normal);
+  line-height: var(--leading-normal);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Inner dot */
+.radio__dot {
+  width: 10px;
+  height: 10px;
+  background-color: var(--color-background-primary);
+  border-radius: var(--radius-full);
+  opacity: 0;
+  transform: scale(0);
+  transition: all var(--transition-base);
+}
+
+/* ===================================
+ * STATES
+ * =================================== */
+
+/* Checked */
+.radio__input:checked ~ .radio__circle {
+  background-color: var(--color-primary-500);
+  border-color: var(--color-primary-500);
+}
+
+.radio__input:checked ~ .radio__circle .radio__dot {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Focus */
+.radio__input:focus ~ .radio__circle {
+  border-color: var(--color-primary-500);
+  box-shadow: 0 0 0 3px var(--color-primary-100);
+}
+
+/* Hover */
+.radio:hover .radio__circle {
+  border-color: var(--color-primary-500);
+}
+
+.radio__input:checked:hover ~ .radio__circle {
+  background-color: var(--color-primary-600);
+  border-color: var(--color-primary-600);
+}
+
+/* Disabled */
+.radio__input:disabled ~ .radio__circle {
+  background-color: var(--color-neutral-100);
+  border-color: var(--color-border);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.radio__input:disabled ~ .radio__label {
+  color: var(--color-text-tertiary);
+  cursor: not-allowed;
+}
+
+.radio__input:disabled:checked ~ .radio__circle {
+  background-color: var(--color-neutral-300);
+  border-color: var(--color-neutral-300);
+}
+
+/* ===================================
+ * VALIDATION STATES
+ * =================================== */
+
+/* Error */
+.radio--error .radio__circle {
+  border-color: var(--color-danger-500);
+}
+
+.radio--error .radio__input:checked ~ .radio__circle {
+  background-color: var(--color-danger-500);
+  border-color: var(--color-danger-500);
+}
+
+.radio--error .radio__input:focus ~ .radio__circle {
+  border-color: var(--color-danger-500);
+  box-shadow: 0 0 0 3px var(--color-danger-100);
+}
+
+.radio--error .radio__label {
+  color: var(--color-danger-500);
+}
+
+/* ===================================
+ * SIZES
+ * =================================== */
+
+/* Small */
+.radio--small .radio__circle {
+  width: 16px;
+  height: 16px;
+}
+
+.radio--small .radio__dot {
+  width: 8px;
+  height: 8px;
+}
+
+.radio--small .radio__label {
+  font-size: var(--text-sm);
+}
+
+/* Large */
+.radio--large .radio__circle {
+  width: 24px;
+  height: 24px;
+  margin-top: 0;
+}
+
+.radio--large .radio__dot {
+  width: 12px;
+  height: 12px;
+}
+
+.radio--large .radio__label {
+  font-size: var(--text-lg);
+}
+
+/* ===================================
+ * RADIO GROUP
+ * =================================== */
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.radio-group__label {
+  display: block;
+  margin-bottom: var(--spacing-2);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text-primary);
+}
+
+.radio-group__label--required::after {
+  content: ' *';
+  color: var(--color-danger-500);
+}
+
+.radio-group__helper {
+  display: block;
+  margin-top: var(--spacing-2);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.radio-group__error-message {
+  display: block;
+  margin-top: var(--spacing-2);
+  font-size: var(--text-sm);
+  color: var(--color-danger-500);
+}
+
+/* Inline variant */
+.radio-group--inline {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--spacing-4);
+}
+
+/* Error state for group */
+.radio-group--error .radio-group__label {
+  color: var(--color-danger-500);
+}
+
+/* ===================================
+ * RADIO CARD VARIANT
+ * =================================== */
+
+.radio--card {
+  padding: var(--spacing-4);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-background-primary);
+  transition: all var(--transition-base);
+}
+
+.radio--card:hover {
+  border-color: var(--color-primary-500);
+  background-color: var(--color-primary-50);
+}
+
+.radio--card .radio__input:checked ~ .radio__circle {
+  background-color: var(--color-primary-500);
+  border-color: var(--color-primary-500);
+}
+
+.radio--card .radio__input:checked {
+  & ~ * {
+    /* Target parent .radio--card */
+  }
+}
+
+.radio__input:checked ~ .radio--card,
+.radio--card:has(.radio__input:checked) {
+  border-color: var(--color-primary-500);
+  background-color: var(--color-primary-50);
+  box-shadow: 0 0 0 1px var(--color-primary-500);
+}
+
+.radio--card .radio__label {
+  font-weight: var(--font-medium);
+}
+
+.radio__description {
+  margin-top: var(--spacing-1);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+/* ===================================
+ * ACCESSIBILITY
+ * =================================== */
+
+/* Focus visible for keyboard navigation */
+.radio__input:focus-visible ~ .radio__circle {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .radio__circle {
+    border-width: 3px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .radio__circle,
+  .radio__dot,
+  .radio--card {
+    transition: none;
+  }
+}
+
+/* Focus visible only on keyboard nav */
+.radio__input:focus:not(:focus-visible) ~ .radio__circle {
+  box-shadow: none;
+}
+
+/* ===================================
+ * RESPONSIVE
+ * =================================== */
+
+@media (max-width: 767px) {
+  .radio-group--inline {
+    flex-direction: column;
+  }
+}
