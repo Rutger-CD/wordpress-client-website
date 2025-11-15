@@ -1,0 +1,304 @@
+/**
+ * SELECT COMPONENT
+ *
+ * BEM Naming Convention:
+ * .select - Block
+ * .select__field - Element
+ * .select--error - Modifier
+ *
+ * All values use design tokens - NO hardcoded values!
+ */
+
+/* ===================================
+ * BASE SELECT
+ * =================================== */
+
+.select {
+  position: relative;
+  width: 100%;
+}
+
+.select__field {
+  width: 100%;
+  padding: var(--spacing-3) var(--spacing-10) var(--spacing-3) var(--spacing-4);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--font-normal);
+  line-height: var(--leading-normal);
+  color: var(--color-text-primary);
+  background-color: var(--color-background-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* Custom dropdown arrow */
+.select::after {
+  content: '';
+  position: absolute;
+  right: var(--spacing-4);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid var(--color-text-secondary);
+  pointer-events: none;
+  transition: all var(--transition-base);
+}
+
+.select__field:disabled ~ .select::after {
+  border-top-color: var(--color-text-tertiary);
+}
+
+/* ===================================
+ * STATES
+ * =================================== */
+
+/* Focus */
+.select__field:focus {
+  border-color: var(--color-primary-500);
+  box-shadow: 0 0 0 3px var(--color-primary-100);
+}
+
+/* Hover */
+.select__field:hover:not(:disabled):not(:focus) {
+  border-color: var(--color-border-dark);
+}
+
+/* Disabled */
+.select__field:disabled {
+  background-color: var(--color-neutral-100);
+  color: var(--color-text-tertiary);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Error State */
+.select--error .select__field {
+  border-color: var(--color-danger-500);
+}
+
+.select--error .select__field:focus {
+  border-color: var(--color-danger-500);
+  box-shadow: 0 0 0 3px var(--color-danger-100);
+}
+
+.select--error::after {
+  border-top-color: var(--color-danger-500);
+}
+
+/* Success State */
+.select--success .select__field {
+  border-color: var(--color-success-500);
+}
+
+.select--success .select__field:focus {
+  border-color: var(--color-success-500);
+  box-shadow: 0 0 0 3px var(--color-success-100);
+}
+
+.select--success::after {
+  border-top-color: var(--color-success-500);
+}
+
+/* ===================================
+ * SIZES
+ * =================================== */
+
+/* Small */
+.select--small .select__field {
+  padding: var(--spacing-2) var(--spacing-9) var(--spacing-2) var(--spacing-3);
+  font-size: var(--text-sm);
+}
+
+.select--small::after {
+  right: var(--spacing-3);
+  border-left-width: 4px;
+  border-right-width: 4px;
+  border-top-width: 4px;
+}
+
+/* Medium (default) */
+.select--medium .select__field {
+  padding: var(--spacing-3) var(--spacing-10) var(--spacing-3) var(--spacing-4);
+  font-size: var(--text-base);
+}
+
+/* Large */
+.select--large .select__field {
+  padding: var(--spacing-4) var(--spacing-11) var(--spacing-4) var(--spacing-5);
+  font-size: var(--text-lg);
+}
+
+.select--large::after {
+  right: var(--spacing-5);
+  border-left-width: 6px;
+  border-right-width: 6px;
+  border-top-width: 6px;
+}
+
+/* ===================================
+ * ICON SUPPORT
+ * =================================== */
+
+.select--has-leading-icon .select__field {
+  padding-left: var(--spacing-10);
+}
+
+.select__icon {
+  position: absolute;
+  left: var(--spacing-3);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-tertiary);
+  pointer-events: none;
+}
+
+.select--small .select__icon {
+  width: 16px;
+  height: 16px;
+}
+
+.select--medium .select__icon {
+  width: 20px;
+  height: 20px;
+}
+
+.select--large .select__icon {
+  width: 24px;
+  height: 24px;
+}
+
+.select--error .select__icon {
+  color: var(--color-danger-500);
+}
+
+.select--success .select__icon {
+  color: var(--color-success-500);
+}
+
+/* ===================================
+ * LABELS & HELPER TEXT
+ * =================================== */
+
+.select__label {
+  display: block;
+  margin-bottom: var(--spacing-2);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text-primary);
+}
+
+.select__label--required::after {
+  content: ' *';
+  color: var(--color-danger-500);
+}
+
+.select__helper {
+  display: block;
+  margin-top: var(--spacing-2);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.select__error-message {
+  display: block;
+  margin-top: var(--spacing-2);
+  font-size: var(--text-sm);
+  color: var(--color-danger-500);
+}
+
+.select__success-message {
+  display: block;
+  margin-top: var(--spacing-2);
+  font-size: var(--text-sm);
+  color: var(--color-success-500);
+}
+
+/* Hide helper text when error is shown */
+.select--error .select__helper {
+  display: none;
+}
+
+/* ===================================
+ * OPTION STYLING
+ * =================================== */
+
+.select__field option {
+  padding: var(--spacing-2);
+  color: var(--color-text-primary);
+}
+
+.select__field option:disabled {
+  color: var(--color-text-tertiary);
+}
+
+/* Option group styling */
+.select__field optgroup {
+  font-weight: var(--font-bold);
+  color: var(--color-text-primary);
+}
+
+/* ===================================
+ * MULTI-SELECT
+ * =================================== */
+
+.select--multiple .select__field {
+  padding: var(--spacing-2);
+  height: auto;
+}
+
+.select--multiple::after {
+  display: none;
+}
+
+.select--multiple .select__field option {
+  padding: var(--spacing-2) var(--spacing-3);
+  border-radius: var(--radius-sm);
+  margin-bottom: 2px;
+}
+
+.select--multiple .select__field option:checked {
+  background-color: var(--color-primary-500);
+  color: var(--color-text-inverse);
+}
+
+/* ===================================
+ * ACCESSIBILITY
+ * =================================== */
+
+/* Focus visible for keyboard navigation */
+.select__field:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .select__field {
+    border-width: 2px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .select__field,
+  .select::after {
+    transition: none;
+  }
+}
+
+/* Focus visible only on keyboard nav */
+.select__field:focus:not(:focus-visible) {
+  outline: none;
+}

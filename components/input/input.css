@@ -1,0 +1,283 @@
+/**
+ * INPUT COMPONENT
+ *
+ * BEM Naming Convention:
+ * .input - Block
+ * .input__field - Element
+ * .input--large - Modifier
+ *
+ * All values use design tokens - NO hardcoded values!
+ */
+
+/* ===================================
+ * BASE INPUT
+ * =================================== */
+
+.input {
+  position: relative;
+  width: 100%;
+}
+
+.input__field {
+  width: 100%;
+  padding: var(--spacing-3) var(--spacing-4);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--font-normal);
+  line-height: var(--leading-normal);
+  color: var(--color-text-primary);
+  background-color: var(--color-background-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-base);
+  outline: none;
+}
+
+.input__field::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+/* ===================================
+ * STATES
+ * =================================== */
+
+/* Focus */
+.input__field:focus {
+  border-color: var(--color-primary-500);
+  box-shadow: 0 0 0 3px var(--color-primary-100);
+}
+
+/* Hover */
+.input__field:hover:not(:disabled):not(:focus) {
+  border-color: var(--color-border-dark);
+}
+
+/* Disabled */
+.input__field:disabled {
+  background-color: var(--color-neutral-100);
+  color: var(--color-text-tertiary);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Error State */
+.input--error .input__field {
+  border-color: var(--color-danger-500);
+}
+
+.input--error .input__field:focus {
+  border-color: var(--color-danger-500);
+  box-shadow: 0 0 0 3px var(--color-danger-100);
+}
+
+/* Success State */
+.input--success .input__field {
+  border-color: var(--color-success-500);
+}
+
+.input--success .input__field:focus {
+  border-color: var(--color-success-500);
+  box-shadow: 0 0 0 3px var(--color-success-100);
+}
+
+/* Warning State */
+.input--warning .input__field {
+  border-color: var(--color-warning-500);
+}
+
+.input--warning .input__field:focus {
+  border-color: var(--color-warning-500);
+  box-shadow: 0 0 0 3px var(--color-warning-100);
+}
+
+/* ===================================
+ * SIZES
+ * =================================== */
+
+/* Small */
+.input--small .input__field {
+  padding: var(--spacing-2) var(--spacing-3);
+  font-size: var(--text-sm);
+}
+
+/* Medium (default) */
+.input--medium .input__field {
+  padding: var(--spacing-3) var(--spacing-4);
+  font-size: var(--text-base);
+}
+
+/* Large */
+.input--large .input__field {
+  padding: var(--spacing-4) var(--spacing-5);
+  font-size: var(--text-lg);
+}
+
+/* ===================================
+ * ICON SUPPORT
+ * =================================== */
+
+.input--has-leading-icon .input__field {
+  padding-left: var(--spacing-10);
+}
+
+.input--has-trailing-icon .input__field {
+  padding-right: var(--spacing-10);
+}
+
+.input__icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-tertiary);
+  pointer-events: none;
+}
+
+.input__icon--leading {
+  left: var(--spacing-3);
+}
+
+.input__icon--trailing {
+  right: var(--spacing-3);
+}
+
+.input--small .input__icon {
+  width: 16px;
+  height: 16px;
+}
+
+.input--medium .input__icon {
+  width: 20px;
+  height: 20px;
+}
+
+.input--large .input__icon {
+  width: 24px;
+  height: 24px;
+}
+
+.input--error .input__icon {
+  color: var(--color-danger-500);
+}
+
+.input--success .input__icon {
+  color: var(--color-success-500);
+}
+
+.input--warning .input__icon {
+  color: var(--color-warning-500);
+}
+
+/* ===================================
+ * LABELS & HELPER TEXT
+ * =================================== */
+
+.input__label {
+  display: block;
+  margin-bottom: var(--spacing-2);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text-primary);
+}
+
+.input__label--required::after {
+  content: ' *';
+  color: var(--color-danger-500);
+}
+
+.input__helper {
+  display: block;
+  margin-top: var(--spacing-2);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.input__error-message {
+  display: block;
+  margin-top: var(--spacing-2);
+  font-size: var(--text-sm);
+  color: var(--color-danger-500);
+}
+
+.input__success-message {
+  display: block;
+  margin-top: var(--spacing-2);
+  font-size: var(--text-sm);
+  color: var(--color-success-500);
+}
+
+/* Hide helper text when error is shown */
+.input--error .input__helper {
+  display: none;
+}
+
+/* ===================================
+ * INPUT GROUP
+ * =================================== */
+
+.input-group {
+  display: flex;
+  gap: var(--spacing-3);
+}
+
+.input-group .input {
+  flex: 1;
+}
+
+.input-group--vertical {
+  flex-direction: column;
+}
+
+/* ===================================
+ * SEARCH INPUT VARIANT
+ * =================================== */
+
+.input--search .input__field {
+  padding-left: var(--spacing-10);
+  border-radius: var(--radius-full);
+}
+
+.input--search .input__icon--leading {
+  left: var(--spacing-4);
+}
+
+/* ===================================
+ * ACCESSIBILITY
+ * =================================== */
+
+/* Focus visible for keyboard navigation */
+.input__field:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .input__field {
+    border-width: 2px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .input__field {
+    transition: none;
+  }
+}
+
+/* Focus visible only on keyboard nav */
+.input__field:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ===================================
+ * RESPONSIVE
+ * =================================== */
+
+@media (max-width: 767px) {
+  .input-group:not(.input-group--vertical) {
+    flex-direction: column;
+  }
+}

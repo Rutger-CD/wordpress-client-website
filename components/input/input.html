@@ -1,0 +1,391 @@
+<!-- ===================================
+ * INPUT COMPONENT
+ * Form inputs with validation states, icons, and sizes
+ * =================================== -->
+
+<!-- Basic Input -->
+<div class="demo-section">
+  <h3>Basic Input</h3>
+
+  <div class="input">
+    <label class="input__label" for="input-basic">Email Address</label>
+    <input
+      type="email"
+      id="input-basic"
+      class="input__field"
+      placeholder="Enter your email"
+    />
+    <span class="input__helper">We'll never share your email with anyone else.</span>
+  </div>
+</div>
+
+<!-- Input Sizes -->
+<div class="demo-section">
+  <h3>Input Sizes</h3>
+
+  <div style="display: flex; flex-direction: column; gap: var(--spacing-4);">
+    <!-- Small -->
+    <div class="input input--small">
+      <label class="input__label" for="input-small">Small Input</label>
+      <input
+        type="text"
+        id="input-small"
+        class="input__field"
+        placeholder="Small size"
+      />
+    </div>
+
+    <!-- Medium (default) -->
+    <div class="input input--medium">
+      <label class="input__label" for="input-medium">Medium Input (Default)</label>
+      <input
+        type="text"
+        id="input-medium"
+        class="input__field"
+        placeholder="Medium size"
+      />
+    </div>
+
+    <!-- Large -->
+    <div class="input input--large">
+      <label class="input__label" for="input-large">Large Input</label>
+      <input
+        type="text"
+        id="input-large"
+        class="input__field"
+        placeholder="Large size"
+      />
+    </div>
+  </div>
+</div>
+
+<!-- Validation States -->
+<div class="demo-section">
+  <h3>Validation States</h3>
+
+  <div style="display: flex; flex-direction: column; gap: var(--spacing-4);">
+    <!-- Error State -->
+    <div class="input input--error">
+      <label class="input__label" for="input-error">Username</label>
+      <input
+        type="text"
+        id="input-error"
+        class="input__field"
+        value="ab"
+      />
+      <span class="input__error-message">Username must be at least 3 characters.</span>
+    </div>
+
+    <!-- Success State -->
+    <div class="input input--success">
+      <label class="input__label" for="input-success">Password</label>
+      <input
+        type="password"
+        id="input-success"
+        class="input__field"
+        value="securepassword123"
+      />
+      <span class="input__success-message">Strong password!</span>
+    </div>
+
+    <!-- Warning State -->
+    <div class="input input--warning">
+      <label class="input__label" for="input-warning">Email</label>
+      <input
+        type="email"
+        id="input-warning"
+        class="input__field"
+        value="user@example"
+      />
+      <span class="input__helper" style="color: var(--color-warning-500);">Email format looks incomplete.</span>
+    </div>
+
+    <!-- Disabled State -->
+    <div class="input">
+      <label class="input__label" for="input-disabled">Disabled Input</label>
+      <input
+        type="text"
+        id="input-disabled"
+        class="input__field"
+        value="This field is disabled"
+        disabled
+      />
+    </div>
+  </div>
+</div>
+
+<!-- With Icons -->
+<div class="demo-section">
+  <h3>Input with Icons</h3>
+
+  <div style="display: flex; flex-direction: column; gap: var(--spacing-4);">
+    <!-- Leading Icon -->
+    <div class="input input--has-leading-icon">
+      <label class="input__label" for="input-email">Email</label>
+      <div class="input__icon input__icon--leading">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M2.5 5.5C2.5 4.67 3.17 4 4 4h12c.83 0 1.5.67 1.5 1.5v9c0 .83-.67 1.5-1.5 1.5H4c-.83 0-1.5-.67-1.5-1.5v-9zm1.5.5v.3l6 3.5 6-3.5V6H4zm0 2.07V14h12V8.07l-5.72 3.34a.5.5 0 01-.56 0L4 8.07z"/>
+        </svg>
+      </div>
+      <input
+        type="email"
+        id="input-email"
+        class="input__field"
+        placeholder="you@example.com"
+      />
+    </div>
+
+    <!-- Trailing Icon -->
+    <div class="input input--has-trailing-icon input--success">
+      <label class="input__label" for="input-check">Verified Email</label>
+      <input
+        type="email"
+        id="input-check"
+        class="input__field"
+        value="user@example.com"
+        readonly
+      />
+      <div class="input__icon input__icon--trailing">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-10.293a1 1 0 00-1.414-1.414L9 9.586 7.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Both Icons -->
+    <div class="input input--has-leading-icon input--has-trailing-icon">
+      <label class="input__label" for="input-password">Password</label>
+      <div class="input__icon input__icon--leading">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"/>
+        </svg>
+      </div>
+      <input
+        type="password"
+        id="input-password"
+        class="input__field"
+        placeholder="Enter password"
+      />
+      <div class="input__icon input__icon--trailing">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+          <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Search Input -->
+<div class="demo-section">
+  <h3>Search Input</h3>
+
+  <div class="input input--search input--has-leading-icon">
+    <div class="input__icon input__icon--leading">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"/>
+      </svg>
+    </div>
+    <input
+      type="search"
+      class="input__field"
+      placeholder="Search..."
+    />
+  </div>
+</div>
+
+<!-- Input Types -->
+<div class="demo-section">
+  <h3>Input Types</h3>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--spacing-4);">
+    <!-- Text -->
+    <div class="input">
+      <label class="input__label" for="input-text">Text</label>
+      <input
+        type="text"
+        id="input-text"
+        class="input__field"
+        placeholder="Enter text"
+      />
+    </div>
+
+    <!-- Email -->
+    <div class="input">
+      <label class="input__label" for="input-email-type">Email</label>
+      <input
+        type="email"
+        id="input-email-type"
+        class="input__field"
+        placeholder="email@example.com"
+      />
+    </div>
+
+    <!-- Password -->
+    <div class="input">
+      <label class="input__label" for="input-password-type">Password</label>
+      <input
+        type="password"
+        id="input-password-type"
+        class="input__field"
+        placeholder="••••••••"
+      />
+    </div>
+
+    <!-- Number -->
+    <div class="input">
+      <label class="input__label" for="input-number">Number</label>
+      <input
+        type="number"
+        id="input-number"
+        class="input__field"
+        placeholder="0"
+        min="0"
+        max="100"
+      />
+    </div>
+
+    <!-- Tel -->
+    <div class="input">
+      <label class="input__label" for="input-tel">Phone</label>
+      <input
+        type="tel"
+        id="input-tel"
+        class="input__field"
+        placeholder="+1 (555) 123-4567"
+      />
+    </div>
+
+    <!-- URL -->
+    <div class="input">
+      <label class="input__label" for="input-url">Website</label>
+      <input
+        type="url"
+        id="input-url"
+        class="input__field"
+        placeholder="https://example.com"
+      />
+    </div>
+
+    <!-- Date -->
+    <div class="input">
+      <label class="input__label" for="input-date">Date</label>
+      <input
+        type="date"
+        id="input-date"
+        class="input__field"
+      />
+    </div>
+
+    <!-- Time -->
+    <div class="input">
+      <label class="input__label" for="input-time">Time</label>
+      <input
+        type="time"
+        id="input-time"
+        class="input__field"
+      />
+    </div>
+  </div>
+</div>
+
+<!-- Required Field -->
+<div class="demo-section">
+  <h3>Required Field</h3>
+
+  <div class="input">
+    <label class="input__label input__label--required" for="input-required">Full Name</label>
+    <input
+      type="text"
+      id="input-required"
+      class="input__field"
+      placeholder="John Doe"
+      required
+    />
+    <span class="input__helper">This field is required.</span>
+  </div>
+</div>
+
+<!-- Input Group -->
+<div class="demo-section">
+  <h3>Input Group</h3>
+
+  <!-- Horizontal Group -->
+  <div class="input-group">
+    <div class="input">
+      <label class="input__label" for="input-first-name">First Name</label>
+      <input
+        type="text"
+        id="input-first-name"
+        class="input__field"
+        placeholder="John"
+      />
+    </div>
+    <div class="input">
+      <label class="input__label" for="input-last-name">Last Name</label>
+      <input
+        type="text"
+        id="input-last-name"
+        class="input__field"
+        placeholder="Doe"
+      />
+    </div>
+  </div>
+</div>
+
+<!-- Complete Form Example -->
+<div class="demo-section">
+  <h3>Complete Form Example</h3>
+
+  <form style="max-width: 500px;">
+    <div style="display: flex; flex-direction: column; gap: var(--spacing-4);">
+      <div class="input">
+        <label class="input__label input__label--required" for="form-name">Full Name</label>
+        <input
+          type="text"
+          id="form-name"
+          class="input__field"
+          placeholder="John Doe"
+          required
+        />
+      </div>
+
+      <div class="input input--has-leading-icon">
+        <label class="input__label input__label--required" for="form-email">Email</label>
+        <div class="input__icon input__icon--leading">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M2.5 5.5C2.5 4.67 3.17 4 4 4h12c.83 0 1.5.67 1.5 1.5v9c0 .83-.67 1.5-1.5 1.5H4c-.83 0-1.5-.67-1.5-1.5v-9zm1.5.5v.3l6 3.5 6-3.5V6H4zm0 2.07V14h12V8.07l-5.72 3.34a.5.5 0 01-.56 0L4 8.07z"/>
+          </svg>
+        </div>
+        <input
+          type="email"
+          id="form-email"
+          class="input__field"
+          placeholder="you@example.com"
+          required
+        />
+      </div>
+
+      <div class="input input--has-leading-icon">
+        <label class="input__label" for="form-phone">Phone</label>
+        <div class="input__icon input__icon--leading">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+          </svg>
+        </div>
+        <input
+          type="tel"
+          id="form-phone"
+          class="input__field"
+          placeholder="+1 (555) 123-4567"
+        />
+        <span class="input__helper">Optional phone number</span>
+      </div>
+
+      <div style="display: flex; gap: var(--spacing-3);">
+        <button type="submit" class="btn btn--primary">Submit</button>
+        <button type="reset" class="btn btn--ghost">Reset</button>
+      </div>
+    </div>
+  </form>
+</div>
