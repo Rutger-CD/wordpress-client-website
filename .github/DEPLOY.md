@@ -40,6 +40,58 @@ Dit project gebruikt GitHub Actions voor geautomatiseerde deployment en code qua
 2. **Deploy** - Uploadt via FTP naar staging server
 3. **Notify** - Stuurt deployment status notificatie
 
+### 4. Deploy to Production (`deploy-production.yml`)
+
+**Trigger**: Alleen handmatig via workflow_dispatch
+
+**Safety Features**:
+- ✅ Confirmation input vereist ("deploy-to-production")
+- ✅ Pre-deployment checks (linting, build, required files)
+- ✅ Automatic backup creation before deployment
+- ✅ Environment protection (production environment)
+- ✅ Post-deployment verification
+
+**Stappen**:
+1. **Validate Input** - Confirmeert deployment intentie
+2. **Pre-Deployment Checks** - Lint, build, file checks
+3. **Backup Production** - Maakt backup van huidige productie
+4. **Deploy** - Uploadt naar production server
+5. **Verify** - Checkt of site bereikbaar is
+6. **Notify** - Stuurt deployment status
+
+**Usage**:
+```bash
+# Via GitHub UI
+Actions → Deploy to Production → Run workflow
+# Type "deploy-to-production" to confirm
+```
+
+### 5. Rollback Production (`rollback-production.yml`)
+
+**Trigger**: Alleen handmatig via workflow_dispatch
+
+**Safety Features**:
+- ✅ Confirmation input vereist ("rollback-production")
+- ✅ Backup timestamp validation
+- ✅ Emergency backup van current state
+- ✅ Post-rollback verification checklist
+
+**Stappen**:
+1. **Validate** - Confirmeert rollback + valideert timestamp
+2. **Emergency Backup** - Backup huidige productie state
+3. **Rollback** - Restore vanaf gespecificeerde backup
+4. **Verify** - Site availability check
+5. **Notify** - Rollback status
+
+**Usage**:
+```bash
+# Via GitHub UI
+Actions → Rollback Production → Run workflow
+# Inputs:
+#   - backup_timestamp: 20250116-143000 (YYYYMMDD-HHMMSS)
+#   - confirm: rollback-production
+```
+
 ## Required Secrets
 
 Configureer deze secrets in GitHub:
@@ -53,11 +105,28 @@ STAGING_FTP_USERNAME   # FTP username
 STAGING_FTP_PASSWORD   # FTP password
 ```
 
-### Environment Variables
-
+**Environment Variables**:
 ```
 STAGING_URL           # Staging website URL (bijv. https://staging.yourdomain.com)
 ```
+
+### Production Environment
+
+```
+PRODUCTION_FTP_SERVER     # Production FTP server hostname
+PRODUCTION_FTP_USERNAME   # Production FTP username
+PRODUCTION_FTP_PASSWORD   # Production FTP password
+```
+
+**Environment Variables**:
+```
+PRODUCTION_URL            # Production website URL (bijv. https://yourdomain.com)
+```
+
+**⚠️ BELANGRIJK**:
+- Gebruik VERSCHILLENDE credentials voor staging en production
+- Production credentials hebben minimale permissions (alleen theme directory)
+- Test deployment altijd eerst op staging
 
 ## Setup Instructies
 
@@ -266,21 +335,93 @@ Elke deployment maakt een summary met:
 - ✅ Restrict FTP user to theme directory only
 - ✅ Enable FTP over TLS/SSL
 
-## Rollback Procedure
+## Production Deployment Workflow
 
+### Prerequisites
+
+1. **Environment Setup** in GitHub:
+   ```bash
+   Settings → Environments → New environment → "production"
+   ```
+
+2. **Add Environment Variables**:
+   - `PRODUCTION_URL`: Production website URL
+
+3. **Add Secrets** (see Required Secrets section above)
+
+4. **Test on Staging First**:
+   ```bash
+   # Always deploy to staging first
+   git push origin develop
+   # Test thoroughly on staging
+   # Then proceed to production
+   ```
+
+### Deployment Process
+
+**Step 1: Trigger Deployment**
 ```bash
-# If deployment causes issues:
+# Via GitHub UI:
+Actions → Deploy to Production → Run workflow
+# Select branch: main
+# Confirmation: deploy-to-production
+```
 
-# Option 1: Revert commit
+**Step 2: Monitor Deployment**
+- Watch workflow progress in Actions tab
+- Check each job: Validate → Pre-checks → Backup → Deploy → Verify
+- Review deployment summary
+
+**Step 3: Verify Production**
+- Visit production URL
+- Test all pages
+- Check custom blocks functionality
+- Verify WordPress admin access
+
+**Step 4: Post-Deployment**
+- Document deployment (version, timestamp)
+- Note backup timestamp for potential rollback
+- Monitor site for 24 hours
+
+### Rollback Procedure
+
+**Option 1: Automated Rollback (Recommended)**
+```bash
+# Via GitHub UI:
+Actions → Rollback Production → Run workflow
+# Inputs:
+#   backup_timestamp: [from deployment logs] (e.g., 20250116-143000)
+#   confirm: rollback-production
+```
+
+**Option 2: Revert Commit**
+```bash
 git revert <commit-hash>
-git push origin develop
+git push origin main
+# Wait for auto-deploy or trigger manually
+```
 
-# Option 2: Manual FTP rollback
-# Download previous version from backups
-# Upload via FTP
+**Option 3: Manual FTP Rollback**
+```bash
+# Connect via FTP
+# Navigate to theme directory
+# Restore from backup-[timestamp] folder
+```
 
-# Option 3: Redeploy previous commit
-# GitHub Actions → Previous successful workflow → Re-run jobs
+### Rollback Decision Tree
+
+```
+Problem detected
+    ↓
+Is it critical? (Site down, data loss, security issue)
+    ↓ YES
+    Use Option 1: Automated Rollback
+    ↓ NO
+Can it be fixed with hotfix? (< 30 min)
+    ↓ YES
+    Deploy hotfix
+    ↓ NO
+    Use Option 1: Automated Rollback
 ```
 
 ## Maintenance

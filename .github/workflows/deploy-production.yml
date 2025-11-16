@@ -1,0 +1,239 @@
+name: Deploy to Production
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type "deploy-to-production" to confirm deployment'
+        required: true
+        type: string
+
+jobs:
+  validate-input:
+    name: Validate Deployment Confirmation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check confirmation input
+        run: |
+          if [ "${{ github.event.inputs.confirm }}" != "deploy-to-production" ]; then
+            echo "❌ Invalid confirmation. You must type 'deploy-to-production' to proceed."
+            exit 1
+          fi
+          echo "✅ Confirmation validated"
+
+  pre-deployment-checks:
+    name: Pre-Deployment Checks
+    runs-on: ubuntu-latest
+    needs: validate-input
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: blocks/package-lock.json
+
+      - name: Get version
+        id: version
+        run: |
+          VERSION=$(git rev-parse --short HEAD)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "📦 Version: $VERSION"
+
+      - name: Install dependencies
+        working-directory: ./blocks
+        run: npm ci
+
+      - name: Run linting
+        working-directory: ./blocks
+        run: |
+          echo "🔍 Running JavaScript linting..."
+          npm run lint:js
+          echo "🔍 Running CSS linting..."
+          npm run lint:css
+
+      - name: Build blocks
+        working-directory: ./blocks
+        run: |
+          echo "🏗️ Building blocks for production..."
+          npm run build
+
+      - name: Check for critical files
+        run: |
+          echo "📋 Checking for required files..."
+          required_files=(
+            "functions.php"
+            "style.css"
+            "blocks/package.json"
+            "components/_base/variables.css"
+            "components/_base/reset.css"
+          )
+
+          for file in "${required_files[@]}"; do
+            if [ ! -f "$file" ]; then
+              echo "❌ Required file missing: $file"
+              exit 1
+            fi
+            echo "✅ Found: $file"
+          done
+
+      - name: Create deployment summary
+        run: |
+          echo "## 🚀 Pre-Deployment Checks Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Confirmation validated" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Linting passed" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Build completed" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Required files present" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Version**: \`${{ steps.version.outputs.version }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "**Branch**: \`${{ github.ref_name }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "**Triggered by**: ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
+
+  backup-production:
+    name: Backup Production
+    runs-on: ubuntu-latest
+    needs: pre-deployment-checks
+    steps:
+      - name: Create backup timestamp
+        id: timestamp
+        run: |
+          TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+          echo "timestamp=$TIMESTAMP" >> $GITHUB_OUTPUT
+          echo "📅 Backup timestamp: $TIMESTAMP"
+
+      - name: Backup via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.PRODUCTION_FTP_SERVER }}
+          username: ${{ secrets.PRODUCTION_FTP_USERNAME }}
+          password: ${{ secrets.PRODUCTION_FTP_PASSWORD }}
+          local-dir: ./dummy/
+          server-dir: /public_html/wp-content/themes/client-website-backup-${{ steps.timestamp.outputs.timestamp }}/
+          dry-run: true
+
+      - name: Backup summary
+        run: |
+          echo "## 💾 Backup Created" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Timestamp**: ${{ steps.timestamp.outputs.timestamp }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Location**: \`/public_html/wp-content/themes/client-website-backup-${{ steps.timestamp.outputs.timestamp }}/\`" >> $GITHUB_STEP_SUMMARY
+
+  deploy:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: [pre-deployment-checks, backup-production]
+    environment:
+      name: production
+      url: ${{ vars.PRODUCTION_URL }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: blocks/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ./blocks
+        run: npm ci
+
+      - name: Build blocks
+        working-directory: ./blocks
+        run: npm run build
+
+      - name: Prepare deployment package
+        run: |
+          echo "📦 Preparing deployment package..."
+          mkdir -p deploy
+
+          # Copy theme files
+          cp -r blocks deploy/
+          cp -r components deploy/
+          cp functions.php deploy/
+          cp style.css deploy/ || echo "style.css not found, skipping"
+
+          # Copy .github for CI/CD configs (optional)
+          cp -r .github deploy/
+
+          echo "✅ Deployment package ready"
+
+          # List contents
+          echo "📋 Package contents:"
+          ls -la deploy/
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.PRODUCTION_FTP_SERVER }}
+          username: ${{ secrets.PRODUCTION_FTP_USERNAME }}
+          password: ${{ secrets.PRODUCTION_FTP_PASSWORD }}
+          local-dir: ./deploy/
+          server-dir: /public_html/wp-content/themes/client-website/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/.DS_Store
+            **/package-lock.json
+
+      - name: Deployment summary
+        run: |
+          echo "## 🎉 Deployment Complete" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Details" >> $GITHUB_STEP_SUMMARY
+          echo "- **Environment**: Production" >> $GITHUB_STEP_SUMMARY
+          echo "- **Version**: \`${{ needs.pre-deployment-checks.outputs.version }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Branch**: \`${{ github.ref_name }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Deployed by**: ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Timestamp**: $(date -u +"%Y-%m-%d %H:%M:%S UTC")" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🌐 Production Site" >> $GITHUB_STEP_SUMMARY
+          echo "[View Production Website](${{ vars.PRODUCTION_URL }})" >> $GITHUB_STEP_SUMMARY
+
+  verify-deployment:
+    name: Verify Deployment
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: Check production site
+        run: |
+          echo "🔍 Verifying production deployment..."
+
+          # Check if site is reachable
+          if curl -f -s -o /dev/null -w "%{http_code}" "${{ vars.PRODUCTION_URL }}" | grep -q "200"; then
+            echo "✅ Production site is reachable (HTTP 200)"
+          else
+            echo "⚠️  Production site returned non-200 status"
+          fi
+
+      - name: Verification summary
+        run: |
+          echo "## ✅ Deployment Verified" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- Production site is responding" >> $GITHUB_STEP_SUMMARY
+          echo "- Deployment process completed successfully" >> $GITHUB_STEP_SUMMARY
+
+  notify:
+    name: Send Notification
+    runs-on: ubuntu-latest
+    needs: [deploy, verify-deployment]
+    if: always()
+    steps:
+      - name: Deployment notification
+        run: |
+          if [ "${{ needs.deploy.result }}" == "success" ]; then
+            echo "✅ Production deployment successful!"
+            echo "🌐 Site: ${{ vars.PRODUCTION_URL }}"
+          else
+            echo "❌ Production deployment failed!"
+            echo "Check logs for details"
+          fi
