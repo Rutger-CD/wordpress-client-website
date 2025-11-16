@@ -59,26 +59,51 @@ add_action('enqueue_block_editor_assets', 'client_website_enqueue_base_styles', 
  */
 function client_website_enqueue_component_styles() {
     $components = [
+        // Phase 1: Foundation
         'button',
         'card',
+        // Phase 2: Layout
         'hero',
         'content-section',
         'header',
         'footer',
+        // Phase 3: Forms
         'input',
         'textarea',
         'select',
-        'checkbox',
-        'radio'
+        // Phase 3: Interactive
+        'accordion',
+        'tabs',
+        'modal',
+        'alert',
+        'tooltip',
+        'dropdown'
     ];
 
     foreach ($components as $component) {
-        wp_enqueue_style(
-            "client-website-{$component}",
-            get_template_directory_uri() . "/components/{$component}/{$component}.css",
-            ['client-website-variables'],
-            '1.0.0'
-        );
+        $css_path = get_template_directory() . "/components/{$component}/{$component}.css";
+        $js_path = get_template_directory() . "/components/{$component}/{$component}.js";
+
+        // Enqueue CSS
+        if (file_exists($css_path)) {
+            wp_enqueue_style(
+                "client-website-{$component}",
+                get_template_directory_uri() . "/components/{$component}/{$component}.css",
+                ['client-website-variables'],
+                '1.0.0'
+            );
+        }
+
+        // Enqueue JS for interactive components
+        if (file_exists($js_path)) {
+            wp_enqueue_script(
+                "client-website-{$component}",
+                get_template_directory_uri() . "/components/{$component}/{$component}.js",
+                [],
+                '1.0.0',
+                true
+            );
+        }
     }
 }
 add_action('wp_enqueue_scripts', 'client_website_enqueue_component_styles', 10);
@@ -135,3 +160,17 @@ function client_website_editor_styles() {
     add_editor_style('editor-styles.css');
 }
 add_action('after_setup_theme', 'client_website_editor_styles');
+
+/**
+ * Register Block Patterns
+ */
+function client_website_register_patterns() {
+    // Register pattern category
+    register_block_pattern_category(
+        'client-website',
+        [
+            'label' => __('Client Website', 'client-website'),
+        ]
+    );
+}
+add_action('init', 'client_website_register_patterns');
