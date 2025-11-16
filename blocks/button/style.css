@@ -1,0 +1,27 @@
+/**
+ * Button Block Styles (Frontend & Editor)
+ * Imports the UI Component Library button styles
+ */
+
+@import '../../components/button/button.css';
+
+.button-block {
+  display: flex;
+  gap: var(--spacing-4);
+}
+
+.button-block.alignleft {
+  justify-content: flex-start;
+}
+
+.button-block.aligncenter {
+  justify-content: center;
+}
+
+.button-block.alignright {
+  justify-content: flex-end;
+}
+
+.button-block.alignnone {
+  justify-content: flex-start;
+}

@@ -1,0 +1,120 @@
+/**
+ * CTA Section Block Styles (Frontend & Editor)
+ */
+
+@import '../../components/_base/variables.css';
+@import '../../components/button/button.css';
+
+.cta-section {
+  width: 100%;
+  padding: var(--spacing-16) var(--spacing-6);
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-section__container {
+  max-width: var(--content-width, 1140px);
+  margin: 0 auto;
+}
+
+.cta-section__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+.cta-section__heading {
+  font-size: var(--text-4xl);
+  font-weight: var(--font-bold);
+  line-height: var(--leading-tight);
+  color: inherit;
+  margin: 0;
+}
+
+.cta-section__description {
+  font-size: var(--text-xl);
+  line-height: var(--leading-relaxed);
+  color: inherit;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.cta-section__button-wrapper {
+  display: flex;
+  gap: var(--spacing-4);
+}
+
+/* Text Alignment */
+.cta-section--align-center .cta-section__content {
+  align-items: center;
+  text-align: center;
+}
+
+.cta-section--align-left .cta-section__content {
+  align-items: flex-start;
+  text-align: left;
+}
+
+/* Background Variations */
+.cta-section--primary {
+  background-color: var(--color-primary-600);
+  color: var(--color-neutral-50);
+}
+
+.cta-section--secondary {
+  background-color: var(--color-secondary-600);
+  color: var(--color-neutral-50);
+}
+
+.cta-section--neutral {
+  background-color: var(--color-neutral-100);
+  color: var(--color-text-primary);
+}
+
+.cta-section--gradient {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-600) 0%,
+    var(--color-secondary-600) 100%
+  );
+  color: var(--color-neutral-50);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cta-section {
+    padding: var(--spacing-12) var(--spacing-4);
+  }
+
+  .cta-section__heading {
+    font-size: var(--text-3xl);
+  }
+
+  .cta-section__description {
+    font-size: var(--text-lg);
+  }
+
+  .cta-section__button-wrapper {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .cta-section--align-left .cta-section__button-wrapper {
+    align-items: flex-start;
+  }
+
+  .cta-section--align-center .cta-section__button-wrapper {
+    align-items: center;
+  }
+}
+
+/* Alignment support */
+.cta-section.alignwide {
+  max-width: var(--content-width-wide, 1200px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-section.alignfull {
+  max-width: 100%;
+}
