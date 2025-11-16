@@ -4,7 +4,7 @@
 	"name": "client-website/card-grid",
 	"version": "1.0.0",
 	"title": "Card Grid",
-	"category": "design",
+	"category": "client-website-blocks",
 	"icon": "grid-view",
 	"description": "A responsive grid of cards with images, titles, descriptions, and links",
 	"keywords": [ "cards", "grid", "features", "services" ],

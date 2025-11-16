@@ -4,7 +4,7 @@
 	"name": "client-website/hero",
 	"version": "1.0.0",
 	"title": "Hero Section",
-	"category": "design",
+	"category": "client-website-blocks",
 	"icon": "cover-image",
 	"description": "A hero section with gradient background, heading, text and CTA buttons.",
 	"keywords": [ "hero", "banner", "header", "cta" ],

@@ -2,7 +2,7 @@
 /**
  * Title: Features Grid
  * Slug: client-website/features-grid
- * Categories: featured
+ * Categories: client-website-patterns
  * Description: Grid of feature cards (3 columns)
  */
 ?>

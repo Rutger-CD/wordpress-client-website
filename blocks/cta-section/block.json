@@ -4,7 +4,7 @@
 	"name": "client-website/cta-section",
 	"version": "1.0.0",
 	"title": "CTA Section",
-	"category": "design",
+	"category": "client-website-blocks",
 	"icon": "megaphone",
 	"description": "A call-to-action section with heading, description, and button",
 	"keywords": [ "cta", "call to action", "banner", "promo" ],

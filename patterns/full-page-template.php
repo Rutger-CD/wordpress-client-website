@@ -2,7 +2,7 @@
 /**
  * Title: Full Page Template
  * Slug: client-website/full-page-template
- * Categories: featured
+ * Categories: client-website-patterns
  * Description: Complete page layout with hero, content, features, and CTA
  */
 ?>

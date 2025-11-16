@@ -2,7 +2,7 @@
 /**
  * Title: Hero with CTA
  * Slug: client-website/hero-with-cta
- * Categories: featured, call-to-action
+ * Categories: client-website-patterns
  * Description: Hero section with gradient background and dual CTAs
  */
 ?>

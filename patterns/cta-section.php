@@ -2,7 +2,7 @@
 /**
  * Title: Call to Action Section
  * Slug: client-website/cta-section
- * Categories: call-to-action
+ * Categories: client-website-patterns
  * Description: Full-width CTA section with gradient background
  */
 ?>

@@ -2,7 +2,7 @@
 /**
  * Title: Content with Sidebar
  * Slug: client-website/content-with-sidebar
- * Categories: text
+ * Categories: client-website-patterns
  * Description: Two-column layout with main content and sidebar
  */
 ?>

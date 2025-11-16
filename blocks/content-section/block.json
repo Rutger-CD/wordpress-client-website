@@ -4,7 +4,7 @@
 	"name": "client-website/content-section",
 	"version": "1.0.0",
 	"title": "Content Section",
-	"category": "design",
+	"category": "client-website-blocks",
 	"icon": "layout",
 	"description": "A flexible content section wrapper with width and spacing controls.",
 	"keywords": [ "section", "container", "wrapper", "layout" ],

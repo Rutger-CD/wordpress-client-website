@@ -143,9 +143,9 @@ function client_website_block_categories($categories) {
     return array_merge(
         [
             [
-                'slug'  => 'design',
-                'title' => __('Design', 'client-website'),
-                'icon'  => 'layout',
+                'slug'  => 'client-website-blocks',
+                'title' => __('Client Website - Blocks', 'client-website'),
+                'icon'  => 'admin-customizer',
             ],
         ],
         $categories
@@ -167,9 +167,9 @@ add_action('after_setup_theme', 'client_website_editor_styles');
 function client_website_register_patterns() {
     // Register pattern category
     register_block_pattern_category(
-        'client-website',
+        'client-website-patterns',
         [
-            'label' => __('Client Website', 'client-website'),
+            'label' => __('Client Website - Patterns', 'client-website'),
         ]
     );
 }
