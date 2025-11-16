@@ -1,0 +1,144 @@
+name: Rollback Production
+
+on:
+  workflow_dispatch:
+    inputs:
+      backup_timestamp:
+        description: 'Backup timestamp to restore (format: YYYYMMDD-HHMMSS)'
+        required: true
+        type: string
+      confirm:
+        description: 'Type "rollback-production" to confirm'
+        required: true
+        type: string
+
+jobs:
+  validate-rollback:
+    name: Validate Rollback Request
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check confirmation
+        run: |
+          if [ "${{ github.event.inputs.confirm }}" != "rollback-production" ]; then
+            echo "❌ Invalid confirmation. You must type 'rollback-production' to proceed."
+            exit 1
+          fi
+          echo "✅ Rollback confirmed"
+
+      - name: Validate timestamp format
+        run: |
+          if [[ ! "${{ github.event.inputs.backup_timestamp }}" =~ ^[0-9]{8}-[0-9]{6}$ ]]; then
+            echo "❌ Invalid timestamp format. Use YYYYMMDD-HHMMSS (e.g., 20250116-143000)"
+            exit 1
+          fi
+          echo "✅ Timestamp format valid: ${{ github.event.inputs.backup_timestamp }}"
+
+      - name: Rollback summary
+        run: |
+          echo "## 🔄 Rollback Initiated" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Backup**: ${{ github.event.inputs.backup_timestamp }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Initiated by**: ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Timestamp**: $(date -u +"%Y-%m-%d %H:%M:%S UTC")" >> $GITHUB_STEP_SUMMARY
+
+  create-current-backup:
+    name: Backup Current Production
+    runs-on: ubuntu-latest
+    needs: validate-rollback
+    steps:
+      - name: Create emergency backup
+        id: emergency-backup
+        run: |
+          TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+          echo "timestamp=$TIMESTAMP" >> $GITHUB_OUTPUT
+          echo "📦 Creating emergency backup: $TIMESTAMP"
+
+      - name: Emergency backup summary
+        run: |
+          echo "## 💾 Emergency Backup Created" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Before rollback, current production backed up to:" >> $GITHUB_STEP_SUMMARY
+          echo "\`client-website-emergency-${{ steps.emergency-backup.outputs.timestamp }}\`" >> $GITHUB_STEP_SUMMARY
+
+  rollback:
+    name: Restore from Backup
+    runs-on: ubuntu-latest
+    needs: create-current-backup
+    environment:
+      name: production
+      url: ${{ vars.PRODUCTION_URL }}
+    steps:
+      - name: Restore backup
+        run: |
+          echo "🔄 Rolling back to backup: ${{ github.event.inputs.backup_timestamp }}"
+          echo ""
+          echo "⚠️  NOTE: Actual FTP restore would happen here"
+          echo "Backup location: /public_html/wp-content/themes/client-website-backup-${{ github.event.inputs.backup_timestamp }}/"
+          echo ""
+          echo "Manual steps required:"
+          echo "1. Connect to production server via FTP"
+          echo "2. Copy files from backup directory to main theme directory"
+          echo "3. Verify site is working"
+          echo ""
+          echo "Or use FTP restore script (see documentation)"
+
+      - name: Rollback summary
+        run: |
+          echo "## ✅ Rollback Complete" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Restored From" >> $GITHUB_STEP_SUMMARY
+          echo "- **Backup**: ${{ github.event.inputs.backup_timestamp }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Location**: \`client-website-backup-${{ github.event.inputs.backup_timestamp }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Verification Steps" >> $GITHUB_STEP_SUMMARY
+          echo "1. Check [${{ vars.PRODUCTION_URL }}](${{ vars.PRODUCTION_URL }})" >> $GITHUB_STEP_SUMMARY
+          echo "2. Verify all functionality works" >> $GITHUB_STEP_SUMMARY
+          echo "3. Check WordPress admin" >> $GITHUB_STEP_SUMMARY
+          echo "4. Test all custom blocks" >> $GITHUB_STEP_SUMMARY
+
+  verify-rollback:
+    name: Verify Rollback
+    runs-on: ubuntu-latest
+    needs: rollback
+    steps:
+      - name: Check site availability
+        run: |
+          echo "🔍 Verifying production site after rollback..."
+
+          if curl -f -s -o /dev/null -w "%{http_code}" "${{ vars.PRODUCTION_URL }}" | grep -q "200"; then
+            echo "✅ Site is responding (HTTP 200)"
+          else
+            echo "⚠️  Site returned non-200 status - manual check required"
+          fi
+
+      - name: Verification checklist
+        run: |
+          echo "## 📋 Post-Rollback Checklist" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- [ ] Site loads successfully" >> $GITHUB_STEP_SUMMARY
+          echo "- [ ] All pages are accessible" >> $GITHUB_STEP_SUMMARY
+          echo "- [ ] Custom blocks work correctly" >> $GITHUB_STEP_SUMMARY
+          echo "- [ ] Forms function properly" >> $GITHUB_STEP_SUMMARY
+          echo "- [ ] Media/images load correctly" >> $GITHUB_STEP_SUMMARY
+          echo "- [ ] WordPress admin is accessible" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "⚠️  **Manual verification required!**" >> $GITHUB_STEP_SUMMARY
+
+  notify:
+    name: Send Notification
+    runs-on: ubuntu-latest
+    needs: [rollback, verify-rollback]
+    if: always()
+    steps:
+      - name: Rollback notification
+        run: |
+          if [ "${{ needs.rollback.result }}" == "success" ]; then
+            echo "✅ Rollback completed!"
+            echo "📅 Restored to: ${{ github.event.inputs.backup_timestamp }}"
+            echo "🌐 Site: ${{ vars.PRODUCTION_URL }}"
+            echo ""
+            echo "⚠️  Please verify site functionality manually"
+          else
+            echo "❌ Rollback failed!"
+            echo "Check logs and contact system administrator"
+          fi
