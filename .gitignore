@@ -95,6 +95,10 @@ wp-cli.local.yml
 *.sql.gz
 *.sqlite
 
+# wp-env (Local WordPress Development)
+.wp-env/
+.wp-env.override.json
+
 # OS Generated
 .DS_Store
 .DS_Store?

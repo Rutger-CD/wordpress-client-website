@@ -10,6 +10,8 @@ Custom WordPress website met volledige design system, 5 custom Gutenberg blocks,
 
 ## 🚀 Quick Start
 
+### Local Development with wp-env (Recommended)
+
 ```bash
 # 1. Clone repository
 git clone https://github.com/Rutger-CD/wordpress-client-website.git
@@ -18,12 +20,40 @@ cd wordpress-client-website
 # 2. Install dependencies
 cd blocks
 npm install
-
-# 3. Build blocks
 npm run build
+cd ..
 
-# 4. Development mode (watch)
+# 3. Start WordPress (requires Docker)
+npm install -g @wordpress/env
+wp-env start
+
+# 4. Access WordPress
+# Site: http://localhost:8888
+# Admin: http://localhost:8888/wp-admin (admin/password)
+
+# 5. Start block development (in separate terminal)
+cd blocks
 npm start
+```
+
+**See [docs/LOCAL-DEVELOPMENT.md](docs/LOCAL-DEVELOPMENT.md)** for complete guide including database management, troubleshooting, and deployment workflow.
+
+### Development Workflow
+
+```
+Local (wp-env)
+    ↓
+    git push → feature branch
+    ↓
+    PR to develop
+    ↓
+Staging (auto-deploy)
+    ↓
+    Client approval
+    ↓
+    Merge to main
+    ↓
+Production (manual deploy)
 ```
 
 ## 📁 Project Structure

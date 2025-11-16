@@ -10,19 +10,34 @@ git clone https://github.com/Rutger-CD/wordpress-client-website.git
 cd wordpress-client-website
 cd blocks && npm install && npm run build && cd ..
 
-# 2. Setup WordPress (choose option below)
-# 3. Activate theme
+# 2. Setup WordPress with wp-env (Recommended)
+npm install -g @wordpress/env
+wp-env start
+
+# 3. Access WordPress
+# Site: http://localhost:8888
+# Admin: http://localhost:8888/wp-admin (admin/password)
+
 # 4. Start developing!
+cd blocks && npm start
 ```
+
+**Full guide**: See [docs/LOCAL-DEVELOPMENT.md](docs/LOCAL-DEVELOPMENT.md) for complete wp-env guide with database management, troubleshooting, and advanced usage.
 
 ## Local WordPress Setup Options
 
-### Option 1: wp-env (Recommended for Block Development)
+### Option 1: wp-env (Recommended) ⭐
 
-**Voordelen**: Snel, geïsoleerd, geen MySQL install nodig
+**Voordelen**: Snel, geïsoleerd, geen MySQL install nodig, theme auto-sync
 
+**Prerequisites**:
+- Node.js 18+
+- npm
+- Docker Desktop ([https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop))
+
+**Setup**:
 ```bash
-# Install wp-env globally
+# Install wp-env globally (one-time)
 npm install -g @wordpress/env
 
 # Start WordPress environment
@@ -30,11 +45,30 @@ wp-env start
 
 # Site URLs:
 # WordPress: http://localhost:8888
-# Admin: http://localhost:8888/wp-admin (admin/password)
+# Admin: http://localhost:8888/wp-admin
+# Username: admin
+# Password: password
 
-# Stop environment
+# Stop environment (keeps data)
 wp-env stop
+
+# Destroy environment (removes all data)
+wp-env destroy
 ```
+
+**Configuration**:
+This project includes `.wp-env.json` with:
+- WordPress 6.4
+- PHP 8.0
+- Theme auto-sync (your git repo → wp-content/themes/client-website)
+- Debug mode enabled
+- Port 8888
+
+**See [docs/LOCAL-DEVELOPMENT.md](docs/LOCAL-DEVELOPMENT.md) for:**
+- Database management (export/import/reset)
+- Content sync from staging
+- Troubleshooting
+- Advanced usage
 
 ### Option 2: Local by Flywheel (Recommended for Full Site)
 
