@@ -4,20 +4,20 @@
  */
 
 /* Import component styles for editor preview */
-@import './style.css';
+@import "./style.css";
 
 .wp-block-client-website-hero .hero__heading,
 .wp-block-client-website-hero .hero__subheading,
 .wp-block-client-website-hero .hero__description {
-  cursor: text;
+	cursor: text;
 }
 
 .wp-block-client-website-hero .hero__actions .btn {
-  pointer-events: none;
+	pointer-events: none;
 }
 
 /* Editor-specific placeholder styling */
 .wp-block-client-website-hero .block-editor-rich-text__editable:empty::before {
-  color: var(--color-text-tertiary);
-  opacity: 0.6;
+	color: var(--color-text-tertiary);
+	opacity: 0.6;
 }

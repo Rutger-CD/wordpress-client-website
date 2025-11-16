@@ -1,0 +1,54 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "client-website/button",
+	"version": "1.0.0",
+	"title": "Button",
+	"category": "design",
+	"icon": "button",
+	"description": "A customizable button with multiple variants and sizes",
+	"keywords": [ "button", "cta", "link" ],
+	"textdomain": "client-website",
+	"attributes": {
+		"text": {
+			"type": "string",
+			"default": "Click me"
+		},
+		"url": {
+			"type": "string",
+			"default": ""
+		},
+		"variant": {
+			"type": "string",
+			"default": "primary",
+			"enum": [
+				"primary",
+				"secondary",
+				"tertiary",
+				"danger",
+				"success",
+				"outline"
+			]
+		},
+		"size": {
+			"type": "string",
+			"default": "medium",
+			"enum": [ "small", "medium", "large" ]
+		},
+		"openInNewTab": {
+			"type": "boolean",
+			"default": false
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": [ "left", "center", "right" ],
+		"spacing": {
+			"margin": true,
+			"padding": false
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./editor.css",
+	"style": "file:./style.css"
+}
