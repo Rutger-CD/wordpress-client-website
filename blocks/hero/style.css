@@ -1,0 +1,25 @@
+/**
+ * Hero Block - Frontend Styles
+ * Uses the hero component from the UI Component Library
+ */
+
+/* Import hero component styles */
+@import '../../components/hero/hero.css';
+
+/* Block-specific overrides if needed */
+.wp-block-client-website-hero {
+  margin: 0;
+}
+
+.wp-block-client-website-hero.alignfull {
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+
+.wp-block-client-website-hero.alignwide {
+  max-width: var(--container-xl, 1280px);
+  margin-left: auto;
+  margin-right: auto;
+}
