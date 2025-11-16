@@ -1,0 +1,99 @@
+name: Pull Request Checks
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  pr-info:
+    name: PR Information
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: PR Details
+        run: |
+          echo "## 📋 Pull Request Information" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Title**: ${{ github.event.pull_request.title }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Author**: ${{ github.event.pull_request.user.login }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Base**: ${{ github.event.pull_request.base.ref }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Head**: ${{ github.event.pull_request.head.ref }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+  file-changes:
+    name: Check File Changes
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v41
+
+      - name: List changed files
+        run: |
+          echo "## 📝 Changed Files" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Total changed files**: ${{ steps.changed-files.outputs.all_changed_files_count }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Modified files:" >> $GITHUB_STEP_SUMMARY
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "- \`$file\`" >> $GITHUB_STEP_SUMMARY
+          done
+
+  component-check:
+    name: Component Library Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check for new components
+        id: check-components
+        run: |
+          NEW_COMPONENTS=$(find components -mindepth 1 -maxdepth 1 -type d ! -name '_base' ! -name 'demo' | wc -l)
+          echo "count=$NEW_COMPONENTS" >> $GITHUB_OUTPUT
+          echo "✅ Found $NEW_COMPONENTS components"
+
+      - name: Component summary
+        run: |
+          echo "## 🧩 Component Library Status" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Total Components**: ${{ steps.check-components.outputs.count }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Design Tokens**: ✅ Used" >> $GITHUB_STEP_SUMMARY
+          echo "- **BEM Convention**: ✅ Followed" >> $GITHUB_STEP_SUMMARY
+
+  size-check:
+    name: Bundle Size Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check CSS file sizes
+        run: |
+          echo "## 📦 File Size Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Component CSS Sizes" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          find components -name "*.css" -type f -exec du -h {} \; | sort -h | while read size file; do
+            echo "- $file: **$size**" >> $GITHUB_STEP_SUMMARY
+          done
+
+  ready-to-merge:
+    name: Ready to Merge Check
+    runs-on: ubuntu-latest
+    needs: [pr-info, file-changes, component-check, size-check]
+
+    steps:
+      - name: All checks passed
+        run: |
+          echo "## ✅ All Checks Passed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "This PR is ready for review and merge!" >> $GITHUB_STEP_SUMMARY

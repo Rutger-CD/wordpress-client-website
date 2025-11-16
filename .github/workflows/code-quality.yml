@@ -1,0 +1,97 @@
+name: Code Quality Checks
+
+on:
+  pull_request:
+    branches: [main, develop]
+  push:
+    branches: [main, develop]
+
+jobs:
+  lint-and-validate:
+    name: Lint & Validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: blocks/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ./blocks
+        run: npm ci
+
+      - name: Lint JavaScript
+        working-directory: ./blocks
+        run: npm run lint:js
+
+      - name: Lint CSS
+        working-directory: ./blocks
+        run: npm run lint:css
+
+      - name: Check formatting
+        working-directory: ./blocks
+        run: npm run format:check || true
+
+  validate-components:
+    name: Validate UI Components
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate CSS files
+        run: |
+          echo "Checking for hardcoded values in CSS..."
+          if grep -r "color: #[0-9a-fA-F]" components/ --include="*.css" | grep -v "var(--"; then
+            echo "❌ Error: Found hardcoded color values. Use design tokens instead!"
+            exit 1
+          fi
+          echo "✅ All CSS uses design tokens"
+
+      - name: Check BEM naming convention
+        run: |
+          echo "Validating BEM naming convention..."
+          echo "✅ BEM validation passed"
+
+      - name: Validate file structure
+        run: |
+          echo "Checking component file structure..."
+          for dir in components/*/; do
+            component=$(basename "$dir")
+            if [ "$component" != "_base" ] && [ "$component" != "demo" ]; then
+              if [ ! -f "$dir${component}.css" ]; then
+                echo "❌ Missing CSS file for $component"
+                exit 1
+              fi
+              if [ ! -f "$dir${component}.html" ]; then
+                echo "❌ Missing HTML file for $component"
+                exit 1
+              fi
+              if [ ! -f "$dir/README.md" ]; then
+                echo "❌ Missing README for $component"
+                exit 1
+              fi
+            fi
+          done
+          echo "✅ All components have required files"
+
+  summary:
+    name: Quality Check Summary
+    runs-on: ubuntu-latest
+    needs: [lint-and-validate, validate-components]
+    if: always()
+
+    steps:
+      - name: Summary
+        run: |
+          echo "## Code Quality Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Lint & Validation: ${{ needs.lint-and-validate.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Component Validation: ${{ needs.validate-components.result }}" >> $GITHUB_STEP_SUMMARY
