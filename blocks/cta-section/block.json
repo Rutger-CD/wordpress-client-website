@@ -1,51 +1,51 @@
 {
-  "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 3,
-  "name": "client-website/cta-section",
-  "version": "1.0.0",
-  "title": "CTA Section",
-  "category": "design",
-  "icon": "megaphone",
-  "description": "A call-to-action section with heading, description, and button",
-  "keywords": ["cta", "call to action", "banner", "promo"],
-  "textdomain": "client-website",
-  "attributes": {
-    "heading": {
-      "type": "string",
-      "default": "Ready to get started?"
-    },
-    "description": {
-      "type": "string",
-      "default": "Join thousands of satisfied customers today"
-    },
-    "buttonText": {
-      "type": "string",
-      "default": "Get Started"
-    },
-    "buttonUrl": {
-      "type": "string",
-      "default": ""
-    },
-    "backgroundColor": {
-      "type": "string",
-      "default": "primary",
-      "enum": ["primary", "secondary", "neutral", "gradient"]
-    },
-    "textAlignment": {
-      "type": "string",
-      "default": "center",
-      "enum": ["left", "center"]
-    }
-  },
-  "supports": {
-    "html": false,
-    "align": ["wide", "full"],
-    "spacing": {
-      "margin": true,
-      "padding": true
-    }
-  },
-  "editorScript": "file:./index.js",
-  "editorStyle": "file:./editor.css",
-  "style": "file:./style.css"
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "client-website/cta-section",
+	"version": "1.0.0",
+	"title": "CTA Section",
+	"category": "design",
+	"icon": "megaphone",
+	"description": "A call-to-action section with heading, description, and button",
+	"keywords": [ "cta", "call to action", "banner", "promo" ],
+	"textdomain": "client-website",
+	"attributes": {
+		"heading": {
+			"type": "string",
+			"default": "Ready to get started?"
+		},
+		"description": {
+			"type": "string",
+			"default": "Join thousands of satisfied customers today"
+		},
+		"buttonText": {
+			"type": "string",
+			"default": "Get Started"
+		},
+		"buttonUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"backgroundColor": {
+			"type": "string",
+			"default": "primary",
+			"enum": [ "primary", "secondary", "neutral", "gradient" ]
+		},
+		"textAlignment": {
+			"type": "string",
+			"default": "center",
+			"enum": [ "left", "center" ]
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./editor.css",
+	"style": "file:./style.css"
 }

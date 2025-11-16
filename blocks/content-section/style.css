@@ -2,36 +2,58 @@
  * Content Section Block - Frontend Styles
  */
 
-@import '../../components/content-section/content-section.css';
+@import "../../components/content-section/content-section.css";
 
 .wp-block-client-website-content-section {
-  margin: 0;
+	margin: 0;
 }
 
 /* Padding modifiers */
-.content-section--pt-none { padding-top: 0; }
-.content-section--pt-small { padding-top: var(--spacing-8); }
-.content-section--pt-medium { padding-top: var(--spacing-12); }
-.content-section--pt-large { padding-top: var(--spacing-16); }
+.content-section--pt-none {
+	padding-top: 0;
+}
 
-.content-section--pb-none { padding-bottom: 0; }
-.content-section--pb-small { padding-bottom: var(--spacing-8); }
-.content-section--pb-medium { padding-bottom: var(--spacing-12); }
-.content-section--pb-large { padding-bottom: var(--spacing-16); }
+.content-section--pt-small {
+	padding-top: var(--spacing-8);
+}
+
+.content-section--pt-medium {
+	padding-top: var(--spacing-12);
+}
+
+.content-section--pt-large {
+	padding-top: var(--spacing-16);
+}
+
+.content-section--pb-none {
+	padding-bottom: 0;
+}
+
+.content-section--pb-small {
+	padding-bottom: var(--spacing-8);
+}
+
+.content-section--pb-medium {
+	padding-bottom: var(--spacing-12);
+}
+
+.content-section--pb-large {
+	padding-bottom: var(--spacing-16);
+}
 
 /* Width modifiers */
 .content-section--contained .content-section__container {
-  max-width: var(--container-lg);
-  margin-left: auto;
-  margin-right: auto;
+	max-width: var(--container-lg);
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .content-section--wide .content-section__container {
-  max-width: var(--container-xl);
-  margin-left: auto;
-  margin-right: auto;
+	max-width: var(--container-xl);
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .content-section--full .content-section__container {
-  max-width: 100%;
+	max-width: 100%;
 }

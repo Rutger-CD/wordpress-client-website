@@ -4,30 +4,30 @@
  */
 
 .cta-section__help {
-  margin-top: var(--spacing-2);
-  font-size: var(--text-sm);
-  color: currentColor;
-  font-style: italic;
-  opacity: 0.7;
+	margin-top: var(--spacing-2);
+	font-size: var(--text-sm);
+	color: currentcolor;
+	font-style: italic;
+	opacity: 0.7;
 }
 
 /* Editor-specific button styles */
 .editor-styles-wrapper .cta-section .button {
-  cursor: text;
-  user-select: text;
+	cursor: text;
+	user-select: text;
 }
 
 .editor-styles-wrapper .cta-section .button:hover {
-  transform: none;
+	transform: none;
 }
 
 /* Rich text placeholder */
 .editor-styles-wrapper .cta-section .button.is-selected {
-  outline: 2px solid rgba(255, 255, 255, 0.5);
-  outline-offset: 2px;
+	outline: 2px solid rgba(255, 255, 255, 0.5);
+	outline-offset: 2px;
 }
 
 /* Editor preview */
 .editor-styles-wrapper .cta-section {
-  min-height: 300px;
+	min-height: 300px;
 }
