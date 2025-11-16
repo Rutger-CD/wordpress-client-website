@@ -48,7 +48,7 @@
 			"padding": false
 		}
 	},
-	"editorScript": "file:./index.js",
+	"editorScript": "file:../build/button/index.js",
 	"editorStyle": "file:./editor.css",
 	"style": "file:./style.css"
 }

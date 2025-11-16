@@ -61,6 +61,8 @@ Thumbs.db
 *.map
 /dist/
 /build/
+# Exception: Include compiled WordPress blocks
+!/blocks/build/
 
 # Temporary & Backup Files
 *.tmp
