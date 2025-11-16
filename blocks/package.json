@@ -1,0 +1,31 @@
+{
+  "name": "client-website-blocks",
+  "version": "1.0.0",
+  "description": "Custom Gutenberg blocks for Client Website using UI Component Library",
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start",
+    "format": "wp-scripts format",
+    "format:check": "wp-scripts format --check",
+    "lint:css": "wp-scripts lint-style '**/*.css'",
+    "lint:js": "wp-scripts lint-js '**/*.js'",
+    "lint": "npm run lint:js && npm run lint:css"
+  },
+  "keywords": [
+    "wordpress",
+    "gutenberg",
+    "blocks"
+  ],
+  "author": "Craft Digital",
+  "license": "GPL-2.0-or-later",
+  "devDependencies": {
+    "@wordpress/scripts": "^27.0.0"
+  },
+  "dependencies": {
+    "@wordpress/block-editor": "^12.0.0",
+    "@wordpress/blocks": "^12.0.0",
+    "@wordpress/components": "^25.0.0",
+    "@wordpress/element": "^5.0.0",
+    "@wordpress/i18n": "^4.0.0"
+  }
+}
