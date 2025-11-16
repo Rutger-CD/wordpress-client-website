@@ -1,0 +1,27 @@
+/**
+ * Button Block Editor Styles
+ * Styles specific to the Gutenberg editor
+ */
+
+.button-block__help {
+	margin-top: var(--spacing-2);
+	font-size: var(--text-sm);
+	color: var(--color-text-secondary);
+	font-style: italic;
+}
+
+/* Editor-specific button styles */
+.editor-styles-wrapper .button-block .button {
+	cursor: text;
+	user-select: text;
+}
+
+.editor-styles-wrapper .button-block .button:hover {
+	transform: none;
+}
+
+/* Rich text placeholder */
+.editor-styles-wrapper .button-block .button.is-selected {
+	outline: 2px solid var(--color-primary-500);
+	outline-offset: 2px;
+}

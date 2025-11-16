@@ -1,0 +1,44 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "client-website/content-section",
+	"version": "1.0.0",
+	"title": "Content Section",
+	"category": "design",
+	"icon": "layout",
+	"description": "A flexible content section wrapper with width and spacing controls.",
+	"keywords": [ "section", "container", "wrapper", "layout" ],
+	"textdomain": "client-website",
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"attributes": {
+		"width": {
+			"type": "string",
+			"default": "contained",
+			"enum": [ "contained", "wide", "full" ]
+		},
+		"paddingTop": {
+			"type": "string",
+			"default": "large",
+			"enum": [ "none", "small", "medium", "large" ]
+		},
+		"paddingBottom": {
+			"type": "string",
+			"default": "large",
+			"enum": [ "none", "small", "medium", "large" ]
+		},
+		"backgroundColor": {
+			"type": "string",
+			"default": "default"
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./editor.css",
+	"style": "file:./style.css"
+}

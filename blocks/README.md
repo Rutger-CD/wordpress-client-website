@@ -202,8 +202,23 @@ add_action( 'enqueue_block_editor_assets', 'client_website_enqueue_component_sty
 - [ ] Accessibility: keyboard navigation works
 - [ ] Accessibility: screen reader announces correctly
 
+## Implementation Status
+
+✅ **Completed Blocks**:
+1. Hero Block - Full implementation with 3 variants and alignment options
+2. Content Section Block - InnerBlocks support with width and spacing controls
+3. Button Block - 6 variants, 3 sizes, URL controls
+4. Card Grid Block - Responsive grid with repeater, 2-4 columns
+5. CTA Section Block - 4 background options, text alignment
+
 ## Notes
 - Alle blocks gebruiken BEM naming convention
 - Alle blocks gebruiken design tokens (geen hardcoded waarden)
 - Blocks zijn server-side rendered voor betere performance
 - Block styles zijn gescheiden (editor.css vs style.css)
+- Alle blocks integreren met UI Component Library
+
+## Resources
+- [WordPress Block Editor Handbook](https://developer.wordpress.org/block-editor/)
+- [@wordpress/scripts Documentation](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-scripts/)
+- [UI Component Library](../components/README.md)
