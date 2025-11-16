@@ -1,0 +1,25 @@
+/*
+Theme Name: Client Website
+Theme URI: https://github.com/Rutger-CD/wordpress-client-website
+Description: Custom WordPress theme met 5 custom Gutenberg blocks en complete UI Component Library. Built with modern WordPress block editor.
+Author: Craft Digital
+Author URI: https://craft-digital.nl
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.4
+Requires PHP: 8.0
+License: GPL-2.0-or-later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: client-website
+Tags: block-theme, custom-blocks, gutenberg, modern, responsive
+
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned.
+*/
+
+/**
+ * This is a block theme that uses custom Gutenberg blocks.
+ * All styling is handled by the individual blocks and components.
+ * See /blocks/ for block-specific styles.
+ * See /components/ for component styles.
+ */
