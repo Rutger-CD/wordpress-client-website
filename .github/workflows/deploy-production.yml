@@ -19,10 +19,7 @@ jobs:
           echo "==================================="
           echo "Input value: [${{ github.event.inputs.confirm }}]"
           echo "Expected value: [deploy-to-production]"
-          echo "Input length: ${#INPUT_VALUE}"
           echo "==================================="
-        env:
-          INPUT_VALUE: ${{ github.event.inputs.confirm }}
 
       - name: Check confirmation input
         run: |
