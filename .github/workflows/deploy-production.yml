@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       confirm:
-        description: 'Type "deploy-to-production" to confirm deployment'
+        description: 'Type "deploy-to-production" to confirm'
         required: true
         type: string
 
