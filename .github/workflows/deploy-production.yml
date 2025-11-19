@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       confirm:
-        description: 'Type "deploy-to-production" to confirm'
+        description: Type deploy-to-production to confirm
         required: true
         type: string
 
@@ -47,8 +47,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: 18
+          cache: npm
           cache-dependency-path: blocks/package-lock.json
 
       - name: Get version
@@ -122,8 +122,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: 20
+          cache: npm
 
       - name: Install root dependencies
         run: npm install
@@ -176,7 +176,6 @@ jobs:
         run: |
           echo "🔍 Verifying production deployment..."
 
-          # Check if site is reachable
           if curl -f -s -o /dev/null -w "%{http_code}" "${{ vars.PRODUCTION_URL }}" | grep -q "200"; then
             echo "✅ Production site is reachable (HTTP 200)"
           else
