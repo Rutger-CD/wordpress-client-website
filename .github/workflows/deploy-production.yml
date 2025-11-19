@@ -6,7 +6,6 @@ on:
       confirm:
         description: Type deploy-to-production to confirm
         required: true
-        type: string
 
 jobs:
   validate-input:
