@@ -7,6 +7,7 @@
  * - button
  * - card-grid
  * - cta-section
+ * - testimonial
  */
 
 const defaultConfig = require('@wordpress/scripts/config/webpack.config');
@@ -20,6 +21,7 @@ module.exports = {
 		'button/index': path.resolve(__dirname, 'button', 'index.js'),
 		'card-grid/index': path.resolve(__dirname, 'card-grid', 'index.js'),
 		'cta-section/index': path.resolve(__dirname, 'cta-section', 'index.js'),
+		'testimonial/index': path.resolve(__dirname, 'testimonial', 'index.js'),
 	},
 	output: {
 		filename: '[name].js',

@@ -1,0 +1,60 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "client-website/testimonial",
+	"version": "1.0.0",
+	"title": "Testimonial",
+	"category": "client-website-blocks",
+	"icon": "format-quote",
+	"description": "Display customer testimonials with quote, author, role, and optional image.",
+	"keywords": [ "testimonial", "quote", "review", "customer" ],
+	"textdomain": "client-website",
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"attributes": {
+		"quote": {
+			"type": "string",
+			"default": "This product has completely transformed our business. The team was professional, responsive, and delivered beyond our expectations."
+		},
+		"authorName": {
+			"type": "string",
+			"default": "John Doe"
+		},
+		"authorRole": {
+			"type": "string",
+			"default": "CEO, Company Name"
+		},
+		"authorImageUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"authorImageId": {
+			"type": "number",
+			"default": 0
+		},
+		"rating": {
+			"type": "number",
+			"default": 5,
+			"minimum": 1,
+			"maximum": 5
+		},
+		"variant": {
+			"type": "string",
+			"default": "default",
+			"enum": [ "default", "card", "minimal" ]
+		},
+		"showRating": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"editorScript": "file:../build/testimonial/index.js",
+	"editorStyle": "file:./editor.css",
+	"style": "file:./style.css"
+}

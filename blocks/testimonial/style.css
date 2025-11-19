@@ -1,0 +1,24 @@
+/**
+ * Testimonial Block - Frontend Styles
+ * Uses the testimonial component from the UI Component Library
+ */
+
+/* Import testimonial component styles */
+
+/* Block-specific overrides if needed */
+.wp-block-client-website-testimonial {
+	margin: 0;
+}
+
+.wp-block-client-website-testimonial.alignfull {
+	width: 100vw;
+	max-width: 100vw;
+	margin-left: calc(50% - 50vw);
+	margin-right: calc(50% - 50vw);
+}
+
+.wp-block-client-website-testimonial.alignwide {
+	max-width: var(--container-xl, 1280px);
+	margin-left: auto;
+	margin-right: auto;
+}

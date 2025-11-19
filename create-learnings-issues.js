@@ -174,10 +174,10 @@ In GitHub Settings → Secrets and variables → Actions → Variables tab:
 Change:
 \`\`\`yaml
 # Van:
-${{ secrets.STAGING_URL }}
+\${{ secrets.STAGING_URL }}
 
 # Naar:
-${{ vars.STAGING_URL }}
+\${{ vars.STAGING_URL }}
 \`\`\`
 
 ### Stap 3: Test & Cleanup

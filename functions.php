@@ -19,7 +19,8 @@ function client_website_register_blocks() {
         'content-section',
         'card-grid',
         'button',
-        'cta-section'
+        'cta-section',
+        'testimonial'
     ];
 
     foreach ($blocks as $block) {
