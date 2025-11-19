@@ -32,7 +32,8 @@ sitemap.xml.gz
 node_modules/
 npm-debug.log
 yarn-error.log
-package-lock.json
+# Keep package-lock.json for CI/CD npm cache
+# package-lock.json
 yarn.lock
 
 # Composer
