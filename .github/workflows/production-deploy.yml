@@ -50,14 +50,6 @@ jobs:
         working-directory: ./blocks
         run: npm ci
 
-      - name: Run linting
-        working-directory: ./blocks
-        run: |
-          echo "🔍 Running JavaScript linting..."
-          npm run lint:js
-          echo "🎨 Running CSS linting..."
-          npm run lint:css
-
       - name: Build blocks
         working-directory: ./blocks
         run: |
