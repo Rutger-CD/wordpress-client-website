@@ -61,6 +61,8 @@ Thumbs.db
 *.map
 /dist/
 /build/
+# Exception: Include compiled WordPress blocks
+!/blocks/build/
 
 # Temporary & Backup Files
 *.tmp
@@ -95,6 +97,10 @@ wp-cli.local.yml
 *.sql.gz
 *.sqlite
 
+# wp-env (Local WordPress Development)
+.wp-env/
+.wp-env.override.json
+
 # OS Generated
 .DS_Store
 .DS_Store?
@@ -119,3 +125,29 @@ Thumbs.db
 !README.md
 !DEVELOPMENT-GUARDRAILS.md
 !CHANGELOG.md
+
+# Deployment & Utility Scripts (WITH SECRETS - DO NOT COMMIT!)
+get-cra*.js
+update-cra*.js
+create-*-pr.js
+merge-*-pr.js
+check-*.js
+test-*.js
+*-pr.js
+test-*.php
+clear-*.php
+force-*.php
+enable-*.js
+extract-*.js
+install-*.js
+upload-*.js
+update-wp-*.js
+open-pr.html
+
+# Deployment Scripts (SAFE - No secrets)
+!deploy-theme-staging.js
+!deploy-theme-production.js
+!deploy-blocks-complete.js
+!deploy-blocks-production.js
+!fix-block-css-imports.js
+!load-env.js

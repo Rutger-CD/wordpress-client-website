@@ -1,0 +1,43 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "client-website/card-grid",
+	"version": "1.0.0",
+	"title": "Card Grid",
+	"category": "client-website-blocks",
+	"icon": "grid-view",
+	"description": "A responsive grid of cards with images, titles, descriptions, and links",
+	"keywords": [ "cards", "grid", "features", "services" ],
+	"textdomain": "client-website",
+	"attributes": {
+		"columns": {
+			"type": "number",
+			"default": 3,
+			"enum": [ 2, 3, 4 ]
+		},
+		"cards": {
+			"type": "array",
+			"default": [
+				{
+					"id": 1,
+					"image": "",
+					"title": "Card Title",
+					"description": "Card description goes here",
+					"linkUrl": "",
+					"linkText": "Learn more"
+				}
+			]
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"editorScript": "file:../build/card-grid/index.js",
+	"editorStyle": "file:./editor.css",
+	"style": "file:./style.css"
+}

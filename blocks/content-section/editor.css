@@ -1,0 +1,4 @@
+.wp-block-client-website-content-section {
+	border: 1px dashed var(--color-border);
+	min-height: 100px;
+}

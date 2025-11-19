@@ -1,0 +1,63 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "client-website/hero",
+	"version": "1.0.0",
+	"title": "Hero Section",
+	"category": "client-website-blocks",
+	"icon": "cover-image",
+	"description": "A hero section with gradient background, heading, text and CTA buttons.",
+	"keywords": [ "hero", "banner", "header", "cta" ],
+	"textdomain": "client-website",
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"attributes": {
+		"heading": {
+			"type": "string",
+			"default": "Welcome to Our Website"
+		},
+		"subheading": {
+			"type": "string",
+			"default": "Build something amazing"
+		},
+		"description": {
+			"type": "string",
+			"default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+		},
+		"primaryButtonText": {
+			"type": "string",
+			"default": "Get Started"
+		},
+		"primaryButtonUrl": {
+			"type": "string",
+			"default": "#"
+		},
+		"secondaryButtonText": {
+			"type": "string",
+			"default": "Learn More"
+		},
+		"secondaryButtonUrl": {
+			"type": "string",
+			"default": "#"
+		},
+		"variant": {
+			"type": "string",
+			"default": "gradient",
+			"enum": [ "gradient", "solid", "minimal" ]
+		},
+		"alignment": {
+			"type": "string",
+			"default": "center",
+			"enum": [ "left", "center" ]
+		}
+	},
+	"editorScript": "file:../build/hero/index.js",
+	"editorStyle": "file:./editor.css",
+	"style": "file:./style.css"
+}

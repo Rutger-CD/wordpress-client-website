@@ -1,0 +1,456 @@
+<!-- ===================================
+ * RADIO COMPONENT
+ * Radio buttons, radio groups, and radio cards
+ * =================================== -->
+
+<!-- Basic Radio Buttons -->
+<div class="demo-section">
+  <h3>Basic Radio Buttons</h3>
+
+  <div style="display: flex; flex-direction: column; gap: var(--spacing-3);">
+    <label class="radio">
+      <input type="radio" class="radio__input" name="basic-radio" value="option1" checked />
+      <span class="radio__circle">
+        <span class="radio__dot"></span>
+      </span>
+      <span class="radio__label">Option 1</span>
+    </label>
+
+    <label class="radio">
+      <input type="radio" class="radio__input" name="basic-radio" value="option2" />
+      <span class="radio__circle">
+        <span class="radio__dot"></span>
+      </span>
+      <span class="radio__label">Option 2</span>
+    </label>
+
+    <label class="radio">
+      <input type="radio" class="radio__input" name="basic-radio" value="option3" />
+      <span class="radio__circle">
+        <span class="radio__dot"></span>
+      </span>
+      <span class="radio__label">Option 3</span>
+    </label>
+  </div>
+</div>
+
+<!-- Radio Sizes -->
+<div class="demo-section">
+  <h3>Radio Sizes</h3>
+
+  <div style="display: flex; flex-direction: column; gap: var(--spacing-4);">
+    <!-- Small -->
+    <div style="display: flex; flex-direction: column; gap: var(--spacing-2);">
+      <label class="radio radio--small">
+        <input type="radio" class="radio__input" name="size-small" value="s1" checked />
+        <span class="radio__circle">
+          <span class="radio__dot"></span>
+        </span>
+        <span class="radio__label">Small radio button</span>
+      </label>
+
+      <label class="radio radio--small">
+        <input type="radio" class="radio__input" name="size-small" value="s2" />
+        <span class="radio__circle">
+          <span class="radio__dot"></span>
+        </span>
+        <span class="radio__label">Small option 2</span>
+      </label>
+    </div>
+
+    <!-- Medium (default) -->
+    <div style="display: flex; flex-direction: column; gap: var(--spacing-2);">
+      <label class="radio">
+        <input type="radio" class="radio__input" name="size-medium" value="m1" checked />
+        <span class="radio__circle">
+          <span class="radio__dot"></span>
+        </span>
+        <span class="radio__label">Medium radio button (default)</span>
+      </label>
+
+      <label class="radio">
+        <input type="radio" class="radio__input" name="size-medium" value="m2" />
+        <span class="radio__circle">
+          <span class="radio__dot"></span>
+        </span>
+        <span class="radio__label">Medium option 2</span>
+      </label>
+    </div>
+
+    <!-- Large -->
+    <div style="display: flex; flex-direction: column; gap: var(--spacing-2);">
+      <label class="radio radio--large">
+        <input type="radio" class="radio__input" name="size-large" value="l1" checked />
+        <span class="radio__circle">
+          <span class="radio__dot"></span>
+        </span>
+        <span class="radio__label">Large radio button</span>
+      </label>
+
+      <label class="radio radio--large">
+        <input type="radio" class="radio__input" name="size-large" value="l2" />
+        <span class="radio__circle">
+          <span class="radio__dot"></span>
+        </span>
+        <span class="radio__label">Large option 2</span>
+      </label>
+    </div>
+  </div>
+</div>
+
+<!-- Radio States -->
+<div class="demo-section">
+  <h3>Radio States</h3>
+
+  <div style="display: flex; flex-direction: column; gap: var(--spacing-3);">
+    <!-- Selected -->
+    <label class="radio">
+      <input type="radio" class="radio__input" name="states" value="selected" checked />
+      <span class="radio__circle">
+        <span class="radio__dot"></span>
+      </span>
+      <span class="radio__label">Selected</span>
+    </label>
+
+    <!-- Unselected -->
+    <label class="radio">
+      <input type="radio" class="radio__input" name="states" value="unselected" />
+      <span class="radio__circle">
+        <span class="radio__dot"></span>
+      </span>
+      <span class="radio__label">Unselected</span>
+    </label>
+
+    <!-- Disabled Unselected -->
+    <label class="radio">
+      <input type="radio" class="radio__input" name="disabled-states" value="d1" disabled />
+      <span class="radio__circle">
+        <span class="radio__dot"></span>
+      </span>
+      <span class="radio__label">Disabled unselected</span>
+    </label>
+
+    <!-- Disabled Selected -->
+    <label class="radio">
+      <input type="radio" class="radio__input" name="disabled-states" value="d2" checked disabled />
+      <span class="radio__circle">
+        <span class="radio__dot"></span>
+      </span>
+      <span class="radio__label">Disabled selected</span>
+    </label>
+  </div>
+</div>
+
+<!-- Error State -->
+<div class="demo-section">
+  <h3>Error State</h3>
+
+  <div style="display: flex; flex-direction: column; gap: var(--spacing-3);">
+    <label class="radio radio--error">
+      <input type="radio" class="radio__input" name="error-radio" value="e1" />
+      <span class="radio__circle">
+        <span class="radio__dot"></span>
+      </span>
+      <span class="radio__label">Option 1</span>
+    </label>
+
+    <label class="radio radio--error">
+      <input type="radio" class="radio__input" name="error-radio" value="e2" />
+      <span class="radio__circle">
+        <span class="radio__dot"></span>
+      </span>
+      <span class="radio__label">Option 2</span>
+    </label>
+  </div>
+</div>
+
+<!-- Radio Group (Vertical) -->
+<div class="demo-section">
+  <h3>Radio Group (Vertical)</h3>
+
+  <div class="radio-group">
+    <label class="radio-group__label">Select a payment method</label>
+
+    <label class="radio">
+      <input type="radio" class="radio__input" name="payment" value="card" checked />
+      <span class="radio__circle">
+        <span class="radio__dot"></span>
+      </span>
+      <span class="radio__label">Credit Card</span>
+    </label>
+
+    <label class="radio">
+      <input type="radio" class="radio__input" name="payment" value="paypal" />
+      <span class="radio__circle">
+        <span class="radio__dot"></span>
+      </span>
+      <span class="radio__label">PayPal</span>
+    </label>
+
+    <label class="radio">
+      <input type="radio" class="radio__input" name="payment" value="bank" />
+      <span class="radio__circle">
+        <span class="radio__dot"></span>
+      </span>
+      <span class="radio__label">Bank Transfer</span>
+    </label>
+
+    <label class="radio">
+      <input type="radio" class="radio__input" name="payment" value="crypto" />
+      <span class="radio__circle">
+        <span class="radio__dot"></span>
+      </span>
+      <span class="radio__label">Cryptocurrency</span>
+    </label>
+
+    <span class="radio-group__helper">Choose your preferred payment option.</span>
+  </div>
+</div>
+
+<!-- Radio Group (Inline) -->
+<div class="demo-section">
+  <h3>Radio Group (Inline)</h3>
+
+  <div class="radio-group radio-group--inline">
+    <label class="radio-group__label" style="width: 100%;">Select size</label>
+
+    <label class="radio">
+      <input type="radio" class="radio__input" name="size" value="xs" />
+      <span class="radio__circle">
+        <span class="radio__dot"></span>
+      </span>
+      <span class="radio__label">XS</span>
+    </label>
+
+    <label class="radio">
+      <input type="radio" class="radio__input" name="size" value="s" />
+      <span class="radio__circle">
+        <span class="radio__dot"></span>
+      </span>
+      <span class="radio__label">S</span>
+    </label>
+
+    <label class="radio">
+      <input type="radio" class="radio__input" name="size" value="m" checked />
+      <span class="radio__circle">
+        <span class="radio__dot"></span>
+      </span>
+      <span class="radio__label">M</span>
+    </label>
+
+    <label class="radio">
+      <input type="radio" class="radio__input" name="size" value="l" />
+      <span class="radio__circle">
+        <span class="radio__dot"></span>
+      </span>
+      <span class="radio__label">L</span>
+    </label>
+
+    <label class="radio">
+      <input type="radio" class="radio__input" name="size" value="xl" />
+      <span class="radio__circle">
+        <span class="radio__dot"></span>
+      </span>
+      <span class="radio__label">XL</span>
+    </label>
+  </div>
+</div>
+
+<!-- Required Radio Group -->
+<div class="demo-section">
+  <h3>Required Radio Group</h3>
+
+  <div class="radio-group radio-group--error">
+    <label class="radio-group__label radio-group__label--required">
+      Select your subscription plan
+    </label>
+
+    <label class="radio radio--error">
+      <input type="radio" class="radio__input" name="plan-required" value="free" required />
+      <span class="radio__circle">
+        <span class="radio__dot"></span>
+      </span>
+      <span class="radio__label">Free - $0/month</span>
+    </label>
+
+    <label class="radio radio--error">
+      <input type="radio" class="radio__input" name="plan-required" value="basic" required />
+      <span class="radio__circle">
+        <span class="radio__dot"></span>
+      </span>
+      <span class="radio__label">Basic - $9/month</span>
+    </label>
+
+    <label class="radio radio--error">
+      <input type="radio" class="radio__input" name="plan-required" value="pro" required />
+      <span class="radio__circle">
+        <span class="radio__dot"></span>
+      </span>
+      <span class="radio__label">Pro - $29/month</span>
+    </label>
+
+    <span class="radio-group__error-message">
+      Please select a subscription plan to continue.
+    </span>
+  </div>
+</div>
+
+<!-- Radio Card Variant -->
+<div class="demo-section">
+  <h3>Radio Card Variant</h3>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--spacing-4);">
+    <label class="radio radio--card">
+      <input type="radio" class="radio__input" name="plan-card" value="starter" checked />
+      <span class="radio__circle">
+        <span class="radio__dot"></span>
+      </span>
+      <div>
+        <div class="radio__label">Starter Plan</div>
+        <div class="radio__description">Perfect for individuals getting started. Includes basic features.</div>
+      </div>
+    </label>
+
+    <label class="radio radio--card">
+      <input type="radio" class="radio__input" name="plan-card" value="professional" />
+      <span class="radio__circle">
+        <span class="radio__dot"></span>
+      </span>
+      <div>
+        <div class="radio__label">Professional Plan</div>
+        <div class="radio__description">For growing teams. Advanced features and priority support.</div>
+      </div>
+    </label>
+
+    <label class="radio radio--card">
+      <input type="radio" class="radio__input" name="plan-card" value="enterprise" />
+      <span class="radio__circle">
+        <span class="radio__dot"></span>
+      </span>
+      <div>
+        <div class="radio__label">Enterprise Plan</div>
+        <div class="radio__description">Custom solutions for large organizations with dedicated support.</div>
+      </div>
+    </label>
+  </div>
+</div>
+
+<!-- Complete Form Example -->
+<div class="demo-section">
+  <h3>Survey Form Example</h3>
+
+  <form style="max-width: 600px;">
+    <div style="display: flex; flex-direction: column; gap: var(--spacing-5);">
+      <div class="input">
+        <label class="input__label input__label--required" for="survey-name">Full Name</label>
+        <input
+          type="text"
+          id="survey-name"
+          class="input__field"
+          placeholder="John Doe"
+          required
+        />
+      </div>
+
+      <div class="radio-group">
+        <label class="radio-group__label radio-group__label--required">
+          How did you hear about us?
+        </label>
+
+        <label class="radio">
+          <input type="radio" class="radio__input" name="source" value="search" required />
+          <span class="radio__circle">
+            <span class="radio__dot"></span>
+          </span>
+          <span class="radio__label">Search Engine</span>
+        </label>
+
+        <label class="radio">
+          <input type="radio" class="radio__input" name="source" value="social" required />
+          <span class="radio__circle">
+            <span class="radio__dot"></span>
+          </span>
+          <span class="radio__label">Social Media</span>
+        </label>
+
+        <label class="radio">
+          <input type="radio" class="radio__input" name="source" value="friend" required />
+          <span class="radio__circle">
+            <span class="radio__dot"></span>
+          </span>
+          <span class="radio__label">Friend Referral</span>
+        </label>
+
+        <label class="radio">
+          <input type="radio" class="radio__input" name="source" value="other" required />
+          <span class="radio__circle">
+            <span class="radio__dot"></span>
+          </span>
+          <span class="radio__label">Other</span>
+        </label>
+      </div>
+
+      <div class="radio-group radio-group--inline">
+        <label class="radio-group__label radio-group__label--required" style="width: 100%;">
+          How satisfied are you with our service?
+        </label>
+
+        <label class="radio">
+          <input type="radio" class="radio__input" name="satisfaction" value="1" required />
+          <span class="radio__circle">
+            <span class="radio__dot"></span>
+          </span>
+          <span class="radio__label">1</span>
+        </label>
+
+        <label class="radio">
+          <input type="radio" class="radio__input" name="satisfaction" value="2" required />
+          <span class="radio__circle">
+            <span class="radio__dot"></span>
+          </span>
+          <span class="radio__label">2</span>
+        </label>
+
+        <label class="radio">
+          <input type="radio" class="radio__input" name="satisfaction" value="3" required />
+          <span class="radio__circle">
+            <span class="radio__dot"></span>
+          </span>
+          <span class="radio__label">3</span>
+        </label>
+
+        <label class="radio">
+          <input type="radio" class="radio__input" name="satisfaction" value="4" required />
+          <span class="radio__circle">
+            <span class="radio__dot"></span>
+          </span>
+          <span class="radio__label">4</span>
+        </label>
+
+        <label class="radio">
+          <input type="radio" class="radio__input" name="satisfaction" value="5" required />
+          <span class="radio__circle">
+            <span class="radio__dot"></span>
+          </span>
+          <span class="radio__label">5</span>
+        </label>
+
+        <span class="radio-group__helper" style="width: 100%;">1 = Very Unsatisfied, 5 = Very Satisfied</span>
+      </div>
+
+      <div class="textarea">
+        <label class="textarea__label" for="survey-comments">Additional Comments</label>
+        <textarea
+          id="survey-comments"
+          class="textarea__field"
+          placeholder="Share your thoughts..."
+        ></textarea>
+      </div>
+
+      <div style="display: flex; gap: var(--spacing-3);">
+        <button type="submit" class="btn btn--primary">Submit Survey</button>
+        <button type="reset" class="btn btn--ghost">Clear</button>
+      </div>
+    </div>
+  </form>
+</div>

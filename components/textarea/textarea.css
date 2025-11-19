@@ -1,0 +1,248 @@
+/**
+ * TEXTAREA COMPONENT
+ *
+ * BEM Naming Convention:
+ * .textarea - Block
+ * .textarea__field - Element
+ * .textarea--error - Modifier
+ *
+ * All values use design tokens - NO hardcoded values!
+ */
+
+/* ===================================
+ * BASE TEXTAREA
+ * =================================== */
+
+.textarea {
+  position: relative;
+  width: 100%;
+}
+
+.textarea__field {
+  width: 100%;
+  min-height: 120px;
+  padding: var(--spacing-3) var(--spacing-4);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--font-normal);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-primary);
+  background-color: var(--color-background-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  resize: vertical;
+  transition: all var(--transition-base);
+  outline: none;
+}
+
+.textarea__field::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+/* ===================================
+ * STATES
+ * =================================== */
+
+/* Focus */
+.textarea__field:focus {
+  border-color: var(--color-primary-500);
+  box-shadow: 0 0 0 3px var(--color-primary-100);
+}
+
+/* Hover */
+.textarea__field:hover:not(:disabled):not(:focus) {
+  border-color: var(--color-border-dark);
+}
+
+/* Disabled */
+.textarea__field:disabled {
+  background-color: var(--color-neutral-100);
+  color: var(--color-text-tertiary);
+  cursor: not-allowed;
+  opacity: 0.6;
+  resize: none;
+}
+
+/* Error State */
+.textarea--error .textarea__field {
+  border-color: var(--color-danger-500);
+}
+
+.textarea--error .textarea__field:focus {
+  border-color: var(--color-danger-500);
+  box-shadow: 0 0 0 3px var(--color-danger-100);
+}
+
+/* Success State */
+.textarea--success .textarea__field {
+  border-color: var(--color-success-500);
+}
+
+.textarea--success .textarea__field:focus {
+  border-color: var(--color-success-500);
+  box-shadow: 0 0 0 3px var(--color-success-100);
+}
+
+/* ===================================
+ * SIZES
+ * =================================== */
+
+/* Small */
+.textarea--small .textarea__field {
+  min-height: 80px;
+  padding: var(--spacing-2) var(--spacing-3);
+  font-size: var(--text-sm);
+}
+
+/* Medium (default) */
+.textarea--medium .textarea__field {
+  min-height: 120px;
+  padding: var(--spacing-3) var(--spacing-4);
+  font-size: var(--text-base);
+}
+
+/* Large */
+.textarea--large .textarea__field {
+  min-height: 180px;
+  padding: var(--spacing-4) var(--spacing-5);
+  font-size: var(--text-lg);
+}
+
+/* ===================================
+ * RESIZE OPTIONS
+ * =================================== */
+
+.textarea--no-resize .textarea__field {
+  resize: none;
+}
+
+.textarea--resize-horizontal .textarea__field {
+  resize: horizontal;
+}
+
+.textarea--resize-both .textarea__field {
+  resize: both;
+}
+
+/* ===================================
+ * AUTO-RESIZE
+ * =================================== */
+
+.textarea--auto-resize .textarea__field {
+  overflow: hidden;
+  resize: none;
+}
+
+/* ===================================
+ * LABELS & HELPER TEXT
+ * =================================== */
+
+.textarea__label {
+  display: block;
+  margin-bottom: var(--spacing-2);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text-primary);
+}
+
+.textarea__label--required::after {
+  content: ' *';
+  color: var(--color-danger-500);
+}
+
+.textarea__helper {
+  display: block;
+  margin-top: var(--spacing-2);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.textarea__error-message {
+  display: block;
+  margin-top: var(--spacing-2);
+  font-size: var(--text-sm);
+  color: var(--color-danger-500);
+}
+
+.textarea__success-message {
+  display: block;
+  margin-top: var(--spacing-2);
+  font-size: var(--text-sm);
+  color: var(--color-success-500);
+}
+
+/* Hide helper text when error is shown */
+.textarea--error .textarea__helper {
+  display: none;
+}
+
+/* ===================================
+ * CHARACTER COUNTER
+ * =================================== */
+
+.textarea__counter {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--spacing-2);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.textarea__counter--warning {
+  color: var(--color-warning-500);
+}
+
+.textarea__counter--error {
+  color: var(--color-danger-500);
+}
+
+/* ===================================
+ * FOOTER (for counter + helper)
+ * =================================== */
+
+.textarea__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: var(--spacing-2);
+  gap: var(--spacing-3);
+}
+
+.textarea__footer .textarea__helper {
+  margin-top: 0;
+  flex: 1;
+}
+
+.textarea__footer .textarea__counter {
+  margin-top: 0;
+  flex-shrink: 0;
+}
+
+/* ===================================
+ * ACCESSIBILITY
+ * =================================== */
+
+/* Focus visible for keyboard navigation */
+.textarea__field:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .textarea__field {
+    border-width: 2px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .textarea__field {
+    transition: none;
+  }
+}
+
+/* Focus visible only on keyboard nav */
+.textarea__field:focus:not(:focus-visible) {
+  outline: none;
+}
