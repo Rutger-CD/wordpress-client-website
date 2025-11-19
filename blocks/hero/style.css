@@ -1,11 +1,159 @@
 /**
  * Hero Block - Frontend Styles
- * Uses the hero component from the UI Component Library
  */
 
-/* Import hero component styles */
+/* ===================================
+ * HERO COMPONENT STYLES
+ * =================================== */
 
-/* Block-specific overrides if needed */
+.hero {
+	padding: var(--spacing-24, 6rem) 0;
+	text-align: center;
+	color: var(--color-text-inverse, #ffffff);
+}
+
+.hero__container {
+	max-width: var(--container-lg, 1024px);
+	margin: 0 auto;
+	padding: 0 var(--spacing-6, 1.5rem);
+}
+
+.hero__content {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-6, 1.5rem);
+}
+
+.hero__subheading {
+	font-size: var(--text-lg, 1.125rem);
+	font-weight: var(--font-medium, 500);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	margin: 0;
+	opacity: 0.9;
+}
+
+.hero__heading {
+	font-size: var(--text-5xl, 3rem);
+	font-weight: var(--font-bold, 700);
+	line-height: var(--leading-tight, 1.2);
+	margin: 0;
+}
+
+.hero__description {
+	font-size: var(--text-xl, 1.25rem);
+	line-height: var(--leading-relaxed, 1.75);
+	margin: 0;
+	opacity: 0.95;
+	max-width: 42rem;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.hero__actions {
+	display: flex;
+	gap: var(--spacing-4, 1rem);
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+/* ===================================
+ * VARIANT MODIFIERS
+ * =================================== */
+
+/* Gradient variant (default) */
+.hero--gradient {
+	background: linear-gradient(135deg, var(--color-primary-500, #0ea5e9), var(--color-secondary-500, #a855f7));
+}
+
+/* Solid variant */
+.hero--solid {
+	background: var(--color-primary-600, #0284c7);
+}
+
+/* Minimal variant */
+.hero--minimal {
+	background: var(--color-background-primary, #ffffff);
+	color: var(--color-text-primary, #171717);
+	padding: var(--spacing-16, 4rem) 0;
+}
+
+.hero--minimal .hero__subheading {
+	color: var(--color-primary-600, #0284c7);
+}
+
+.hero--minimal .hero__heading {
+	color: var(--color-text-primary, #171717);
+}
+
+.hero--minimal .hero__description {
+	color: var(--color-text-secondary, #525252);
+}
+
+/* ===================================
+ * ALIGNMENT MODIFIERS
+ * =================================== */
+
+/* Left alignment */
+.hero--left {
+	text-align: left;
+}
+
+.hero--left .hero__container {
+	max-width: var(--container-xl, 1280px);
+}
+
+.hero--left .hero__description {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.hero--left .hero__actions {
+	justify-content: flex-start;
+}
+
+/* Center alignment (default) */
+.hero--center {
+	text-align: center;
+}
+
+.hero--center .hero__description {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.hero--center .hero__actions {
+	justify-content: center;
+}
+
+/* ===================================
+ * RESPONSIVE
+ * =================================== */
+
+@media (max-width: 767px) {
+	.hero {
+		padding: var(--spacing-16, 4rem) 0;
+	}
+
+	.hero__heading {
+		font-size: var(--text-3xl, 1.875rem);
+	}
+
+	.hero__description {
+		font-size: var(--text-lg, 1.125rem);
+	}
+
+	.hero__actions {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.hero--left .hero__actions {
+		align-items: stretch;
+	}
+}
+
+/* Block-specific alignment support */
 .wp-block-client-website-hero {
 	margin: 0;
 }
