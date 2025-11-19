@@ -130,7 +130,6 @@ jobs:
     needs: [pre-deployment-checks, backup-production]
     environment:
       name: production
-      url: ${{ vars.PRODUCTION_URL }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
