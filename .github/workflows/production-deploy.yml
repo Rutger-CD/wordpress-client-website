@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       confirm:
-        description: 'Type "deploy-to-production" to confirm'
+        description: Type deploy-to-production to confirm
         required: true
         type: string
 
@@ -15,16 +15,152 @@ jobs:
     steps:
       - name: Check confirmation
         run: |
-          if [ "${{ github.event.inputs.confirm }}" != "deploy-to-production" ]; then
-            echo "❌ Invalid confirmation. You must type 'deploy-to-production' to proceed."
+          if [ "$CONFIRM" != "deploy-to-production" ]; then
+            echo "Invalid confirmation. You must type deploy-to-production to proceed."
+            echo "You typed: $CONFIRM"
             exit 1
           fi
-          echo "✅ Confirmation validated"
+          echo "Confirmation validated"
+        env:
+          CONFIRM: ${{ github.event.inputs.confirm }}
 
-  deploy-test:
-    name: Test Deployment
+  pre-deployment-checks:
+    name: Pre-Deployment Checks
     runs-on: ubuntu-latest
     needs: validate-input
+    outputs:
+      version: ${{ steps.version.outputs.version }}
     steps:
-      - name: Simple test
-        run: echo "✅ Deployment workflow is working!"
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: npm
+          cache-dependency-path: blocks/package-lock.json
+
+      - name: Get version
+        id: version
+        run: |
+          VERSION=$(git rev-parse --short HEAD)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Version: $VERSION"
+
+      - name: Install dependencies
+        working-directory: ./blocks
+        run: npm ci
+
+      - name: Run linting
+        working-directory: ./blocks
+        run: |
+          echo "Running JavaScript linting..."
+          npm run lint:js
+          echo "Running CSS linting..."
+          npm run lint:css
+
+      - name: Build blocks
+        working-directory: ./blocks
+        run: |
+          echo "Building blocks for production..."
+          npm run build
+
+      - name: Check for critical files
+        run: |
+          echo "Checking for required files..."
+          required_files=(
+            "functions.php"
+            "style.css"
+            "blocks/package.json"
+            "components/_base/variables.css"
+            "components/_base/reset.css"
+          )
+
+          for file in "${required_files[@]}"; do
+            if [ ! -f "$file" ]; then
+              echo "Required file missing: $file"
+              exit 1
+            fi
+            echo "Found: $file"
+          done
+
+  deploy:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: pre-deployment-checks
+    environment:
+      name: production
+      url: ${{ secrets.PRODUCTION_URL }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install root dependencies
+        run: npm install
+
+      - name: Install blocks dependencies
+        working-directory: ./blocks
+        run: npm ci
+
+      - name: Build blocks
+        working-directory: ./blocks
+        run: npm run build
+
+      - name: Create .env file from secrets
+        run: |
+          cat > .env << EOF
+          PRODUCTION_SFTP_HOST=${{ secrets.PRODUCTION_SFTP_HOST }}
+          PRODUCTION_SFTP_PORT=${{ secrets.PRODUCTION_SFTP_PORT }}
+          PRODUCTION_SFTP_USER=${{ secrets.PRODUCTION_SFTP_USER }}
+          PRODUCTION_SFTP_PASSWORD=${{ secrets.PRODUCTION_SFTP_PASSWORD }}
+          PRODUCTION_PATH=${{ secrets.PRODUCTION_PATH }}
+          PRODUCTION_URL=${{ secrets.PRODUCTION_URL }}
+          EOF
+
+      - name: Deploy theme to production
+        run: node deploy-theme-production.js
+
+      - name: Deploy blocks to production
+        run: node deploy-blocks-production.js
+
+  verify-deployment:
+    name: Verify Deployment
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: Check production site
+        run: |
+          echo "Verifying production deployment..."
+          if curl -f -s -o /dev/null -w "%{http_code}" "$PROD_URL" | grep -q "200"; then
+            echo "Production site is reachable (HTTP 200)"
+          else
+            echo "Production site returned non-200 status"
+          fi
+        env:
+          PROD_URL: ${{ vars.PRODUCTION_URL }}
+
+  notify:
+    name: Send Notification
+    runs-on: ubuntu-latest
+    needs: [deploy, verify-deployment]
+    if: always()
+    steps:
+      - name: Deployment notification
+        run: |
+          if [ "$DEPLOY_RESULT" == "success" ]; then
+            echo "Production deployment successful!"
+            echo "Site: $PROD_URL"
+          else
+            echo "Production deployment failed!"
+            echo "Check logs for details"
+          fi
+        env:
+          DEPLOY_RESULT: ${{ needs.deploy.result }}
+          PROD_URL: ${{ vars.PRODUCTION_URL }}
