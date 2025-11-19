@@ -40,6 +40,19 @@ function getComponentCSS(componentName) {
 	return `\n/* ===================================\n * ${componentName.toUpperCase()} COMPONENT STYLES\n * =================================== */\n\n${css}`;
 }
 
+// Get design tokens (variables.css)
+function getDesignTokens() {
+	const variablesPath = path.join(__dirname, 'components', '_base', 'variables.css');
+
+	if (!fs.existsSync(variablesPath)) {
+		console.warn(`⚠️  Warning: variables.css not found`);
+		return '';
+	}
+
+	const css = fs.readFileSync(variablesPath, 'utf-8');
+	return `\n/* ===================================\n * DESIGN TOKENS (CSS CUSTOM PROPERTIES)\n * =================================== */\n\n${css}`;
+}
+
 // Update editor.css for a specific block
 function updateBlockEditorCSS(blockName) {
 	const editorCSSPath = path.join(__dirname, 'blocks', blockName, 'editor.css');
@@ -51,6 +64,9 @@ function updateBlockEditorCSS(blockName) {
 
 	// Build the new editor.css content
 	let newContent = `/**\n * ${blockName.charAt(0).toUpperCase() + blockName.slice(1)} Block - Editor Styles\n * Includes all component styles needed for proper editor preview\n */\n`;
+
+	// CRITICAL: Add design tokens FIRST (all blocks need these!)
+	newContent += getDesignTokens();
 
 	// Add component styles
 	const components = blockComponents[blockName] || [];
