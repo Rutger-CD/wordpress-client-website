@@ -7,8 +7,8 @@
 		"start": "wp-scripts start",
 		"format": "wp-scripts format",
 		"format:check": "wp-scripts format --check",
-		"lint:css": "wp-scripts lint-style **/*.css",
-		"lint:js": "wp-scripts lint-js **/*.js",
+		"lint:css": "wp-scripts lint-style **/*.css --ignore-pattern node_modules --ignore-pattern build",
+		"lint:js": "wp-scripts lint-js */index.js */edit.js */save.js",
 		"lint": "npm run lint:js && npm run lint:css"
 	},
 	"keywords": [
