@@ -910,4 +910,187 @@ Na de fix:
 
 ---
 
+### Issue #15: WordPress block editor heeft geen styling
+
+**Datum:** 19 November 2024
+**Status:** Opgelost
+
+**Symptomen:**
+- Custom blocks op frontend hebben volledige styling ✅
+- Custom blocks in WordPress admin editor hebben GEEN styling ❌
+- Design tokens (CSS custom properties) niet beschikbaar in editor
+- Component styles (button, hero, etc.) niet geladen in editor
+- Block.json `editorStyle` verwijst naar CSS met alleen editor-specifieke overrides
+
+**Root Cause:**
+De `editor.css` files in blocks bevatten alleen editor-specifieke overrides (cursor: text, pointer-events: none), maar NIET de volledige component styling. WordPress laadt de CSS files uit `block.json` apart:
+
+```json
+{
+  "editorStyle": "file:./editor.css",  // ← Alleen geladen in EDITOR
+  "style": "file:./style.css"           // ← Alleen geladen op FRONTEND
+}
+```
+
+De component styles worden via `functions.php` geladen met `wp_enqueue_style()`, maar dit werkt alleen voor de frontend pagina's, niet voor de individuele block editor preview.
+
+**Waarom dit gebeurt:**
+1. WordPress block editor isoleert block styling per block
+2. CSS @import statements werken niet in WordPress (relatieve paths falen)
+3. Component styles worden verwacht INLINE in editor.css te staan
+4. Functions.php hooks laden CSS alleen op page-level, niet per block
+
+**Diagnose Steps:**
+
+```bash
+# 1. Check browser DevTools in WordPress admin
+# - Open block editor
+# - Inspecteer custom block element
+# - Check Applied Styles → Zijn design tokens aanwezig?
+
+# 2. Check editor.css inhoud
+cat blocks/hero/editor.css
+# ← Bevat dit ALLEEN overrides of volledige component styles?
+
+# 3. Check build output
+ls blocks/build/hero/
+# ← Hero genereert GEEN CSS files (alleen JS)
+# ← Button/card-grid WEL CSS files (webpack extract)
+```
+
+**Oplossing:**
+
+**Aanpak:** Inline alle benodigde component styles in `editor.css`
+
+**Stap 1: Create fix script**
+
+Maak `fix-editor-styles.js` aan die automatisch editor.css files update met volledige component styles:
+
+```javascript
+const blockComponents = {
+  'hero': ['hero', 'button'],
+  'card-grid': ['card', 'button'],
+  'content-section': ['content-section', 'button'],
+  'cta-section': ['button'],
+  'button': ['button']
+};
+```
+
+**Stap 2: Run fix script**
+
+```bash
+node fix-editor-styles.js
+```
+
+Dit script:
+1. Leest component CSS files uit `components/*/component.css`
+2. Kopieert volledige component styles naar block `editor.css`
+3. Voegt editor-specific overrides toe onderaan
+4. Update alle blocks in één keer
+
+**Stap 3: Rebuild blocks**
+
+```bash
+cd blocks
+npm run build
+```
+
+**Stap 4: Deploy naar staging**
+
+```bash
+node deploy-blocks-complete.js
+```
+
+**Voorbeeld: Updated editor.css**
+
+```css
+/**
+ * Hero Block - Editor Styles
+ * Includes all component styles needed for proper editor preview
+ */
+
+/* ===================================
+ * HERO COMPONENT STYLES
+ * =================================== */
+
+.hero {
+  background: linear-gradient(135deg, var(--color-primary-500), var(--color-secondary-500));
+  color: var(--color-text-inverse);
+  padding: var(--spacing-24) 0;
+  /* ... volledige hero styling ... */
+}
+
+/* ===================================
+ * BUTTON COMPONENT STYLES
+ * =================================== */
+
+.btn {
+  display: inline-flex;
+  /* ... volledige button styling ... */
+}
+
+.btn--primary {
+  background-color: var(--color-primary-500);
+  /* ... */
+}
+
+/* ===================================
+ * EDITOR-SPECIFIC OVERRIDES
+ * =================================== */
+
+.wp-block-client-website-hero [contenteditable="true"] {
+  cursor: text;
+}
+
+.wp-block-client-website-hero .btn {
+  pointer-events: none;
+}
+```
+
+**Verificatie:**
+
+Na de fix:
+- ✅ Frontend styling werkt
+- ✅ Editor styling werkt
+- ✅ Design tokens beschikbaar in editor
+- ✅ Buttons, hero, cards styled in editor preview
+- ✅ Geen CSS 404 errors
+
+**Alternatieve Oplossing (NIET gebruikt):**
+
+Een andere optie was om webpack te configureren om CSS te extracten voor ALLE blocks:
+
+```javascript
+// In webpack.config.js
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+module.exports = {
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+    }),
+  ],
+};
+```
+
+**Waarom NIET gekozen:**
+- Complexer (webpack configuratie)
+- Geen voordeel vs inline CSS in editor.css
+- Editor.css is klein genoeg voor inline styles
+
+**Preventie:**
+- Bij nieuwe blocks: Kopieer volledige component styles naar editor.css
+- Test blocks ALTIJD in WordPress editor, niet alleen frontend
+- Gebruik fix-editor-styles.js script bij nieuwe components
+- Document block→component mapping in script
+
+**Gerelateerde Files:**
+- `fix-editor-styles.js` - Automated fix script
+- `blocks/*/editor.css` - Updated with full component styles
+- `blocks/*/block.json` - editorStyle en style properties
+- `components/*/component.css` - Source component styles
+- `wp-content/themes/client-website/functions.php` - CSS enqueue hooks
+
+---
+
 **Nieuw probleem?** Voeg toe aan deze guide voor toekomstige referentie!

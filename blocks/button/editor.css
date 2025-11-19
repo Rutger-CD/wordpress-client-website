@@ -1,27 +1,418 @@
 /**
- * Button Block Editor Styles
- * Styles specific to the Gutenberg editor
+ * Button Block - Editor Styles
+ * Includes all component styles needed for proper editor preview
  */
 
-.button-block__help {
-	margin-top: var(--spacing-2);
-	font-size: var(--text-sm);
-	color: var(--color-text-secondary);
-	font-style: italic;
+/* ===================================
+ * BUTTON COMPONENT STYLES
+ * =================================== */
+
+/**
+ * BUTTON COMPONENT
+ *
+ * BEM Naming Convention:
+ * .btn - Block
+ * .btn__icon - Element
+ * .btn--primary - Modifier
+ *
+ * All values use design tokens - NO hardcoded values!
+ */
+
+/* ===================================
+ * BASE BUTTON
+ * =================================== */
+
+.btn {
+  /* Reset */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+
+  /* Typography */
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  line-height: var(--line-height-tight);
+  text-decoration: none;
+
+  /* Spacing */
+  padding: var(--spacing-3) var(--spacing-6);
+
+  /* Borders */
+  border: 2px solid transparent;
+  border-radius: var(--radius-md);
+
+  /* Transitions */
+  transition: all var(--transition-base);
+
+  /* Cursor */
+  cursor: pointer;
+
+  /* Prevent text selection */
+  user-select: none;
+  -webkit-user-select: none;
+
+  /* Center text */
+  text-align: center;
+  white-space: nowrap;
 }
 
-/* Editor-specific button styles */
-.editor-styles-wrapper .button-block .button {
+/* Focus state (keyboard navigation) */
+.btn:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+}
+
+/* Disabled state */
+.btn:disabled,
+.btn.btn--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ===================================
+ * BUTTON ELEMENTS (BEM)
+ * =================================== */
+
+.btn__icon {
+  flex-shrink: 0;
+  width: 1.25em;
+  height: 1.25em;
+}
+
+.btn__text {
+  flex: 1;
+}
+
+.btn__spinner {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: var(--radius-full);
+  animation: btn-spin 0.6s linear infinite;
+}
+
+@keyframes btn-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ===================================
+ * SIZE MODIFIERS
+ * =================================== */
+
+.btn--small {
+  font-size: var(--text-sm);
+  padding: var(--spacing-2) var(--spacing-4);
+}
+
+.btn--large {
+  font-size: var(--text-lg);
+  padding: var(--spacing-4) var(--spacing-8);
+}
+
+.btn--icon-only {
+  padding: var(--spacing-3);
+  aspect-ratio: 1;
+}
+
+.btn--icon-only.btn--small {
+  padding: var(--spacing-2);
+}
+
+.btn--icon-only.btn--large {
+  padding: var(--spacing-4);
+}
+
+.btn--full-width {
+  width: 100%;
+}
+
+/* ===================================
+ * PRIMARY VARIANT
+ * =================================== */
+
+.btn--primary {
+  background-color: var(--color-primary-500);
+  color: var(--color-text-inverse);
+  border-color: var(--color-primary-500);
+}
+
+.btn--primary:hover:not(:disabled) {
+  background-color: var(--color-primary-600);
+  border-color: var(--color-primary-600);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn--primary:active:not(:disabled) {
+  background-color: var(--color-primary-700);
+  border-color: var(--color-primary-700);
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ===================================
+ * SECONDARY VARIANT
+ * =================================== */
+
+.btn--secondary {
+  background-color: var(--color-secondary-500);
+  color: var(--color-text-inverse);
+  border-color: var(--color-secondary-500);
+}
+
+.btn--secondary:hover:not(:disabled) {
+  background-color: var(--color-secondary-600);
+  border-color: var(--color-secondary-600);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn--secondary:active:not(:disabled) {
+  background-color: var(--color-secondary-700);
+  border-color: var(--color-secondary-700);
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ===================================
+ * TERTIARY VARIANT (Outline)
+ * =================================== */
+
+.btn--tertiary {
+  background-color: transparent;
+  color: var(--color-primary-500);
+  border-color: var(--color-primary-500);
+}
+
+.btn--tertiary:hover:not(:disabled) {
+  background-color: var(--color-primary-50);
+  color: var(--color-primary-600);
+  border-color: var(--color-primary-600);
+}
+
+.btn--tertiary:active:not(:disabled) {
+  background-color: var(--color-primary-100);
+  color: var(--color-primary-700);
+  border-color: var(--color-primary-700);
+}
+
+/* ===================================
+ * GHOST VARIANT
+ * =================================== */
+
+.btn--ghost {
+  background-color: transparent;
+  color: var(--color-text-primary);
+  border-color: transparent;
+}
+
+.btn--ghost:hover:not(:disabled) {
+  background-color: var(--color-neutral-100);
+  color: var(--color-text-primary);
+}
+
+.btn--ghost:active:not(:disabled) {
+  background-color: var(--color-neutral-200);
+}
+
+/* ===================================
+ * SEMANTIC VARIANTS
+ * =================================== */
+
+/* Success */
+.btn--success {
+  background-color: var(--color-success);
+  color: var(--color-text-inverse);
+  border-color: var(--color-success);
+}
+
+.btn--success:hover:not(:disabled) {
+  background-color: var(--color-success-dark);
+  border-color: var(--color-success-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Warning */
+.btn--warning {
+  background-color: var(--color-warning);
+  color: var(--color-text-primary);
+  border-color: var(--color-warning);
+}
+
+.btn--warning:hover:not(:disabled) {
+  background-color: var(--color-warning-dark);
+  border-color: var(--color-warning-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Danger */
+.btn--danger {
+  background-color: var(--color-error);
+  color: var(--color-text-inverse);
+  border-color: var(--color-error);
+}
+
+.btn--danger:hover:not(:disabled) {
+  background-color: var(--color-error-dark);
+  border-color: var(--color-error-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Info */
+.btn--info {
+  background-color: var(--color-info);
+  color: var(--color-text-inverse);
+  border-color: var(--color-info);
+}
+
+.btn--info:hover:not(:disabled) {
+  background-color: var(--color-info-dark);
+  border-color: var(--color-info-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ===================================
+ * STATE MODIFIERS
+ * =================================== */
+
+.btn--loading {
+  position: relative;
+  color: transparent;
+  pointer-events: none;
+}
+
+.btn--loading .btn__spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -0.5em;
+  margin-top: -0.5em;
+  color: currentColor;
+}
+
+.btn--loading.btn--primary .btn__spinner,
+.btn--loading.btn--secondary .btn__spinner,
+.btn--loading.btn--success .btn__spinner,
+.btn--loading.btn--danger .btn__spinner,
+.btn--loading.btn--info .btn__spinner {
+  color: var(--color-text-inverse);
+}
+
+.btn--loading.btn--tertiary .btn__spinner,
+.btn--loading.btn--ghost .btn__spinner {
+  color: var(--color-primary-500);
+}
+
+/* ===================================
+ * BUTTON GROUP
+ * =================================== */
+
+.btn-group {
+  display: inline-flex;
+  gap: var(--spacing-3);
+}
+
+.btn-group--vertical {
+  flex-direction: column;
+}
+
+.btn-group--attached {
+  gap: 0;
+}
+
+.btn-group--attached .btn {
+  border-radius: 0;
+}
+
+.btn-group--attached .btn:first-child {
+  border-top-left-radius: var(--radius-md);
+  border-bottom-left-radius: var(--radius-md);
+}
+
+.btn-group--attached .btn:last-child {
+  border-top-right-radius: var(--radius-md);
+  border-bottom-right-radius: var(--radius-md);
+}
+
+.btn-group--attached .btn:not(:last-child) {
+  border-right-width: 1px;
+}
+
+/* ===================================
+ * RESPONSIVE
+ * =================================== */
+
+@media (max-width: 767px) {
+  .btn--responsive {
+    width: 100%;
+  }
+
+  .btn-group--responsive {
+    flex-direction: column;
+  }
+
+  .btn-group--responsive .btn {
+    width: 100%;
+  }
+}
+
+/* ===================================
+ * ACCESSIBILITY
+ * =================================== */
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .btn {
+    border-width: 2px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
+
+  .btn:hover:not(:disabled) {
+    transform: none;
+  }
+
+  .btn__spinner {
+    animation: none;
+  }
+}
+
+/* Focus visible for keyboard navigation */
+.btn:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ===================================
+ * EDITOR-SPECIFIC OVERRIDES
+ * =================================== */
+
+/* Make text editable */
+.wp-block-client-website-button [contenteditable="true"] {
 	cursor: text;
-	user-select: text;
 }
 
-.editor-styles-wrapper .button-block .button:hover {
-	transform: none;
+/* Disable button clicks in editor */
+.wp-block-client-website-button .btn {
+	pointer-events: none;
 }
 
-/* Rich text placeholder */
-.editor-styles-wrapper .button-block .button.is-selected {
-	outline: 2px solid var(--color-primary-500);
-	outline-offset: 2px;
+/* Editor placeholder styling */
+.wp-block-client-website-button .block-editor-rich-text__editable:empty::before {
+	color: var(--color-text-tertiary, rgba(0, 0, 0, 0.5));
+	opacity: 0.6;
 }

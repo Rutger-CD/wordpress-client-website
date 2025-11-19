@@ -151,4 +151,5 @@ open-pr.html
 !deploy-blocks-complete.js
 !deploy-blocks-production.js
 !fix-block-css-imports.js
+!fix-editor-styles.js
 !load-env.js
