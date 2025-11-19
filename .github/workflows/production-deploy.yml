@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       confirm:
-        description: Type deploy-to-production to confirm
+        description: 'Type "deploy-to-production" to confirm'
         required: true
         type: string
 
@@ -15,14 +15,12 @@ jobs:
     steps:
       - name: Check confirmation
         run: |
-          if [ "$CONFIRM" != "deploy-to-production" ]; then
-            echo "Invalid confirmation. You must type deploy-to-production to proceed."
-            echo "You typed: $CONFIRM"
+          if [ "${{ github.event.inputs.confirm }}" != "deploy-to-production" ]; then
+            echo "❌ Invalid confirmation. You must type 'deploy-to-production' to proceed."
+            echo "You typed: ${{ github.event.inputs.confirm }}"
             exit 1
           fi
-          echo "Confirmation validated"
-        env:
-          CONFIRM: ${{ github.event.inputs.confirm }}
+          echo "✅ Confirmation validated"
 
   pre-deployment-checks:
     name: Pre-Deployment Checks
@@ -46,7 +44,7 @@ jobs:
         run: |
           VERSION=$(git rev-parse --short HEAD)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Version: $VERSION"
+          echo "📦 Version: $VERSION"
 
       - name: Install dependencies
         working-directory: ./blocks
@@ -55,20 +53,20 @@ jobs:
       - name: Run linting
         working-directory: ./blocks
         run: |
-          echo "Running JavaScript linting..."
+          echo "🔍 Running JavaScript linting..."
           npm run lint:js
-          echo "Running CSS linting..."
+          echo "🎨 Running CSS linting..."
           npm run lint:css
 
       - name: Build blocks
         working-directory: ./blocks
         run: |
-          echo "Building blocks for production..."
+          echo "🔨 Building blocks for production..."
           npm run build
 
       - name: Check for critical files
         run: |
-          echo "Checking for required files..."
+          echo "📋 Checking for required files..."
           required_files=(
             "functions.php"
             "style.css"
@@ -79,10 +77,10 @@ jobs:
 
           for file in "${required_files[@]}"; do
             if [ ! -f "$file" ]; then
-              echo "Required file missing: $file"
+              echo "❌ Required file missing: $file"
               exit 1
             fi
-            echo "Found: $file"
+            echo "✅ Found: $file"
           done
 
   deploy:
@@ -91,7 +89,7 @@ jobs:
     needs: pre-deployment-checks
     environment:
       name: production
-      url: ${{ secrets.PRODUCTION_URL }}
+      url: ${{ vars.PRODUCTION_URL }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -125,10 +123,22 @@ jobs:
           EOF
 
       - name: Deploy theme to production
-        run: node deploy-theme-production.js
+        run: |
+          echo "🚀 Deploying theme files to production..."
+          node deploy-theme-production.js
 
       - name: Deploy blocks to production
-        run: node deploy-blocks-production.js
+        run: |
+          echo "🧩 Deploying blocks to production..."
+          node deploy-blocks-production.js
+
+      - name: Deployment summary
+        run: |
+          echo "## ✅ Deployment Complete" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Version**: ${{ needs.pre-deployment-checks.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Deployed by**: ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Timestamp**: $(date -u +"%Y-%m-%d %H:%M:%S UTC")" >> $GITHUB_STEP_SUMMARY
 
   verify-deployment:
     name: Verify Deployment
@@ -137,14 +147,23 @@ jobs:
     steps:
       - name: Check production site
         run: |
-          echo "Verifying production deployment..."
-          if curl -f -s -o /dev/null -w "%{http_code}" "$PROD_URL" | grep -q "200"; then
-            echo "Production site is reachable (HTTP 200)"
+          echo "🔍 Verifying production deployment..."
+          if curl -f -s -o /dev/null -w "%{http_code}" "${{ vars.PRODUCTION_URL }}" | grep -q "200"; then
+            echo "✅ Production site is reachable (HTTP 200)"
           else
-            echo "Production site returned non-200 status"
+            echo "⚠️ Production site returned non-200 status"
           fi
-        env:
-          PROD_URL: ${{ vars.PRODUCTION_URL }}
+
+      - name: Verification checklist
+        run: |
+          echo "## 📋 Post-Deployment Checklist" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- [ ] Site loads successfully" >> $GITHUB_STEP_SUMMARY
+          echo "- [ ] All pages are accessible" >> $GITHUB_STEP_SUMMARY
+          echo "- [ ] Custom blocks work correctly" >> $GITHUB_STEP_SUMMARY
+          echo "- [ ] Forms function properly" >> $GITHUB_STEP_SUMMARY
+          echo "- [ ] Media/images load correctly" >> $GITHUB_STEP_SUMMARY
+          echo "- [ ] WordPress admin is accessible" >> $GITHUB_STEP_SUMMARY
 
   notify:
     name: Send Notification
@@ -154,13 +173,12 @@ jobs:
     steps:
       - name: Deployment notification
         run: |
-          if [ "$DEPLOY_RESULT" == "success" ]; then
-            echo "Production deployment successful!"
-            echo "Site: $PROD_URL"
+          if [ "${{ needs.deploy.result }}" == "success" ]; then
+            echo "✅ Production deployment successful!"
+            echo "🌐 Site: ${{ vars.PRODUCTION_URL }}"
+            echo ""
+            echo "⚠️ Please verify site functionality manually"
           else
-            echo "Production deployment failed!"
+            echo "❌ Production deployment failed!"
             echo "Check logs for details"
           fi
-        env:
-          DEPLOY_RESULT: ${{ needs.deploy.result }}
-          PROD_URL: ${{ vars.PRODUCTION_URL }}
