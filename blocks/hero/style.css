@@ -62,31 +62,31 @@
  * =================================== */
 
 /* Gradient variant (default) */
-.hero--gradient {
-	background: linear-gradient(135deg, var(--color-primary-500, #0ea5e9), var(--color-secondary-500, #a855f7));
+.hero.hero--gradient {
+	background: linear-gradient(135deg, var(--color-primary-500, #0ea5e9), var(--color-secondary-500, #a855f7)) !important;
 }
 
 /* Solid variant */
-.hero--solid {
-	background: var(--color-primary-600, #0284c7);
+.hero.hero--solid {
+	background: var(--color-primary-600, #0284c7) !important;
 }
 
 /* Minimal variant */
-.hero--minimal {
-	background: var(--color-background-primary, #ffffff);
-	color: var(--color-text-primary, #171717);
+.hero.hero--minimal {
+	background: var(--color-background-primary, #ffffff) !important;
+	color: var(--color-text-primary, #171717) !important;
 	padding: var(--spacing-16, 4rem) 0;
 }
 
-.hero--minimal .hero__subheading {
+.hero.hero--minimal .hero__subheading {
 	color: var(--color-primary-600, #0284c7);
 }
 
-.hero--minimal .hero__heading {
+.hero.hero--minimal .hero__heading {
 	color: var(--color-text-primary, #171717);
 }
 
-.hero--minimal .hero__description {
+.hero.hero--minimal .hero__description {
 	color: var(--color-text-secondary, #525252);
 }
 
@@ -95,34 +95,34 @@
  * =================================== */
 
 /* Left alignment */
-.hero--left {
+.hero.hero--left {
 	text-align: left;
 }
 
-.hero--left .hero__container {
+.hero.hero--left .hero__container {
 	max-width: var(--container-xl, 1280px);
 }
 
-.hero--left .hero__description {
+.hero.hero--left .hero__description {
 	margin-left: 0;
 	margin-right: 0;
 }
 
-.hero--left .hero__actions {
+.hero.hero--left .hero__actions {
 	justify-content: flex-start;
 }
 
 /* Center alignment (default) */
-.hero--center {
+.hero.hero--center {
 	text-align: center;
 }
 
-.hero--center .hero__description {
+.hero.hero--center .hero__description {
 	margin-left: auto;
 	margin-right: auto;
 }
 
-.hero--center .hero__actions {
+.hero.hero--center .hero__actions {
 	justify-content: center;
 }
 
@@ -148,7 +148,7 @@
 		align-items: stretch;
 	}
 
-	.hero--left .hero__actions {
+	.hero.hero--left .hero__actions {
 		align-items: stretch;
 	}
 }
@@ -163,6 +163,12 @@
 	max-width: 100vw;
 	margin-left: calc(50% - 50vw);
 	margin-right: calc(50% - 50vw);
+}
+
+.wp-block-client-website-hero.alignfull .hero__container {
+	max-width: 100%;
+	padding-left: var(--spacing-12, 3rem);
+	padding-right: var(--spacing-12, 3rem);
 }
 
 .wp-block-client-website-hero.alignwide {
