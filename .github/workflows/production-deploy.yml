@@ -89,7 +89,7 @@ jobs:
     needs: pre-deployment-checks
     environment:
       name: production
-      url: ${{ vars.PRODUCTION_URL }}
+      url: ${{ secrets.PRODUCTION_URL }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -148,7 +148,7 @@ jobs:
       - name: Check production site
         run: |
           echo "🔍 Verifying production deployment..."
-          if curl -f -s -o /dev/null -w "%{http_code}" "${{ vars.PRODUCTION_URL }}" | grep -q "200"; then
+          if curl -f -s -o /dev/null -w "%{http_code}" "${{ secrets.PRODUCTION_URL }}" | grep -q "200"; then
             echo "✅ Production site is reachable (HTTP 200)"
           else
             echo "⚠️ Production site returned non-200 status"
@@ -175,7 +175,7 @@ jobs:
         run: |
           if [ "${{ needs.deploy.result }}" == "success" ]; then
             echo "✅ Production deployment successful!"
-            echo "🌐 Site: ${{ vars.PRODUCTION_URL }}"
+            echo "🌐 Site: ${{ secrets.PRODUCTION_URL }}"
             echo ""
             echo "⚠️ Please verify site functionality manually"
           else
