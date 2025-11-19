@@ -823,4 +823,91 @@ Als probleem blijft bestaan na troubleshooting:
 
 ---
 
+### Issue #14: GitHub Actions deployment faalt - Missing package-lock.json
+
+**Datum:** 19 November 2024
+**Status:** Opgelost
+
+**Symptomen:**
+- GitHub Actions workflow "Deploy to Staging" faalt
+- Error in "Install blocks dependencies" step
+- Error message: `npm ci can only install with an existing package-lock.json`
+- GitHub AI suggereert incorrecte oplossing (root lock file)
+
+**Root Cause:**
+De GitHub Actions workflow gebruikt `npm ci` in de blocks directory (regel 30 in deploy-staging.yml), maar er was geen `package-lock.json` aanwezig in de blocks directory. De workflow had twee lock files nodig:
+1. Root `package-lock.json` - voor npm cache (optioneel maar gewenst)
+2. **Blocks `package-lock.json`** - voor `npm ci` (verplicht)
+
+**Error Details:**
+```bash
+Run npm ci
+npm error code EUSAGE
+npm error
+npm error The `npm ci` command can only install with an existing package-lock.json
+npm error npm-shrinkwrap.json with lockfileVersion >= 1.
+```
+
+**Oplossing:**
+
+**Stap 1: Update .gitignore om package-lock.json te tracken**
+
+```bash
+# In .gitignore, comment de package-lock.json regel:
+# Node & Dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+# Keep package-lock.json for CI/CD npm cache
+# package-lock.json  # <-- Commented out
+yarn.lock
+```
+
+**Stap 2: Genereer package-lock.json files**
+
+```bash
+# Root package-lock.json
+npm install
+
+# Blocks package-lock.json
+cd blocks
+npm install
+cd ..
+```
+
+**Stap 3: Commit en push**
+
+```bash
+git add package-lock.json blocks/package-lock.json .gitignore
+git commit -m "chore: Add package-lock.json files for CI/CD"
+git push origin main
+```
+
+**Verificatie:**
+
+Na de fix:
+- ✅ NPM cache werkt (snellere builds)
+- ✅ `npm ci` in blocks directory werkt
+- ✅ Deployment succesvol
+- ✅ Build tijd: ~30 seconden
+
+**Waarom `npm ci` gebruiken:**
+- `npm ci` is sneller dan `npm install`
+- `npm ci` garandeert reproduceerbare builds
+- `npm ci` verwijdert eerst node_modules (clean install)
+- Ideaal voor CI/CD pipelines
+
+**Preventie:**
+- Commit altijd `package-lock.json` files in repositories met CI/CD
+- Test GitHub Actions workflows lokaal met [act](https://github.com/nektos/act)
+- Voeg package-lock.json toe aan required files checklist
+
+**Gerelateerde Files:**
+- [.github/workflows/deploy-staging.yml](.github/workflows/deploy-staging.yml#L29-L31)
+- [.gitignore](.gitignore#L35-L36)
+- `package-lock.json` (root)
+- `blocks/package-lock.json`
+
+---
+
 **Nieuw probleem?** Voeg toe aan deze guide voor toekomstige referentie!
