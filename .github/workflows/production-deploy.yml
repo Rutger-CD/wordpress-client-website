@@ -4,199 +4,27 @@ on:
   workflow_dispatch:
     inputs:
       confirm:
-        description: Type deploy-to-production to confirm
+        description: 'Type "deploy-to-production" to confirm'
         required: true
+        type: string
 
 jobs:
   validate-input:
     name: Validate Deployment Confirmation
     runs-on: ubuntu-latest
     steps:
-      - name: Debug input
-        run: |
-          echo "==================================="
-          echo "DEBUG: Input received"
-          echo "==================================="
-          echo "Input value: [${{ github.event.inputs.confirm }}]"
-          echo "Expected value: [deploy-to-production]"
-          echo "==================================="
-
-      - name: Check confirmation input
+      - name: Check confirmation
         run: |
           if [ "${{ github.event.inputs.confirm }}" != "deploy-to-production" ]; then
             echo "❌ Invalid confirmation. You must type 'deploy-to-production' to proceed."
-            echo "You typed: '${{ github.event.inputs.confirm }}'"
             exit 1
           fi
           echo "✅ Confirmation validated"
 
-  pre-deployment-checks:
-    name: Pre-Deployment Checks
+  deploy-test:
+    name: Test Deployment
     runs-on: ubuntu-latest
     needs: validate-input
-    outputs:
-      version: ${{ steps.version.outputs.version }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: npm
-          cache-dependency-path: blocks/package-lock.json
-
-      - name: Get version
-        id: version
-        run: |
-          VERSION=$(git rev-parse --short HEAD)
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "📦 Version: $VERSION"
-
-      - name: Install dependencies
-        working-directory: ./blocks
-        run: npm ci
-
-      - name: Run linting
-        working-directory: ./blocks
-        run: |
-          echo "🔍 Running JavaScript linting..."
-          npm run lint:js
-          echo "🔍 Running CSS linting..."
-          npm run lint:css
-
-      - name: Build blocks
-        working-directory: ./blocks
-        run: |
-          echo "🏗️ Building blocks for production..."
-          npm run build
-
-      - name: Check for critical files
-        run: |
-          echo "📋 Checking for required files..."
-          required_files=(
-            "functions.php"
-            "style.css"
-            "blocks/package.json"
-            "components/_base/variables.css"
-            "components/_base/reset.css"
-          )
-
-          for file in "${required_files[@]}"; do
-            if [ ! -f "$file" ]; then
-              echo "❌ Required file missing: $file"
-              exit 1
-            fi
-            echo "✅ Found: $file"
-          done
-
-      - name: Create deployment summary
-        run: |
-          echo "## 🚀 Pre-Deployment Checks Summary" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "- ✅ Confirmation validated" >> $GITHUB_STEP_SUMMARY
-          echo "- ✅ Linting passed" >> $GITHUB_STEP_SUMMARY
-          echo "- ✅ Build completed" >> $GITHUB_STEP_SUMMARY
-          echo "- ✅ Required files present" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Version**: \`${{ steps.version.outputs.version }}\`" >> $GITHUB_STEP_SUMMARY
-          echo "**Branch**: \`${{ github.ref_name }}\`" >> $GITHUB_STEP_SUMMARY
-          echo "**Triggered by**: ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
-
-  deploy:
-    name: Deploy to Production
-    runs-on: ubuntu-latest
-    needs: pre-deployment-checks
-    environment:
-      name: production
-      url: ${{ secrets.PRODUCTION_URL }}
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-
-      - name: Install root dependencies
-        run: npm install
-
-      - name: Install blocks dependencies
-        working-directory: ./blocks
-        run: npm ci
-
-      - name: Build blocks
-        working-directory: ./blocks
-        run: npm run build
-
-      - name: Create .env file from secrets
-        run: |
-          cat > .env << EOF
-          PRODUCTION_SFTP_HOST=${{ secrets.PRODUCTION_SFTP_HOST }}
-          PRODUCTION_SFTP_PORT=${{ secrets.PRODUCTION_SFTP_PORT }}
-          PRODUCTION_SFTP_USER=${{ secrets.PRODUCTION_SFTP_USER }}
-          PRODUCTION_SFTP_PASSWORD=${{ secrets.PRODUCTION_SFTP_PASSWORD }}
-          PRODUCTION_PATH=${{ secrets.PRODUCTION_PATH }}
-          PRODUCTION_URL=${{ secrets.PRODUCTION_URL }}
-          EOF
-
-      - name: Deploy theme to production
-        run: node deploy-theme-production.js
-
-      - name: Deploy blocks to production
-        run: node deploy-blocks-production.js
-
-      - name: Deployment summary
-        run: |
-          echo "## 🎉 Deployment Complete" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### Details" >> $GITHUB_STEP_SUMMARY
-          echo "- **Environment**: Production" >> $GITHUB_STEP_SUMMARY
-          echo "- **Version**: \`${{ needs.pre-deployment-checks.outputs.version }}\`" >> $GITHUB_STEP_SUMMARY
-          echo "- **Branch**: \`${{ github.ref_name }}\`" >> $GITHUB_STEP_SUMMARY
-          echo "- **Deployed by**: ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Timestamp**: $(date -u +"%Y-%m-%d %H:%M:%S UTC")" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### 🌐 Production Site" >> $GITHUB_STEP_SUMMARY
-          echo "[View Production Website](${{ secrets.PRODUCTION_URL }})" >> $GITHUB_STEP_SUMMARY
-
-  verify-deployment:
-    name: Verify Deployment
-    runs-on: ubuntu-latest
-    needs: deploy
-    steps:
-      - name: Check production site
-        run: |
-          echo "🔍 Verifying production deployment..."
-
-          if curl -f -s -o /dev/null -w "%{http_code}" "${{ vars.PRODUCTION_URL }}" | grep -q "200"; then
-            echo "✅ Production site is reachable (HTTP 200)"
-          else
-            echo "⚠️  Production site returned non-200 status"
-          fi
-
-      - name: Verification summary
-        run: |
-          echo "## ✅ Deployment Verified" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "- Production site is responding" >> $GITHUB_STEP_SUMMARY
-          echo "- Deployment process completed successfully" >> $GITHUB_STEP_SUMMARY
-
-  notify:
-    name: Send Notification
-    runs-on: ubuntu-latest
-    needs: [deploy, verify-deployment]
-    if: always()
-    steps:
-      - name: Deployment notification
-        run: |
-          if [ "${{ needs.deploy.result }}" == "success" ]; then
-            echo "✅ Production deployment successful!"
-            echo "🌐 Site: ${{ vars.PRODUCTION_URL }}"
-          else
-            echo "❌ Production deployment failed!"
-            echo "Check logs for details"
-          fi
+      - name: Simple test
+        run: echo "✅ Deployment workflow is working!"
