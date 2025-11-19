@@ -1,0 +1,15 @@
+name: Test Production Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      test:
+        description: Test input
+        required: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo test
+        run: echo "Test input was ${{ github.event.inputs.test }}"
