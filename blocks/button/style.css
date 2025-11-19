@@ -3,8 +3,6 @@
  * Imports the UI Component Library button styles
  */
 
-@import "../../components/button/button.css";
-
 .button-block {
 	display: flex;
 	gap: var(--spacing-4);

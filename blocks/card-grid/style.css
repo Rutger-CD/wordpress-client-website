@@ -3,8 +3,6 @@
  * Imports the UI Component Library card styles
  */
 
-@import "../../components/card/card.css";
-
 .card-grid {
 	width: 100%;
 }

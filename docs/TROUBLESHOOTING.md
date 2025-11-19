@@ -626,6 +626,123 @@ npx @wordpress/env restart
 
 ---
 
+### Issue #13: Block styling ontbreekt (geen CSS)
+
+**Symptomen:**
+- Blocks zijn zichtbaar maar hebben geen styling
+- Buttons, cards, hero sections tonen als plain HTML
+- Console toont 404 errors voor CSS files zoals `design-tokens.css`, `hero.css`, etc.
+
+**Root Cause:**
+CSS files gebruiken `@import` statements die niet werken in WordPress omdat:
+1. WordPress laadt CSS via `wp_enqueue_style()` met absolute URLs
+2. `@import` gebruikt relatieve paths die WordPress niet kan resolven
+3. Browser kan imported files niet vinden → 404 errors
+
+**Diagnose Steps:**
+
+```bash
+# 1. Check browser console voor 404 errors
+# Open DevTools (F12) → Console tab
+# Look for: "Failed to load resource: 404" voor .css files
+
+# 2. Check welke CSS files @import gebruiken
+grep -r "@import" blocks/ components/ --include="*.css"
+
+# 3. Check of base styles worden geladen
+# In browser DevTools → Network tab → Filter: CSS
+# Zoek naar: variables.css, reset.css
+```
+
+**Oplossing:**
+
+**Stap 1: Verwijder @import uit block CSS files**
+
+```bash
+# Run fix script
+node fix-block-css-imports.js
+```
+
+Of handmatig:
+
+```css
+/* blocks/button/style.css - VOOR */
+@import "../../components/button/button.css";
+
+.button-block {
+    display: flex;
+}
+
+/* blocks/button/style.css - NA */
+/* Component styles worden geladen via functions.php */
+
+.button-block {
+    display: flex;
+}
+```
+
+**Stap 2: Inline design tokens in variables.css**
+
+```bash
+# Kopieer design tokens naar variables.css
+cp brand-guide/design-tokens.css components/_base/variables.css
+```
+
+Of handmatig:
+
+```css
+/* components/_base/variables.css - VOOR */
+@import url('../../brand-guide/design-tokens.css');
+
+:root {
+  /* Component variables */
+}
+
+/* components/_base/variables.css - NA */
+/* Alle design tokens inline */
+:root {
+  --color-primary-500: #0ea5e9;
+  --spacing-4: 1rem;
+  /* ... rest van tokens */
+}
+```
+
+**Stap 3: Verifieer functions.php laadt alle styles**
+
+```php
+// functions.php - Check deze hooks bestaan
+add_action('wp_enqueue_scripts', 'client_website_enqueue_base_styles', 1);
+add_action('enqueue_block_editor_assets', 'client_website_enqueue_base_styles', 1);
+add_action('admin_enqueue_scripts', 'client_website_enqueue_base_styles', 1);
+
+add_action('wp_enqueue_scripts', 'client_website_enqueue_component_styles', 5);
+add_action('enqueue_block_editor_assets', 'client_website_enqueue_component_styles', 5);
+add_action('admin_enqueue_scripts', 'client_website_enqueue_component_styles', 5);
+```
+
+**Verificatie:**
+
+```bash
+# 1. Check geen @import meer
+grep -r "@import" blocks/ components/ --include="*.css"
+# Should only show comments
+
+# 2. Test in browser
+# - Hard refresh (Ctrl+Shift+R)
+# - DevTools → Console: Geen 404 errors
+# - DevTools → Network → CSS: Alle files 200 OK
+# - Blocks hebben nu styling
+```
+
+**Waarom deze aanpak:**
+
+1. **Base styles eerst** (priority 1): CSS variabelen beschikbaar maken
+2. **Component styles daarna** (priority 5): Styling voor components laden
+3. **Block styles automatisch** (via block.json): Block-specifieke styling
+4. **Geen @import**: Alle CSS direct via WordPress enqueueing
+
+---
+
 ## Quick Diagnostics Checklist
 
 Gebruik deze checklist voor nieuwe issues:

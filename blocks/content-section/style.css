@@ -2,8 +2,6 @@
  * Content Section Block - Frontend Styles
  */
 
-@import "../../components/content-section/content-section.css";
-
 .wp-block-client-website-content-section {
 	margin: 0;
 }

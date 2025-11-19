@@ -4,8 +4,6 @@
  */
 
 /* Import component styles for editor preview */
-@import "./style.css";
-
 .wp-block-client-website-hero .hero__heading,
 .wp-block-client-website-hero .hero__subheading,
 .wp-block-client-website-hero .hero__description {

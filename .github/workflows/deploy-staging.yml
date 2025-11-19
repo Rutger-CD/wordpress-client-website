@@ -2,13 +2,16 @@ name: Deploy to Staging
 
 on:
   push:
-    branches: [develop]
+    branches: [main]  # Changed from develop to main
   workflow_dispatch: # Allow manual triggering
 
 jobs:
-  build:
-    name: Build Assets
+  build-and-deploy:
+    name: Build & Deploy to Staging
     runs-on: ubuntu-latest
+    environment:
+      name: staging
+      url: ${{ secrets.STAGING_URL }}
 
     steps:
       - name: Checkout code
@@ -19,9 +22,11 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-          cache-dependency-path: blocks/package-lock.json
 
-      - name: Install dependencies
+      - name: Install root dependencies
+        run: npm install
+
+      - name: Install blocks dependencies
         working-directory: ./blocks
         run: npm ci
 
@@ -29,73 +34,57 @@ jobs:
         working-directory: ./blocks
         run: npm run build
 
-      - name: Create deployment package
+      - name: Create .env file from secrets
         run: |
-          mkdir -p deploy
-          cp -r components deploy/
-          cp -r blocks/build deploy/blocks
-          cp -r theme deploy/
-          echo "✅ Deployment package created"
+          cat > .env << EOF
+          STAGING_SFTP_HOST=${{ secrets.STAGING_SFTP_HOST }}
+          STAGING_SFTP_PORT=${{ secrets.STAGING_SFTP_PORT }}
+          STAGING_SFTP_USER=${{ secrets.STAGING_SFTP_USER }}
+          STAGING_SFTP_PASSWORD=${{ secrets.STAGING_SFTP_PASSWORD }}
+          STAGING_PATH=${{ secrets.STAGING_PATH }}
+          STAGING_URL=${{ secrets.STAGING_URL }}
+          EOF
+          echo "✅ .env file created from GitHub Secrets"
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-artifacts
-          path: deploy/
-          retention-days: 7
+      - name: Deploy theme to staging
+        run: node deploy-theme-staging.js
 
-  deploy:
-    name: Deploy to Staging Server
-    runs-on: ubuntu-latest
-    needs: build
-    environment:
-      name: staging
-      url: ${{ vars.STAGING_URL }}
-
-    steps:
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: build-artifacts
-          path: deploy/
-
-      - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.STAGING_FTP_SERVER }}
-          username: ${{ secrets.STAGING_FTP_USERNAME }}
-          password: ${{ secrets.STAGING_FTP_PASSWORD }}
-          local-dir: ./deploy/
-          server-dir: /public_html/wp-content/themes/client-website/
-          dangerous-clean-slate: false
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            **/.DS_Store
+      - name: Deploy blocks to staging
+        run: node deploy-blocks-complete.js
 
       - name: Deployment summary
         run: |
           echo "## 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "- **Environment**: Staging" >> $GITHUB_STEP_SUMMARY
+          echo "- **Server**: Strato (SFTP)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Path**: ${{ secrets.STAGING_PATH }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Branch**: ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Commit**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Deployed by**: ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Status**: ✅ Success" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "🌐 View site: ${{ vars.STAGING_URL }}" >> $GITHUB_STEP_SUMMARY
+          echo "### 📦 Deployed Components" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Theme files (style.css, functions.php, theme.json, index.php)" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Blocks (Hero, Content Section, Card Grid, CTA Section, Button)" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Block build files (JavaScript, CSS)" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Components library" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Patterns" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Templates & Template Parts" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "🌐 **View site**: ${{ secrets.STAGING_URL }}" >> $GITHUB_STEP_SUMMARY
+          echo "🔧 **Admin**: ${{ secrets.STAGING_URL }}/wp-admin" >> $GITHUB_STEP_SUMMARY
 
   notify:
     name: Send Deployment Notification
     runs-on: ubuntu-latest
-    needs: [build, deploy]
+    needs: [build-and-deploy]
     if: always()
 
     steps:
       - name: Deployment status
         run: |
-          if [ "${{ needs.deploy.result }}" == "success" ]; then
+          if [ "${{ needs.build-and-deploy.result }}" == "success" ]; then
             echo "✅ Deployment to staging succeeded"
           else
             echo "❌ Deployment to staging failed"

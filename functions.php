@@ -34,7 +34,7 @@ add_action('init', 'client_website_register_blocks');
  * Loads design tokens and reset styles globally
  */
 function client_website_enqueue_base_styles() {
-    // Base styles - Always load first
+    // Base styles - Always load first with high priority
     wp_enqueue_style(
         'client-website-variables',
         get_template_directory_uri() . '/components/_base/variables.css',
@@ -49,8 +49,9 @@ function client_website_enqueue_base_styles() {
         '1.0.0'
     );
 }
-add_action('wp_enqueue_scripts', 'client_website_enqueue_base_styles', 5);
-add_action('enqueue_block_editor_assets', 'client_website_enqueue_base_styles', 5);
+add_action('wp_enqueue_scripts', 'client_website_enqueue_base_styles', 1);
+add_action('enqueue_block_editor_assets', 'client_website_enqueue_base_styles', 1);
+add_action('admin_enqueue_scripts', 'client_website_enqueue_base_styles', 1);
 
 /**
  * Enqueue Component Library Component Styles
@@ -106,8 +107,9 @@ function client_website_enqueue_component_styles() {
         }
     }
 }
-add_action('wp_enqueue_scripts', 'client_website_enqueue_component_styles', 10);
-add_action('enqueue_block_editor_assets', 'client_website_enqueue_component_styles', 10);
+add_action('wp_enqueue_scripts', 'client_website_enqueue_component_styles', 5);
+add_action('enqueue_block_editor_assets', 'client_website_enqueue_component_styles', 5);
+add_action('admin_enqueue_scripts', 'client_website_enqueue_component_styles', 5);
 
 /**
  * Add Theme Support
