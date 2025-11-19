@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node update-cra7-linear.js:*)",
+      "Bash(npx @wordpress/env run cli:*)",
+      "Bash(node:*)",
+      "Bash(cat:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
