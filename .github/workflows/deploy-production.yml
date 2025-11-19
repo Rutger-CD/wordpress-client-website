@@ -13,10 +13,23 @@ jobs:
     name: Validate Deployment Confirmation
     runs-on: ubuntu-latest
     steps:
+      - name: Debug input
+        run: |
+          echo "==================================="
+          echo "DEBUG: Input received"
+          echo "==================================="
+          echo "Input value: [${{ github.event.inputs.confirm }}]"
+          echo "Expected value: [deploy-to-production]"
+          echo "Input length: ${#INPUT_VALUE}"
+          echo "==================================="
+        env:
+          INPUT_VALUE: ${{ github.event.inputs.confirm }}
+
       - name: Check confirmation input
         run: |
           if [ "${{ github.event.inputs.confirm }}" != "deploy-to-production" ]; then
             echo "❌ Invalid confirmation. You must type 'deploy-to-production' to proceed."
+            echo "You typed: '${{ github.event.inputs.confirm }}'"
             exit 1
           fi
           echo "✅ Confirmation validated"
