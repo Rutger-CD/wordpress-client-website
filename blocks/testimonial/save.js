@@ -49,9 +49,7 @@ export default function save( { attributes } ) {
 		<div { ...blockProps }>
 			<div className="testimonial__container">
 				{ showRating && (
-					<div className="testimonial__rating">
-						{ renderStars() }
-					</div>
+					<div className="testimonial__rating">{ renderStars() }</div>
 				) }
 
 				<blockquote className="testimonial__quote">

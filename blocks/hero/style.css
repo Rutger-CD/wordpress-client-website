@@ -9,7 +9,7 @@
 .hero {
 	padding: var(--spacing-24, 6rem) 0;
 	text-align: center;
-	color: var(--color-text-inverse, #ffffff);
+	color: var(--color-text-inverse, #fff);
 }
 
 .hero__container {
@@ -73,7 +73,7 @@
 
 /* Minimal variant */
 .hero.hero--minimal {
-	background: var(--color-background-primary, #ffffff) !important;
+	background: var(--color-background-primary, #fff) !important;
 	color: var(--color-text-primary, #171717) !important;
 	padding: var(--spacing-16, 4rem) 0;
 }
@@ -131,6 +131,7 @@
  * =================================== */
 
 @media (max-width: 767px) {
+
 	.hero {
 		padding: var(--spacing-16, 4rem) 0;
 	}
