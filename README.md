@@ -249,10 +249,70 @@ git push origin feature/my-feature
 # Type: "deploy-to-production"
 ```
 
+## 🗄️ Database Synchronization
+
+Complete database sync workflow voor production, staging, en development omgevingen.
+
+### Quick Start
+
+```bash
+# Helper scripts in /scripts:
+node scripts/sql-url-replace.js production.sql https://wp-base.rutgerthus.nl https://staging.nl
+node scripts/sql-split.js large-database.sql 10
+node scripts/database-backup-helper.js list
+```
+
+### Sync Workflows
+
+**Production → Staging/Development** (voor fresh data):
+1. Export via phpMyAdmin of WordPress plugin
+2. Replace URLs: `node scripts/sql-url-replace.js`
+3. Import to target environment
+4. Verify site werkt
+
+**Staging → Production** (push changes live):
+1. ⚠️ **Backup production FIRST** (verplicht!)
+2. Export staging database
+3. Import to production met URL updates
+4. Test grondig, rollback indien nodig
+
+### Documentation
+
+- **[Database Sync Guide](docs/DATABASE-SYNC.md)** - Complete sync procedures (600+ lines)
+- **[Troubleshooting Guide](docs/DATABASE-SYNC-TROUBLESHOOTING.md)** - Fix common issues (500+ lines)
+
+### Tools & Scripts
+
+**Database Helper Scripts**:
+- `scripts/sql-url-replace.js` - Replace URLs in SQL files (handles serialized data)
+- `scripts/sql-split.js` - Split large SQL files voor phpMyAdmin import
+- `scripts/database-backup-helper.js` - Manage backups (list, compress, clean)
+- `test-wpcli-access.js` - Test WP-CLI availability (Strato: niet beschikbaar)
+
+**Backup Management**:
+```bash
+# List all backups
+node scripts/database-backup-helper.js list
+
+# Compress backup
+node scripts/database-backup-helper.js compress backups/production.sql
+
+# Clean old backups (30+ days)
+node scripts/database-backup-helper.js clean 30
+```
+
+**Important Notes**:
+- ⚠️ Strato hosting heeft GEEN WP-CLI/SSH shell access
+- ✅ Use phpMyAdmin voor manual import/export
+- ✅ Scripts helpen met URL replacement en file management
+- 🔐 SQL files zijn in `.gitignore` (never commit databases!)
+
 ## 📚 Documentation
 
 ### Guides
 - **[README.md](README.md)** - This file (project overview)
+- **[Database Sync](docs/DATABASE-SYNC.md)** - Complete database sync guide (NEW!)
+- **[Database Troubleshooting](docs/DATABASE-SYNC-TROUBLESHOOTING.md)** - Fix sync issues (NEW!)
 - **[CI/CD Overview](.github/README.md)** - GitHub Actions workflows
 - **[Deployment Guide](.github/DEPLOY.md)** - Staging & production deployment
 - **[Production Guide](.github/PRODUCTION.md)** - Complete production deployment (585 lines)
@@ -260,6 +320,7 @@ git push origin feature/my-feature
 - **[Component Library](components/README.md)** - UI components overview
 
 ### Checklists
+- Database sync checklist - [docs/DATABASE-SYNC.md](docs/DATABASE-SYNC.md#checklist-eerste-database-sync)
 - Pre-deployment checklist (40+ items) - [.github/PRODUCTION.md](.github/PRODUCTION.md#pre-deployment-checklist)
 - Block testing checklist - [blocks/README.md](blocks/README.md#testing-checklist)
 - Component verification - [components/README.md](components/README.md)
